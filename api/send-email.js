@@ -11,7 +11,10 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+// Rota desativada — entrega de email é feita exclusivamente pelo webhook (/api/webhook.js)
 export default async function handler(req, res) {
+  return res.status(410).json({ error: 'Gone' });
+  // eslint-disable-next-line no-unreachable
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { to, name, paymentId } = req.body;

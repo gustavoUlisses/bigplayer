@@ -227,7 +227,18 @@ formCard.addEventListener('submit', async (e) => {
 // ── POLLING ───────────────────────────────────────────────────
 function startPolling() {
   stopPolling();
+  let attempts = 0;
+  const MAX_ATTEMPTS = 200; // ~10 min at 3s intervals
   state.pollingTimer = setInterval(async () => {
+    if (++attempts > MAX_ATTEMPTS) {
+      stopPolling();
+      const step = steps.pix.style.display !== 'none' ? 'pix' : 'card';
+      const errEl = step === 'pix'
+        ? document.getElementById('pix-status-text')
+        : document.getElementById('card-error');
+      if (errEl) errEl.textContent = 'Tempo esgotado. Verifique seu e-mail ou entre em contato.';
+      return;
+    }
     try {
       const res = await api(`/api/check-payment?paymentId=${state.paymentId}`, 'GET');
       if (res.status === 'CONFIRMED' || res.status === 'RECEIVED') {
