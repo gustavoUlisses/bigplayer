@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const { get } = require('@vercel/blob');
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
 
@@ -50,8 +49,11 @@ module.exports = async function handler(req, res) {
     const email = customer.email;
     const safeName = escapeHtml(customer.name);
 
-    const filePath = path.join(process.cwd(), 'public', 'arquivo-teste.zip');
-    const fileBase64 = fs.readFileSync(filePath).toString('base64');
+    const blob = await get(process.env.BLOB_FILE_URL);
+    const fileRes = await fetch(blob.downloadUrl);
+    if (!fileRes.ok) return res.status(500).json({ error: 'Erro ao baixar arquivo' });
+    const fileBuffer = await fileRes.arrayBuffer();
+    const fileBase64 = Buffer.from(fileBuffer).toString('base64');
 
     const mailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
