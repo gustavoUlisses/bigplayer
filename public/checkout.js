@@ -232,9 +232,9 @@ function startPolling() {
       const res = await api(`/api/check-payment?paymentId=${state.paymentId}`, 'GET');
       if (res.status === 'CONFIRMED' || res.status === 'RECEIVED') {
         stopPolling();
-        await sendEmail();
         document.getElementById('confirmed-email').textContent = state.email;
         showStep('ok');
+        // email é enviado pelo webhook do Asaas — independente da aba estar aberta
       }
     } catch (_) { /* silently retry */ }
   }, 3000);
@@ -245,11 +245,6 @@ function stopPolling() {
     clearInterval(state.pollingTimer);
     state.pollingTimer = null;
   }
-}
-
-// ── SEND EMAIL ────────────────────────────────────────────────
-async function sendEmail() {
-  await api('/api/send-email', 'POST', { to: state.email, name: state.name, paymentId: state.paymentId });
 }
 
 // ── HELPERS ───────────────────────────────────────────────────
