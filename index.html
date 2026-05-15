@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BigPlayer — Produto Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <main class="hero">
+    <div class="noise"></div>
+    <div class="grid-lines"></div>
+
+    <header class="hero__header">
+      <span class="logo">BP</span>
+    </header>
+
+    <section class="hero__content">
+      <div class="eyebrow">Produto Digital</div>
+      <h1 class="hero__title">
+        O método que<br/>
+        <em>transforma</em> resultados.
+      </h1>
+      <p class="hero__sub">
+        Acesso imediato. Entregue direto no seu email.
+      </p>
+
+      <button class="btn-pay" id="btn-open-checkout">
+        <span class="btn-pay__label">Pagar R$29,90</span>
+        <span class="btn-pay__arrow">→</span>
+      </button>
+
+      <p class="hero__trust">
+        <span class="trust-dot"></span> Pagamento 100% seguro via Asaas
+      </p>
+    </section>
+  </main>
+
+  <!-- ─── MODAL OVERLAY ─────────────────────────────────────── -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+      <button class="modal__close" id="btn-close-modal" aria-label="Fechar">✕</button>
+
+      <!-- ── STEP 1: dados + método ─────────────────────────── -->
+      <div class="step" id="step-1">
+        <div class="modal__head">
+          <div class="step-badge">1 / 2</div>
+          <h2 class="modal__title" id="modal-title">Finalizar compra</h2>
+          <p class="modal__price">R$29,90</p>
+        </div>
+
+        <form id="form-checkout" novalidate autocomplete="off">
+          <div class="field">
+            <label for="inp-name">Nome completo</label>
+            <input id="inp-name" type="text" placeholder="Seu nome" required />
+          </div>
+          <div class="field">
+            <label for="inp-email">E-mail</label>
+            <input id="inp-email" type="email" placeholder="seu@email.com" required />
+          </div>
+          <div class="field">
+            <label for="inp-cpf">CPF</label>
+            <input id="inp-cpf" type="text" placeholder="000.000.000-00" maxlength="14" required />
+          </div>
+
+          <div class="payment-methods">
+            <p class="payment-methods__label">Forma de pagamento</p>
+            <div class="payment-methods__grid">
+              <label class="pm-option" id="pm-pix">
+                <input type="radio" name="payment" value="PIX" checked />
+                <span class="pm-option__icon pm-option__icon--pix">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="pm-option__text">
+                  <strong>Pix</strong>
+                  <small>Aprovação imediata</small>
+                </span>
+                <span class="pm-option__check">✓</span>
+              </label>
+
+              <label class="pm-option" id="pm-card">
+                <input type="radio" name="payment" value="CREDIT_CARD" />
+                <span class="pm-option__icon pm-option__icon--card">
+                  <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M2 10h20" stroke="currentColor" stroke-width="2"/></svg>
+                </span>
+                <span class="pm-option__text">
+                  <strong>Cartão</strong>
+                  <small>Crédito ou Débito</small>
+                </span>
+                <span class="pm-option__check">✓</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="form-error" class="form-error" aria-live="polite"></div>
+
+          <button type="submit" class="btn-submit" id="btn-step1-submit">
+            <span class="btn-submit__text">Continuar</span>
+            <span class="btn-submit__loader" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- ── STEP 2a: PIX ───────────────────────────────────── -->
+      <div class="step step--hidden" id="step-pix">
+        <div class="modal__head">
+          <div class="step-badge">2 / 2</div>
+          <h2 class="modal__title">Pague com Pix</h2>
+        </div>
+
+        <div class="pix-qr">
+          <div class="pix-qr__frame">
+            <img id="pix-qr-img" src="" alt="QR Code Pix" />
+          </div>
+          <div class="pix-status">
+            <span class="pulse-dot"></span>
+            <span id="pix-status-text">Aguardando pagamento...</span>
+          </div>
+        </div>
+
+        <div class="pix-copy">
+          <p class="pix-copy__label">Pix Copia e Cola</p>
+          <div class="pix-copy__box">
+            <span id="pix-payload" class="pix-copy__code"></span>
+            <button class="pix-copy__btn" id="btn-copy-pix" type="button">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 2b: Cartão ────────────────────────────────── -->
+      <div class="step step--hidden" id="step-card">
+        <div class="modal__head">
+          <div class="step-badge">2 / 2</div>
+          <h2 class="modal__title">Dados do cartão</h2>
+        </div>
+
+        <form id="form-card" novalidate autocomplete="off">
+          <div class="field">
+            <label for="inp-card-number">Número do cartão</label>
+            <input id="inp-card-number" type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="inp-card-expiry">Validade</label>
+              <input id="inp-card-expiry" type="text" placeholder="MM/AA" maxlength="5" inputmode="numeric" required />
+            </div>
+            <div class="field">
+              <label for="inp-card-cvv">CVV</label>
+              <input id="inp-card-cvv" type="text" placeholder="000" maxlength="4" inputmode="numeric" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="inp-card-holder">Nome no cartão</label>
+            <input id="inp-card-holder" type="text" placeholder="NOME SOBRENOME" required />
+          </div>
+
+          <div id="card-error" class="form-error" aria-live="polite"></div>
+
+          <div class="card-status step--hidden" id="card-waiting">
+            <span class="pulse-dot"></span>
+            <span>Aguardando confirmação...</span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-card-submit">
+            <span class="btn-submit__text">Pagar R$29,90</span>
+            <span class="btn-submit__loader" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- ── STEP 3: Confirmação ────────────────────────────── -->
+      <div class="step step--hidden" id="step-confirmed">
+        <div class="confirmed">
+          <div class="confirmed__icon">
+            <svg viewBox="0 0 52 52" fill="none">
+              <circle cx="26" cy="26" r="25" stroke="currentColor" stroke-width="2"/>
+              <path d="M14 26l8 8 16-16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="confirmed__title">Pagamento confirmado!</h2>
+          <p class="confirmed__sub">O arquivo foi enviado para o seu email. Verifique também a pasta de spam.</p>
+          <button class="btn-submit" id="btn-confirmed-close">Fechar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="checkout.js" type="module"></script>
+</body>
+</html>

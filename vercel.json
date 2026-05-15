@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "functions": {
+    "api/*.js": {
+      "memory": 512,
+      "maxDuration": 15
+    }
+  }
+}
