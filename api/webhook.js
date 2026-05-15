@@ -1,4 +1,3 @@
-const { get } = require('@vercel/blob');
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
 
@@ -49,8 +48,9 @@ module.exports = async function handler(req, res) {
     const email = customer.email;
     const safeName = escapeHtml(customer.name);
 
-    const blob = await get(process.env.BLOB_FILE_URL);
-    const fileRes = await fetch(blob.downloadUrl);
+    const fileRes = await fetch(process.env.BLOB_FILE_URL, {
+      headers: { 'Authorization': `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` },
+    });
     if (!fileRes.ok) return res.status(500).json({ error: 'Erro ao baixar arquivo' });
     const fileBuffer = await fileRes.arrayBuffer();
     const fileBase64 = Buffer.from(fileBuffer).toString('base64');
