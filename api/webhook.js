@@ -69,7 +69,14 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const { event, payment } = req.body;
+  // Garante que o body está parseado (Vercel às vezes entrega como string)
+  let body = req.body;
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch { return res.status(400).json({ error: 'JSON inválido' }); }
+  }
+  if (!body) return res.status(400).json({ error: 'Body ausente' });
+
+  const { event, payment } = body;
 
   // Só processa eventos de pagamento confirmado
   if (event !== 'PAYMENT_CONFIRMED' && event !== 'PAYMENT_RECEIVED') {
