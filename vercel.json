@@ -3,10 +3,6 @@
   "outputDirectory": "public",
   "functions": {
     "api/*.js": {
-      "memory": 512,
-      "maxDuration": 15
-    },
-    "api/webhook.js": {
       "memory": 1024,
       "maxDuration": 30
     }
