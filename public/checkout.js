@@ -56,10 +56,24 @@ function showStep(key) {
   const target = steps[key];
   target.style.display = 'block';
   target.classList.remove('step--hidden');
-  // re-trigger animation
   target.style.animation = 'none';
   target.offsetHeight;
   target.style.animation = '';
+  updateProgress(key);
+}
+
+function updateProgress(key) {
+  const items = document.querySelectorAll('.step-progress__item');
+  const lines = document.querySelectorAll('.step-progress__line');
+  const stepNum = key === 1 ? 1 : (key === 'pix' || key === 'card') ? 2 : 3;
+  items.forEach((item, i) => {
+    const n = i + 1;
+    item.classList.toggle('active', n === stepNum);
+    item.classList.toggle('done', n < stepNum);
+  });
+  lines.forEach((line, i) => {
+    line.classList.toggle('done', i + 1 < stepNum);
+  });
 }
 
 // ── CPF MASK ──────────────────────────────────────────────────
@@ -96,8 +110,8 @@ document.getElementById('btn-copy-pix').addEventListener('click', () => {
   const payload = document.getElementById('pix-payload').textContent;
   navigator.clipboard.writeText(payload).then(() => {
     const btn = document.getElementById('btn-copy-pix');
-    btn.textContent = 'Copiado!';
-    setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+    btn.textContent = 'Copiado ✓';
+    setTimeout(() => { btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg> Copiar'; }, 2000);
   });
 });
 
@@ -219,6 +233,7 @@ function startPolling() {
       if (res.status === 'CONFIRMED' || res.status === 'RECEIVED') {
         stopPolling();
         await sendEmail();
+        document.getElementById('confirmed-email').textContent = state.email;
         showStep('ok');
       }
     } catch (_) { /* silently retry */ }

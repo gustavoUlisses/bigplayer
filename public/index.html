@@ -6,59 +6,81 @@
   <title>BigPlayer — Produto Digital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
   <main class="hero">
-    <div class="noise"></div>
-    <div class="grid-lines"></div>
-
-    <header class="hero__header">
-      <span class="logo">BP</span>
-    </header>
-
-    <section class="hero__content">
-      <div class="eyebrow">Produto Digital</div>
-      <h1 class="hero__title">
-        O método que<br/>
-        <em>transforma</em> resultados.
-      </h1>
-      <p class="hero__sub">
-        Acesso imediato. Entregue direto no seu email.
-      </p>
-
-      <button class="btn-pay" id="btn-open-checkout">
-        <span class="btn-pay__label">Pagar R$29,90</span>
-        <span class="btn-pay__arrow">→</span>
-      </button>
-
-      <p class="hero__trust">
-        <span class="trust-dot"></span> Pagamento 100% seguro via Asaas
-      </p>
-    </section>
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Produto Digital</p>
+      <h1 class="hero__title">O método que<br/><span>transforma resultados.</span></h1>
+      <p class="hero__sub">Acesso imediato. Entregue direto no seu email.</p>
+      <div class="hero__cta-wrap">
+        <button class="btn-hero" id="btn-open-checkout">
+          Pagar R$29,90
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="hero__trust"><span class="trust-dot"></span> Pagamento 100% seguro</p>
+      </div>
+    </div>
   </main>
 
   <!-- ─── MODAL OVERLAY ─────────────────────────────────────── -->
   <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" role="dialog" aria-modal="true">
 
-      <button class="modal__close" id="btn-close-modal" aria-label="Fechar">✕</button>
+      <!-- Modal Header -->
+      <div class="modal__header">
+        <span class="modal__header-title">Finalizar Compra</span>
+        <button class="modal__close" id="btn-close-modal" aria-label="Fechar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
 
-      <!-- ── STEP 1: dados + método ─────────────────────────── -->
-      <div class="step" id="step-1">
-        <div class="modal__head">
-          <div class="step-badge">1 / 2</div>
-          <h2 class="modal__title" id="modal-title">Finalizar compra</h2>
-          <p class="modal__price">R$29,90</p>
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <div class="order-summary__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" stroke="currentColor" stroke-width="2"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z" stroke="currentColor" stroke-width="2"/></svg>
         </div>
+        <div class="order-summary__info">
+          <span class="order-summary__name">Produto Digital</span>
+          <span class="order-summary__perks">✓ Acesso imediato &nbsp;·&nbsp; ✓ Entrega por email</span>
+        </div>
+        <div class="order-summary__price">
+          <span class="order-summary__value">R$29,90</span>
+          <span class="order-summary__tag">à vista</span>
+        </div>
+      </div>
+
+      <!-- Step Progress -->
+      <div class="step-progress" id="step-progress">
+        <div class="step-progress__item active" data-step="1">
+          <div class="step-progress__dot"><span>1</span></div>
+          <span class="step-progress__label">Dados</span>
+        </div>
+        <div class="step-progress__line"></div>
+        <div class="step-progress__item" data-step="2">
+          <div class="step-progress__dot"><span>2</span></div>
+          <span class="step-progress__label">Pagamento</span>
+        </div>
+        <div class="step-progress__line"></div>
+        <div class="step-progress__item" data-step="3">
+          <div class="step-progress__dot"><span>3</span></div>
+          <span class="step-progress__label">Confirmação</span>
+        </div>
+      </div>
+
+      <!-- ── STEP 1: Dados ──────────────────────────────────── -->
+      <div class="step" id="step-1">
+        <h2 class="step__title">Seus dados</h2>
 
         <form id="form-checkout" novalidate autocomplete="off">
           <div class="field">
             <label for="inp-name">Nome completo</label>
-            <input id="inp-name" type="text" placeholder="Seu nome" required />
+            <input id="inp-name" type="text" placeholder="Seu nome completo" required />
           </div>
           <div class="field">
             <label for="inp-email">E-mail</label>
@@ -69,81 +91,105 @@
             <input id="inp-cpf" type="text" placeholder="000.000.000-00" maxlength="14" required />
           </div>
 
-          <div class="payment-methods">
-            <p class="payment-methods__label">Forma de pagamento</p>
-            <div class="payment-methods__grid">
-              <label class="pm-option" id="pm-pix">
+          <div class="payment-select">
+            <p class="payment-select__label">Forma de pagamento</p>
+            <div class="payment-select__grid">
+
+              <label class="pm-card" id="pm-pix">
                 <input type="radio" name="payment" value="PIX" checked />
-                <span class="pm-option__icon pm-option__icon--pix">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span class="pm-option__text">
-                  <strong>Pix</strong>
-                  <small>Aprovação imediata</small>
-                </span>
-                <span class="pm-option__check">✓</span>
+                <div class="pm-card__inner">
+                  <div class="pm-card__icon pm-card__icon--pix">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="pm-card__text">
+                    <strong>Pix</strong>
+                    <span>Aprovação instantânea</span>
+                  </div>
+                  <div class="pm-card__check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
               </label>
 
-              <label class="pm-option" id="pm-card">
+              <label class="pm-card" id="pm-card">
                 <input type="radio" name="payment" value="CREDIT_CARD" />
-                <span class="pm-option__icon pm-option__icon--card">
-                  <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M2 10h20" stroke="currentColor" stroke-width="2"/></svg>
-                </span>
-                <span class="pm-option__text">
-                  <strong>Cartão</strong>
-                  <small>Crédito ou Débito</small>
-                </span>
-                <span class="pm-option__check">✓</span>
+                <div class="pm-card__inner">
+                  <div class="pm-card__icon pm-card__icon--card">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="15" r="1.5" fill="currentColor"/></svg>
+                  </div>
+                  <div class="pm-card__text">
+                    <strong>Cartão</strong>
+                    <span>Crédito ou débito</span>
+                  </div>
+                  <div class="pm-card__check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
               </label>
+
             </div>
           </div>
 
-          <div id="form-error" class="form-error" aria-live="polite"></div>
+          <div id="form-error" class="form-error"></div>
 
           <button type="submit" class="btn-submit" id="btn-step1-submit">
             <span class="btn-submit__text">Continuar</span>
-            <span class="btn-submit__loader" aria-hidden="true"></span>
+            <svg class="btn-submit__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="btn-submit__loader"></span>
           </button>
+
+          <p class="social-proof">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span><strong>47 pessoas</strong> compraram hoje</span>
+          </p>
         </form>
       </div>
 
       <!-- ── STEP 2a: PIX ───────────────────────────────────── -->
       <div class="step step--hidden" id="step-pix">
-        <div class="modal__head">
-          <div class="step-badge">2 / 2</div>
-          <h2 class="modal__title">Pague com Pix</h2>
-        </div>
+        <h2 class="step__title">Escaneie o QR Code</h2>
+        <p class="step__sub">Após o pagamento, seu arquivo será enviado automaticamente para o seu email.</p>
 
-        <div class="pix-qr">
-          <div class="pix-qr__frame">
+        <div class="pix-wrap">
+          <div class="pix-qr">
             <img id="pix-qr-img" src="" alt="QR Code Pix" />
           </div>
+
           <div class="pix-status">
             <span class="pulse-dot"></span>
             <span id="pix-status-text">Aguardando pagamento...</span>
           </div>
+          <p class="pix-expire">O QR Code expira em 30 minutos</p>
         </div>
 
-        <div class="pix-copy">
-          <p class="pix-copy__label">Pix Copia e Cola</p>
-          <div class="pix-copy__box">
-            <span id="pix-payload" class="pix-copy__code"></span>
-            <button class="pix-copy__btn" id="btn-copy-pix" type="button">Copiar</button>
+        <div class="pix-copy-section">
+          <p class="pix-copy-section__label">ou copie o código Pix:</p>
+          <div class="pix-copy-box">
+            <span id="pix-payload" class="pix-copy-box__code"></span>
+            <button class="pix-copy-box__btn" id="btn-copy-pix" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg>
+              Copiar
+            </button>
           </div>
         </div>
       </div>
 
       <!-- ── STEP 2b: Cartão ────────────────────────────────── -->
       <div class="step step--hidden" id="step-card">
-        <div class="modal__head">
-          <div class="step-badge">2 / 2</div>
-          <h2 class="modal__title">Dados do cartão</h2>
-        </div>
+        <h2 class="step__title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:-3px;margin-right:6px;color:#16a34a"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Dados do cartão
+        </h2>
 
         <form id="form-card" novalidate autocomplete="off">
           <div class="field">
             <label for="inp-card-number">Número do cartão</label>
-            <input id="inp-card-number" type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" required />
+            <div class="field__input-wrap">
+              <input id="inp-card-number" type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" required />
+              <span class="field__card-icons">
+                <svg width="28" height="18" viewBox="0 0 48 30" fill="none"><rect width="48" height="30" rx="4" fill="#1A1F71"/><path d="M18 21H30M18 15h12M20 9h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+            </div>
           </div>
           <div class="field-row">
             <div class="field">
@@ -157,23 +203,24 @@
           </div>
           <div class="field">
             <label for="inp-card-holder">Nome no cartão</label>
-            <input id="inp-card-holder" type="text" placeholder="NOME SOBRENOME" required />
+            <input id="inp-card-holder" type="text" placeholder="NOME COMO NO CARTÃO" required />
           </div>
           <div class="field">
             <label for="inp-card-cep">CEP</label>
             <input id="inp-card-cep" type="text" placeholder="00000-000" maxlength="9" inputmode="numeric" required />
           </div>
 
-          <div id="card-error" class="form-error" aria-live="polite"></div>
+          <div id="card-error" class="form-error"></div>
 
-          <div class="card-status step--hidden" id="card-waiting">
-            <span class="pulse-dot"></span>
+          <div class="card-waiting step--hidden" id="card-waiting">
+            <span class="spinner"></span>
             <span>Aguardando confirmação...</span>
           </div>
 
-          <button type="submit" class="btn-submit" id="btn-card-submit">
+          <button type="submit" class="btn-submit btn-submit--blue" id="btn-card-submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
             <span class="btn-submit__text">Pagar R$29,90</span>
-            <span class="btn-submit__loader" aria-hidden="true"></span>
+            <span class="btn-submit__loader"></span>
           </button>
         </form>
       </div>
@@ -181,16 +228,35 @@
       <!-- ── STEP 3: Confirmação ────────────────────────────── -->
       <div class="step step--hidden" id="step-confirmed">
         <div class="confirmed">
-          <div class="confirmed__icon">
-            <svg viewBox="0 0 52 52" fill="none">
-              <circle cx="26" cy="26" r="25" stroke="currentColor" stroke-width="2"/>
-              <path d="M14 26l8 8 16-16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <div class="confirmed__circle">
+            <svg class="confirmed__svg" viewBox="0 0 52 52">
+              <circle class="confirmed__ring" cx="26" cy="26" r="23"/>
+              <path class="confirmed__check" d="M14 26l8 8 16-16"/>
             </svg>
           </div>
           <h2 class="confirmed__title">Pagamento confirmado!</h2>
-          <p class="confirmed__sub">O arquivo foi enviado para o seu email. Verifique também a pasta de spam.</p>
+          <p class="confirmed__email-line">Enviamos o arquivo para:<br/><strong id="confirmed-email"></strong></p>
+          <p class="confirmed__spam">Verifique também a pasta de spam.</p>
           <button class="btn-submit" id="btn-confirmed-close">Fechar</button>
         </div>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="trust-bar" id="trust-bar">
+        <span class="trust-bar__item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#16a34a" stroke-width="2.5"/></svg>
+          Ambiente seguro
+        </span>
+        <span class="trust-bar__sep">·</span>
+        <span class="trust-bar__item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="#16a34a" stroke-width="2"/></svg>
+          Satisfação garantida
+        </span>
+        <span class="trust-bar__sep">·</span>
+        <span class="trust-bar__item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#6b7280" stroke-width="2"/><path d="M2 10h20" stroke="#6b7280" stroke-width="2"/></svg>
+          Pix &amp; Cartão
+        </span>
       </div>
 
     </div>
