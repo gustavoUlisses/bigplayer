@@ -71,6 +71,13 @@ document.getElementById('inp-cpf').addEventListener('input', (e) => {
   e.target.value = v;
 });
 
+// ── CEP MASK ──────────────────────────────────────────────────
+document.getElementById('inp-card-cep').addEventListener('input', (e) => {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 8);
+  if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
+  e.target.value = v;
+});
+
 // ── CARD MASKS ────────────────────────────────────────────────
 document.getElementById('inp-card-number').addEventListener('input', (e) => {
   let v = e.target.value.replace(/\D/g, '').slice(0, 16);
@@ -154,11 +161,13 @@ formCard.addEventListener('submit', async (e) => {
   const expiry  = document.getElementById('inp-card-expiry').value;
   const cvv     = document.getElementById('inp-card-cvv').value;
   const holder  = document.getElementById('inp-card-holder').value.trim().toUpperCase();
+  const cepRaw  = document.getElementById('inp-card-cep').value.replace(/\D/g, '');
 
-  if (number.length < 13) return setError(cardError, 'Número do cartão inválido.');
+  if (number.length < 13)  return setError(cardError, 'Número do cartão inválido.');
   if (expiry.length !== 5) return setError(cardError, 'Validade inválida (MM/AA).');
-  if (cvv.length < 3)     return setError(cardError, 'CVV inválido.');
-  if (!holder)            return setError(cardError, 'Informe o nome no cartão.');
+  if (cvv.length < 3)      return setError(cardError, 'CVV inválido.');
+  if (!holder)             return setError(cardError, 'Informe o nome no cartão.');
+  if (cepRaw.length !== 8) return setError(cardError, 'CEP inválido.');
 
   const [expMonth, expYear] = expiry.split('/');
 
@@ -182,7 +191,7 @@ formCard.addEventListener('submit', async (e) => {
         name: state.name,
         email: state.email,
         cpfCnpj: document.getElementById('inp-cpf').value.replace(/\D/g, ''),
-        postalCode: '00000000',
+        postalCode: cepRaw,
         addressNumber: '0',
         phone: '00000000000',
       },
@@ -274,6 +283,7 @@ function resetState() {
   document.getElementById('card-waiting').style.display = 'none';
   document.getElementById('pix-qr-img').src = '';
   document.getElementById('pix-payload').textContent = '';
+  document.getElementById('inp-card-cep').value = '';
   const cardBtn = document.getElementById('btn-card-submit');
   cardBtn.disabled = false;
   setLoading(cardBtn, false);
