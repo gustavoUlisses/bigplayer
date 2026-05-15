@@ -592,7 +592,7 @@ body {
 .social-proof strong { color: var(--text); }
 
 .social-proof__logo {
-  height: 10px;
+  height: 9px;
   width: auto;
   object-fit: contain;
   vertical-align: middle;
