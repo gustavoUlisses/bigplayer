@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
 
@@ -11,7 +11,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const token = req.headers['asaas-access-token'];
@@ -35,14 +35,12 @@ export default async function handler(req, res) {
   if (!paymentId) return res.status(400).json({ error: 'paymentId ausente' });
 
   try {
-    // Busca pagamento no Asaas
     const payRes = await fetch(`${ASAAS_BASE}/payments/${paymentId}`, {
       headers: { 'access_token': process.env.ASAAS_API_KEY },
     });
     const payData = await payRes.json();
     if (!payRes.ok) return res.status(500).json({ error: 'Erro ao buscar pagamento' });
 
-    // Busca cliente no Asaas
     const custRes = await fetch(`${ASAAS_BASE}/customers/${payData.customer}`, {
       headers: { 'access_token': process.env.ASAAS_API_KEY },
     });
@@ -52,11 +50,9 @@ export default async function handler(req, res) {
     const email = customer.email;
     const safeName = escapeHtml(customer.name);
 
-    // Lê o arquivo zip
     const filePath = path.join(process.cwd(), 'public', 'arquivo-teste.zip');
     const fileBase64 = fs.readFileSync(filePath).toString('base64');
 
-    // Envia email via Resend
     const mailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -85,4 +81,4 @@ export default async function handler(req, res) {
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+};
