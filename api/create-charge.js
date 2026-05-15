@@ -7,6 +7,9 @@ export default async function handler(req, res) {
   if (!customerId || !billingType) {
     return res.status(400).json({ error: 'customerId e billingType são obrigatórios' });
   }
+  if (!['PIX', 'CREDIT_CARD'].includes(billingType)) {
+    return res.status(400).json({ error: 'billingType inválido' });
+  }
 
   const today = new Date().toISOString().split('T')[0];
 

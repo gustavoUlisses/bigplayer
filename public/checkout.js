@@ -249,7 +249,7 @@ function stopPolling() {
 
 // ── SEND EMAIL ────────────────────────────────────────────────
 async function sendEmail() {
-  await api('/api/send-email', 'POST', { to: state.email, name: state.name });
+  await api('/api/send-email', 'POST', { to: state.email, name: state.name, paymentId: state.paymentId });
 }
 
 // ── HELPERS ───────────────────────────────────────────────────

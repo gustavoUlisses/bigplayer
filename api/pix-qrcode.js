@@ -4,7 +4,9 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   const { paymentId } = req.query;
-  if (!paymentId) return res.status(400).json({ error: 'paymentId é obrigatório' });
+  if (!paymentId || !/^pay_[\w]+$/.test(paymentId)) {
+    return res.status(400).json({ error: 'paymentId inválido' });
+  }
 
   try {
     const response = await fetch(`${ASAAS_BASE}/payments/${paymentId}/pixQrCode`, {
