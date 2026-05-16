@@ -125,7 +125,7 @@ export default async function handler(req, res) {
           <p>Seu arquivo está anexado neste email. É só baixar e aproveitar.</p>
           <p>Qualquer dúvida, responda este email.</p>
         </div>`,
-        attachments: [{ filename: 'arquivo-teste.zip', content: fileBase64 }],
+        attachments: [{ filename: 'SetupDindexBigPlayer-MT4-MT5.zip', content: fileBase64 }],
       }),
     });
 
