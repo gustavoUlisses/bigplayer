@@ -7,29 +7,76 @@
   <meta name="description" content="Setup completo do Didi Index para MetaTrader. 5 indicadores configurados e prontos para instalar em 2 minutos. MT4 e MT5." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- SVG noise filter for shiny headline -->
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <filter id="c3-noise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0" />
+        <feComposite in2="SourceGraphic" operator="in" result="noise" />
+        <feBlend in="SourceGraphic" in2="noise" mode="multiply" />
+      </filter>
+    </defs>
+  </svg>
 </head>
 <body>
 
+  <!-- ─── GLOBAL VIDEO BG ───────────────────────────────────── -->
+  <div class="video-bg">
+    <video autoplay loop muted playsinline>
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4" type="video/mp4" />
+    </video>
+    <div class="video-bg__overlay"></div>
+  </div>
+
+  <!-- ─── VERTICAL GUIDE LINES ─────────────────────────────── -->
+  <div class="guide-line guide-line--left"></div>
+  <div class="guide-line guide-line--right"></div>
+
+  <!-- ─── NAVBAR ───────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__logo">
+        <svg viewBox="0 0 256 256" class="logomark" fill="white" aria-label="Logo">
+          <path d="M 0 128 C 70.692 128 128 185.308 128 256 L 64 256 C 64 220.654 35.346 192 0 192 Z M 256 192 C 220.654 192 192 220.654 192 256 L 128 256 C 128 185.308 185.308 128 256 128 Z M 128 0 C 128 70.692 70.692 128 0 128 L 0 64 C 35.346 64 64 35.346 64 0 Z M 192 0 C 192 35.346 220.654 64 256 64 L 256 128 C 185.308 128 128 70.692 128 0 Z"/>
+        </svg>
+      </div>
+      <ul class="navbar__links">
+        <li><a href="#incluso">O Setup</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#publico">Para quem</a></li>
+      </ul>
+      <button class="btn-nav" id="btn-open-checkout">
+        Comprar — R$29,90
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </nav>
+
   <!-- ─── HERO ─────────────────────────────────────────────── -->
-  <main class="hero">
-    <div class="hero__bg"></div>
+  <main class="hero" id="hero">
     <div class="hero__content">
-      <p class="hero__eyebrow">MetaTrader 4 &amp; 5</p>
-      <h1 class="hero__title">O Setup Didi Index<br/><span>Completo e Pronto.</span></h1>
-      <p class="hero__sub">5 indicadores configurados. Instale em 2 minutos e opere como os profissionais.</p>
+      <p class="hero__eyebrow">
+        <span class="eyebrow-dot"></span>
+        MetaTrader 4 &amp; 5
+      </p>
+      <h1 class="hero__title">
+        <span class="hero__title-line">O Setup Didi Index</span>
+        <span class="hero__title-shiny">Completo e Pronto.</span>
+      </h1>
+      <p class="hero__sub">5 indicadores configurados. Instale em 2 minutos<br class="br-desk"/>e opere como os profissionais.</p>
       <div class="hero__cta-wrap">
-        <button class="btn-hero" id="btn-open-checkout">
+        <button class="btn-hero" id="btn-open-checkout-hero">
           Quero o Setup — R$29,90
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <p class="hero__trust-row">
-          <span class="hero__trust-item"><span class="trust-dot"></span>Entrega imediata por email</span>
-          <span class="hero__trust-sep">·</span>
-          <span class="hero__trust-item">MT4 &amp; MT5</span>
-          <span class="hero__trust-sep">·</span>
-          <span class="hero__trust-item">Pagamento seguro</span>
+          <span class="trust-dot"></span>Entrega imediata por email
+          <span class="hero__trust-sep">·</span>MT4 &amp; MT5
+          <span class="hero__trust-sep">·</span>Pagamento seguro
         </p>
       </div>
     </div>
@@ -39,69 +86,71 @@
   </main>
 
   <!-- ─── O QUE VEM NO SETUP ───────────────────────────────── -->
-  <section class="section section--light">
+  <section class="section" id="incluso">
     <div class="container">
-      <p class="section__eyebrow">O que está incluso</p>
-      <h2 class="section__title">Tudo configurado,<br/>pronto para usar</h2>
-      <p class="section__sub">Você recebe o setup completo que levaria horas para montar sozinho — por R$29,90.</p>
+      <div class="section__header">
+        <p class="section__eyebrow">O que está incluso</p>
+        <h2 class="section__title">Tudo configurado,<br/>pronto para usar</h2>
+        <p class="section__sub">Você recebe o setup completo que levaria horas para montar sozinho — por R$29,90.</p>
+      </div>
 
       <div class="features-grid">
 
-        <div class="feature-card">
-          <div class="feature-card__icon" style="background:#dcfce7;color:#16a34a">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 3h18v18H3z" stroke="currentColor" stroke-width="1.8" rx="2"/><path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="feature-card glass-card fade-up">
+          <div class="feature-card__icon" style="--icon-bg:rgba(74,222,128,0.12);--icon-color:#4ade80">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 3h18v18H3z" stroke="currentColor" stroke-width="1.8" rx="2"/><path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           </div>
-          <div>
+          <div class="feature-card__body">
             <strong>Didi Index</strong>
             <span>O indicador principal criado por Odair Aguiar, configurado e pronto</span>
           </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card__icon" style="background:#dbeafe;color:#2563eb">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 9-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="feature-card glass-card fade-up" style="--delay:.05s">
+          <div class="feature-card__icon" style="--icon-bg:rgba(96,165,250,0.12);--icon-color:#60a5fa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 9-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <div>
+          <div class="feature-card__body">
             <strong>3 Médias Móveis</strong>
             <span>Períodos 3, 8 e 20 — a base do método, já parametrizadas</span>
           </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card__icon" style="background:#fef9c3;color:#ca8a04">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8M8 8h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="feature-card glass-card fade-up" style="--delay:.1s">
+          <div class="feature-card__icon" style="--icon-bg:rgba(251,191,36,0.12);--icon-color:#fbbf24">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8M8 8h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           </div>
-          <div>
+          <div class="feature-card__body">
             <strong>Template pronto</strong>
             <span>Aplique no gráfico com um clique, sem configuração manual</span>
           </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card__icon" style="background:#fce7f3;color:#db2777">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="feature-card glass-card fade-up" style="--delay:.15s">
+          <div class="feature-card__icon" style="--icon-bg:rgba(244,114,182,0.12);--icon-color:#f472b6">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <div>
+          <div class="feature-card__body">
             <strong>Guia de instalação</strong>
             <span>Passo a passo para instalar no MT4 ou MT5 em minutos</span>
           </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card__icon" style="background:#ede9fe;color:#7c3aed">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="feature-card glass-card fade-up" style="--delay:.2s">
+          <div class="feature-card__icon" style="--icon-bg:rgba(167,139,250,0.12);--icon-color:#a78bfa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           </div>
-          <div>
+          <div class="feature-card__body">
             <strong>Entrega em segundos</strong>
             <span>Pague e receba o arquivo direto no seu email</span>
           </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card__icon" style="background:#dcfce7;color:#16a34a">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="currentColor" stroke-width="1.8"/></svg>
+        <div class="feature-card glass-card fade-up" style="--delay:.25s">
+          <div class="feature-card__icon" style="--icon-bg:rgba(52,211,153,0.12);--icon-color:#34d399">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="currentColor" stroke-width="1.8"/></svg>
           </div>
-          <div>
+          <div class="feature-card__body">
             <strong>Qualquer ativo</strong>
             <span>Ações, mini índice, forex, cripto — funciona em tudo</span>
           </div>
@@ -112,13 +161,15 @@
   </section>
 
   <!-- ─── COMO FUNCIONA ────────────────────────────────────── -->
-  <section class="section section--dark">
+  <section class="section section--alt" id="como-funciona">
     <div class="container container--narrow">
-      <p class="section__eyebrow section__eyebrow--light">Como funciona</p>
-      <h2 class="section__title section__title--light">Do pagamento à operação<br/>em 3 passos</h2>
+      <div class="section__header">
+        <p class="section__eyebrow">Como funciona</p>
+        <h2 class="section__title">Do pagamento à operação<br/>em 3 passos</h2>
+      </div>
 
       <div class="steps-list">
-        <div class="steps-list__item">
+        <div class="steps-list__item glass-card fade-up">
           <div class="steps-list__num">01</div>
           <div class="steps-list__body">
             <strong>Compre e receba o arquivo</strong>
@@ -126,7 +177,7 @@
           </div>
         </div>
         <div class="steps-list__connector"></div>
-        <div class="steps-list__item">
+        <div class="steps-list__item glass-card fade-up" style="--delay:.08s">
           <div class="steps-list__num">02</div>
           <div class="steps-list__body">
             <strong>Instale no MetaTrader</strong>
@@ -134,7 +185,7 @@
           </div>
         </div>
         <div class="steps-list__connector"></div>
-        <div class="steps-list__item">
+        <div class="steps-list__item glass-card fade-up" style="--delay:.16s">
           <div class="steps-list__num">03</div>
           <div class="steps-list__body">
             <strong>Aplique o template e opere</strong>
@@ -146,26 +197,28 @@
   </section>
 
   <!-- ─── PARA QUEM É ──────────────────────────────────────── -->
-  <section class="section section--light">
+  <section class="section" id="publico">
     <div class="container container--narrow">
-      <p class="section__eyebrow">Para quem é</p>
-      <h2 class="section__title">Se você se identifica<br/>com algum desses perfis</h2>
+      <div class="section__header">
+        <p class="section__eyebrow">Para quem é</p>
+        <h2 class="section__title">Se você se identifica<br/>com algum desses perfis</h2>
+      </div>
 
       <div class="audience-list">
-        <div class="audience-item">
-          <svg class="audience-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="audience-item glass-card fade-up">
+          <svg class="audience-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>Você já conhece o Didi Index mas tem preguiça de configurar tudo na mão toda vez</span>
         </div>
-        <div class="audience-item">
-          <svg class="audience-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="audience-item glass-card fade-up" style="--delay:.06s">
+          <svg class="audience-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>Você ouviu falar do setup mas não sabe quais indicadores usar nem como configurar</span>
         </div>
-        <div class="audience-item">
-          <svg class="audience-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="audience-item glass-card fade-up" style="--delay:.12s">
+          <svg class="audience-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>Você é iniciante e quer começar a operar com uma metodologia consagrada no Brasil</span>
         </div>
-        <div class="audience-item">
-          <svg class="audience-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="audience-item glass-card fade-up" style="--delay:.18s">
+          <svg class="audience-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>Você trocou de computador ou corretora e precisa do setup configurado de novo</span>
         </div>
       </div>
@@ -174,18 +227,24 @@
 
   <!-- ─── CTA FINAL ────────────────────────────────────────── -->
   <section class="section section--cta">
-    <div class="container container--narrow cta-block">
-      <p class="cta-block__eyebrow">Acesso imediato</p>
-      <h2 class="cta-block__title">Setup Didi Index<br/>por R$29,90</h2>
-      <p class="cta-block__sub">Pague uma vez, use para sempre. Funciona no MT4 e MT5.</p>
-      <button class="btn-hero" id="btn-open-checkout-2">
-        Quero o Setup Agora
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <p class="cta-block__trust">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
-        Pagamento 100% seguro · Entrega por email · R$29,90 à vista
-      </p>
+    <div class="container container--narrow">
+      <div class="cta-block glass-card fade-up">
+        <div class="cta-block__glow"></div>
+        <p class="cta-block__eyebrow">Acesso imediato</p>
+        <h2 class="cta-block__title">
+          Setup Didi Index.<br/>
+          <span class="cta-title-shiny">Por R$29,90.</span>
+        </h2>
+        <p class="cta-block__sub">Pague uma vez, use para sempre. Funciona no MT4 e MT5.</p>
+        <button class="btn-hero" id="btn-open-checkout-cta">
+          Quero o Setup Agora
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="cta-block__trust">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+          Pagamento 100% seguro · Entrega por email · R$29,90 à vista
+        </p>
+      </div>
     </div>
   </section>
 
@@ -193,7 +252,6 @@
   <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true">
 
-      <!-- Modal Header -->
       <div class="modal__header">
         <span class="modal__header-title">Finalizar Compra</span>
         <button class="modal__close" id="btn-close-modal" aria-label="Fechar">
@@ -201,7 +259,6 @@
         </button>
       </div>
 
-      <!-- Order Summary -->
       <div class="order-summary">
         <div class="order-summary__icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 9-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -216,7 +273,6 @@
         </div>
       </div>
 
-      <!-- Step Progress -->
       <div class="step-progress" id="step-progress">
         <div class="step-progress__item active" data-step="1">
           <div class="step-progress__dot"><span>1</span></div>
@@ -234,10 +290,8 @@
         </div>
       </div>
 
-      <!-- ── STEP 1: Dados ──────────────────────────────────── -->
       <div class="step" id="step-1">
         <h2 class="step__title">Seus dados</h2>
-
         <form id="form-checkout" novalidate autocomplete="off">
           <div class="field">
             <label for="inp-name">Nome completo</label>
@@ -251,11 +305,9 @@
             <label for="inp-cpf">CPF</label>
             <input id="inp-cpf" type="text" placeholder="000.000.000-00" maxlength="14" required />
           </div>
-
           <div class="payment-select">
             <p class="payment-select__label">Forma de pagamento</p>
             <div class="payment-select__grid">
-
               <label class="pm-card" id="pm-pix">
                 <input type="radio" name="payment" value="PIX" checked />
                 <div class="pm-card__inner">
@@ -271,7 +323,6 @@
                   </div>
                 </div>
               </label>
-
               <label class="pm-card" id="pm-card">
                 <input type="radio" name="payment" value="CREDIT_CARD" />
                 <div class="pm-card__inner">
@@ -287,18 +338,14 @@
                   </div>
                 </div>
               </label>
-
             </div>
           </div>
-
           <div id="form-error" class="form-error"></div>
-
           <button type="submit" class="btn-submit" id="btn-step1-submit">
             <span class="btn-submit__text">Continuar</span>
             <svg class="btn-submit__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="btn-submit__loader"></span>
           </button>
-
           <p class="social-proof">
             <span>Checkout seguro por</span>
             <img src="images/logo-asaas.png" alt="Asaas" class="social-proof__logo" />
@@ -306,23 +353,19 @@
         </form>
       </div>
 
-      <!-- ── STEP 2a: PIX ───────────────────────────────────── -->
       <div class="step step--hidden" id="step-pix">
         <h2 class="step__title">Escaneie o QR Code</h2>
         <p class="step__sub">Após o pagamento, seu arquivo será enviado automaticamente para o seu email.</p>
-
         <div class="pix-wrap">
           <div class="pix-qr">
             <img id="pix-qr-img" src="" alt="QR Code Pix" />
           </div>
-
           <div class="pix-status">
             <span class="pulse-dot"></span>
             <span id="pix-status-text">Aguardando pagamento...</span>
           </div>
           <p class="pix-expire">O QR Code expira em 30 minutos</p>
         </div>
-
         <div class="pix-copy-section">
           <p class="pix-copy-section__label">ou copie o código Pix:</p>
           <div class="pix-copy-box">
@@ -335,13 +378,11 @@
         </div>
       </div>
 
-      <!-- ── STEP 2b: Cartão ────────────────────────────────── -->
       <div class="step step--hidden" id="step-card">
         <h2 class="step__title">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:-3px;margin-right:6px;color:#16a34a"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
           Dados do cartão
         </h2>
-
         <form id="form-card" novalidate autocomplete="off">
           <div class="field">
             <label for="inp-card-number">Número do cartão</label>
@@ -370,14 +411,11 @@
             <label for="inp-card-cep">CEP</label>
             <input id="inp-card-cep" type="text" placeholder="00000-000" maxlength="9" inputmode="numeric" required />
           </div>
-
           <div id="card-error" class="form-error"></div>
-
           <div class="card-waiting step--hidden" id="card-waiting">
             <span class="spinner"></span>
             <span>Aguardando confirmação...</span>
           </div>
-
           <button type="submit" class="btn-submit btn-submit--blue" id="btn-card-submit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
             <span class="btn-submit__text">Pagar R$29,90</span>
@@ -386,7 +424,6 @@
         </form>
       </div>
 
-      <!-- ── STEP 3: Confirmação ────────────────────────────── -->
       <div class="step step--hidden" id="step-confirmed">
         <div class="confirmed">
           <div class="confirmed__circle">
@@ -402,7 +439,6 @@
         </div>
       </div>
 
-      <!-- Trust Bar -->
       <div class="trust-bar" id="trust-bar">
         <span class="trust-bar__item">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#16a34a" stroke-width="2.5"/></svg>
@@ -425,9 +461,33 @@
 
   <script src="checkout.js" type="module"></script>
   <script>
-    document.getElementById('btn-open-checkout-2').addEventListener('click', () => {
-      document.getElementById('btn-open-checkout').click();
+    // Wire up secondary CTA buttons to the primary checkout button
+    ['btn-open-checkout-hero','btn-open-checkout-cta'].forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        document.getElementById('btn-open-checkout').click();
+      });
     });
+
+    // Scroll-triggered fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const delay = el.style.getPropertyValue('--delay') || '0s';
+          el.style.transitionDelay = delay;
+          el.classList.add('is-visible');
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('navbar--scrolled', window.scrollY > 40);
+    }, { passive: true });
   </script>
 </body>
 </html>
