@@ -103,9 +103,8 @@ export default async function handler(req, res) {
     }
     const safeName = escapeHtml(customer.name || 'cliente');
 
-    const fileRes = await fetch(process.env.BLOB_FILE_URL, {
-      headers: { Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` },
-    });
+    // Blob público: URL permanente, sem necessidade de autenticação.
+    const fileRes = await fetch(process.env.BLOB_FILE_URL);
     if (!fileRes.ok) { await release(); return res.status(502).json({ error: 'Erro ao baixar arquivo' }); }
     const fileBuffer = await fileRes.arrayBuffer();
     const fileBase64 = Buffer.from(fileBuffer).toString('base64');
