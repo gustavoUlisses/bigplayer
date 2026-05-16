@@ -1,4 +1,5 @@
 import { enforceRateLimit } from './_lib/ratelimit.js';
+import { readJson } from './_lib/http.js';
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({ name, email, cpfCnpj }),
     });
 
-    const data = await response.json();
+    const data = await readJson(response);
 
     if (!response.ok) {
       return res.status(response.status).json({ error: data.errors?.[0]?.description || 'Erro ao criar cliente' });

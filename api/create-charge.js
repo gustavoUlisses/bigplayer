@@ -1,4 +1,5 @@
 import { enforceRateLimit } from './_lib/ratelimit.js';
+import { readJson } from './_lib/http.js';
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
 
@@ -43,7 +44,7 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload),
     });
 
-    const data = await response.json();
+    const data = await readJson(response);
 
     if (!response.ok) {
       return res.status(response.status).json({ error: data.errors?.[0]?.description || 'Erro ao criar cobrança' });
