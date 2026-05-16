@@ -25,7 +25,7 @@ module.exports = async function handler(req, res) {
 
   const { event, payment } = body;
 
-  if (event !== 'PAYMENT_RECEIVED') {
+  if (event !== 'PAYMENT_RECEIVED' && event !== 'PAYMENT_CONFIRMED') {
     return res.status(200).json({ ok: true, skipped: true });
   }
 
