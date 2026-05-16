@@ -1,4 +1,4 @@
-import { enforceRateLimit } from './_lib/ratelimit.js';
+import { enforceRateLimit, clientIp } from './_lib/ratelimit.js';
 import { readJson } from './_lib/http.js';
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
@@ -9,6 +9,7 @@ export default async function handler(req, res) {
   const body = req.body || {};
   const customerId = typeof body.customerId === 'string' ? body.customerId.trim() : '';
   const billingType = body.billingType;
+  const { creditCard, creditCardHolderInfo } = body;
 
   if (!/^cus_[\w]+$/.test(customerId)) {
     return res.status(400).json({ error: 'customerId inválido' });
@@ -24,8 +25,6 @@ export default async function handler(req, res) {
   const today = new Date().toISOString().split('T')[0];
 
   // O valor vem SEMPRE do servidor — o frontend não envia preço.
-  // Dados de cartão NÃO são aceitos aqui: o pagamento com cartão é feito
-  // no ambiente hospedado do Asaas (invoiceUrl), fora deste servidor.
   const payload = {
     customer: customerId,
     billingType,
@@ -33,6 +32,18 @@ export default async function handler(req, res) {
     dueDate: today,
     description: 'Compra de produto digital',
   };
+
+  if (billingType === 'CREDIT_CARD') {
+    if (!creditCard || typeof creditCard !== 'object' ||
+        !creditCardHolderInfo || typeof creditCardHolderInfo !== 'object') {
+      return res.status(400).json({ error: 'Dados do cartão são obrigatórios' });
+    }
+    // Os dados do cartão apenas trafegam até o Asaas — nunca são gravados nem logados.
+    payload.creditCard = creditCard;
+    payload.creditCardHolderInfo = creditCardHolderInfo;
+    // remoteIp é definido pelo servidor (não se confia no cliente) — usado pela antifraude.
+    payload.remoteIp = clientIp(req);
+  }
 
   try {
     const response = await fetch(`${ASAAS_BASE}/payments`, {
