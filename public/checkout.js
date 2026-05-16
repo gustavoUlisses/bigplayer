@@ -5,17 +5,17 @@ let state = {
   billingType: 'PIX',
   name: '',
   email: '',
+  invoiceUrl: null,
   pollingTimer: null,
 };
 
 // ── DOM REFS ─────────────────────────────────────────────────
-const overlay       = document.getElementById('modal-overlay');
-const btnOpen       = document.getElementById('btn-open-checkout');
-const btnClose      = document.getElementById('btn-close-modal');
-const formCheckout  = document.getElementById('form-checkout');
-const formCard      = document.getElementById('form-card');
-const formError     = document.getElementById('form-error');
-const cardError     = document.getElementById('card-error');
+const overlay        = document.getElementById('modal-overlay');
+const btnOpen        = document.getElementById('btn-open-checkout');
+const btnClose       = document.getElementById('btn-close-modal');
+const formCheckout   = document.getElementById('form-checkout');
+const formError      = document.getElementById('form-error');
+const btnCardInvoice = document.getElementById('btn-card-invoice');
 
 const steps = {
   1:    document.getElementById('step-1'),
@@ -85,26 +85,6 @@ document.getElementById('inp-cpf').addEventListener('input', (e) => {
   e.target.value = v;
 });
 
-// ── CEP MASK ──────────────────────────────────────────────────
-document.getElementById('inp-card-cep').addEventListener('input', (e) => {
-  let v = e.target.value.replace(/\D/g, '').slice(0, 8);
-  if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
-  e.target.value = v;
-});
-
-// ── CARD MASKS ────────────────────────────────────────────────
-document.getElementById('inp-card-number').addEventListener('input', (e) => {
-  let v = e.target.value.replace(/\D/g, '').slice(0, 16);
-  v = v.replace(/(\d{4})(?=\d)/g, '$1 ');
-  e.target.value = v;
-});
-
-document.getElementById('inp-card-expiry').addEventListener('input', (e) => {
-  let v = e.target.value.replace(/\D/g, '').slice(0, 4);
-  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
-  e.target.value = v;
-});
-
 // ── PIX COPY ─────────────────────────────────────────────────
 document.getElementById('btn-copy-pix').addEventListener('click', () => {
   const payload = document.getElementById('pix-payload').textContent;
@@ -125,7 +105,7 @@ formCheckout.addEventListener('submit', async (e) => {
   const cpfRaw  = document.getElementById('inp-cpf').value.replace(/\D/g, '');
   const billing = document.querySelector('input[name="payment"]:checked').value;
 
-  if (!name)             return setError(formError, 'Informe seu nome.');
+  if (name.length < 2)      return setError(formError, 'Informe seu nome completo.');
   if (!isValidEmail(email)) return setError(formError, 'Informe um e-mail válido.');
   if (cpfRaw.length !== 11) return setError(formError, 'Informe um CPF válido.');
 
@@ -141,23 +121,26 @@ formCheckout.addEventListener('submit', async (e) => {
     const customerRes = await api('/api/create-customer', 'POST', { name, email, cpfCnpj: cpfRaw });
     state.customerId = customerRes.customerId;
 
-    // 2. criar cobrança (PIX cria aqui; cartão cria no step-card)
-    if (billing === 'PIX') {
-      const chargeRes = await api('/api/create-charge', 'POST', {
-        customerId: state.customerId,
-        billingType: 'PIX',
-      });
-      state.paymentId = chargeRes.paymentId;
+    // 2. criar cobrança (preço definido no servidor)
+    const chargeRes = await api('/api/create-charge', 'POST', {
+      customerId: state.customerId,
+      billingType: billing,
+    });
+    state.paymentId = chargeRes.paymentId;
 
+    if (billing === 'PIX') {
       // 3. buscar QR code
-      const qrRes = await api(`/api/pix-qrcode?paymentId=${state.paymentId}`, 'GET');
+      const qrRes = await api(`/api/pix-qrcode?paymentId=${encodeURIComponent(state.paymentId)}`, 'GET');
       document.getElementById('pix-qr-img').src = `data:image/png;base64,${qrRes.encodedImage}`;
       document.getElementById('pix-payload').textContent = qrRes.payload;
-
       showStep('pix');
       startPolling();
     } else {
+      // cartão: pagamento é concluído no ambiente seguro do Asaas
+      state.invoiceUrl = chargeRes.invoiceUrl;
+      document.getElementById('card-status-text').textContent = 'Aguardando pagamento...';
       showStep('card');
+      startPolling();
     }
   } catch (err) {
     setError(formError, err.message || 'Erro ao processar. Tente novamente.');
@@ -166,61 +149,10 @@ formCheckout.addEventListener('submit', async (e) => {
   }
 });
 
-// ── STEP 2b CARD SUBMIT ───────────────────────────────────────
-formCard.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  setError(cardError, '');
-
-  const number  = document.getElementById('inp-card-number').value.replace(/\s/g, '');
-  const expiry  = document.getElementById('inp-card-expiry').value;
-  const cvv     = document.getElementById('inp-card-cvv').value;
-  const holder  = document.getElementById('inp-card-holder').value.trim().toUpperCase();
-  const cepRaw  = document.getElementById('inp-card-cep').value.replace(/\D/g, '');
-
-  if (number.length < 13)  return setError(cardError, 'Número do cartão inválido.');
-  if (expiry.length !== 5) return setError(cardError, 'Validade inválida (MM/AA).');
-  if (cvv.length < 3)      return setError(cardError, 'CVV inválido.');
-  if (!holder)             return setError(cardError, 'Informe o nome no cartão.');
-  if (cepRaw.length !== 8) return setError(cardError, 'CEP inválido.');
-
-  const [expMonth, expYear] = expiry.split('/');
-
-  const btn = document.getElementById('btn-card-submit');
-  setLoading(btn, true);
-  btn.disabled = true;
-
-  try {
-    const chargeRes = await api('/api/create-charge', 'POST', {
-      customerId: state.customerId,
-      billingType: 'CREDIT_CARD',
-      remoteIp: await getClientIp(),
-      creditCard: {
-        holderName: holder,
-        number,
-        expiryMonth: expMonth,
-        expiryYear: '20' + expYear,
-        ccv: cvv,
-      },
-      creditCardHolderInfo: {
-        name: state.name,
-        email: state.email,
-        cpfCnpj: document.getElementById('inp-cpf').value.replace(/\D/g, ''),
-        postalCode: cepRaw,
-        addressNumber: '0',
-        phone: '00000000000',
-      },
-    });
-
-    state.paymentId = chargeRes.paymentId;
-
-    document.getElementById('card-waiting').classList.remove('step--hidden');
-    document.getElementById('card-waiting').style.display = 'flex';
-
-    startPolling();
-  } catch (err) {
-    setError(cardError, err.message || 'Erro no cartão. Verifique os dados.');
-    btn.disabled = false;
-    setLoading(btn, false);
+// ── CARTÃO: abrir o pagamento seguro do Asaas ─────────────────
+btnCardInvoice.addEventListener('click', () => {
+  if (state.invoiceUrl) {
+    window.open(state.invoiceUrl, '_blank', 'noopener,noreferrer');
   }
 });
 
@@ -232,20 +164,18 @@ function startPolling() {
   state.pollingTimer = setInterval(async () => {
     if (++attempts > MAX_ATTEMPTS) {
       stopPolling();
-      const step = steps.pix.style.display !== 'none' ? 'pix' : 'card';
-      const errEl = step === 'pix'
-        ? document.getElementById('pix-status-text')
-        : document.getElementById('card-error');
+      const onCard = steps.card.style.display !== 'none';
+      const errEl = document.getElementById(onCard ? 'card-status-text' : 'pix-status-text');
       if (errEl) errEl.textContent = 'Tempo esgotado. Verifique seu e-mail ou entre em contato.';
       return;
     }
     try {
-      const res = await api(`/api/check-payment?paymentId=${state.paymentId}`, 'GET');
+      const res = await api(`/api/check-payment?paymentId=${encodeURIComponent(state.paymentId)}`, 'GET');
       if (res.status === 'CONFIRMED' || res.status === 'RECEIVED') {
         stopPolling();
         document.getElementById('confirmed-email').textContent = state.email;
         showStep('ok');
-        // email é enviado pelo webhook do Asaas — independente da aba estar aberta
+        // o email é enviado pelo webhook do Asaas — independe da aba estar aberta
       }
     } catch (_) { /* silently retry */ }
   }, 3000);
@@ -271,16 +201,6 @@ async function api(url, method, body) {
   return data;
 }
 
-async function getClientIp() {
-  try {
-    const r = await fetch('https://api.ipify.org?format=json');
-    const d = await r.json();
-    return d.ip;
-  } catch {
-    return '127.0.0.1';
-  }
-}
-
 function setError(el, msg) {
   el.textContent = msg;
 }
@@ -295,18 +215,11 @@ function isValidEmail(email) {
 }
 
 function resetState() {
-  state = { customerId: null, paymentId: null, billingType: 'PIX', name: '', email: '', pollingTimer: null };
+  state = { customerId: null, paymentId: null, billingType: 'PIX', name: '', email: '', invoiceUrl: null, pollingTimer: null };
   formCheckout.reset();
-  formCard.reset();
   setError(formError, '');
-  setError(cardError, '');
-  document.getElementById('card-waiting').classList.add('step--hidden');
-  document.getElementById('card-waiting').style.display = 'none';
   document.getElementById('pix-qr-img').src = '';
   document.getElementById('pix-payload').textContent = '';
-  document.getElementById('inp-card-cep').value = '';
-  const cardBtn = document.getElementById('btn-card-submit');
-  cardBtn.disabled = false;
-  setLoading(cardBtn, false);
+  document.getElementById('card-status-text').textContent = 'Aguardando pagamento...';
   setLoading(document.getElementById('btn-step1-submit'), false);
 }

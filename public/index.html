@@ -71,16 +71,13 @@
         </div>
       </div>
       <div class="step step--hidden" id="step-card">
-        <h2 class="step__title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:-3px;margin-right:6px;color:#16a34a"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Dados do cartão</h2>
-        <form id="form-card" novalidate autocomplete="off">
-          <div class="field"><label for="inp-card-number">Número do cartão</label><div class="field__input-wrap"><input id="inp-card-number" type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" required /><span class="field__card-icons"><svg width="28" height="18" viewBox="0 0 48 30" fill="none"><rect width="48" height="30" rx="4" fill="#1A1F71"/><path d="M18 21H30M18 15h12M20 9h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span></div></div>
-          <div class="field-row"><div class="field"><label for="inp-card-expiry">Validade</label><input id="inp-card-expiry" type="text" placeholder="MM/AA" maxlength="5" inputmode="numeric" required /></div><div class="field"><label for="inp-card-cvv">CVV</label><input id="inp-card-cvv" type="text" placeholder="000" maxlength="4" inputmode="numeric" required /></div></div>
-          <div class="field"><label for="inp-card-holder">Nome no cartão</label><input id="inp-card-holder" type="text" placeholder="NOME COMO NO CARTÃO" required /></div>
-          <div class="field"><label for="inp-card-cep">CEP</label><input id="inp-card-cep" type="text" placeholder="00000-000" maxlength="9" inputmode="numeric" required /></div>
-          <div id="card-error" class="form-error"></div>
-          <div class="card-waiting step--hidden" id="card-waiting"><span class="spinner"></span><span>Aguardando confirmação...</span></div>
-          <button type="submit" class="btn-submit btn-submit--blue" id="btn-card-submit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="btn-submit__text">Pagar R$29,90</span><span class="btn-submit__loader"></span></button>
-        </form>
+        <h2 class="step__title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:-3px;margin-right:6px;color:#16a34a"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Pagamento com cartão</h2>
+        <p class="step__sub">Para pagar com cartão você será levado ao ambiente de pagamento seguro do Asaas. Os dados do seu cartão são processados diretamente por eles e nunca passam por este site.</p>
+        <div class="pix-wrap">
+          <button type="button" class="btn-submit btn-submit--blue" id="btn-card-invoice"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="btn-submit__text">Ir para o pagamento seguro</span></button>
+          <div class="pix-status"><span class="pulse-dot"></span><span id="card-status-text">Aguardando pagamento...</span></div>
+          <p class="pix-expire">Assim que o pagamento for confirmado, seu arquivo é enviado automaticamente por e-mail.</p>
+        </div>
       </div>
       <div class="step step--hidden" id="step-confirmed">
         <div class="confirmed">
