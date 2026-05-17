@@ -314,13 +314,13 @@ function resetState() {
   setLoading(document.getElementById('btn-step1-submit'), false);
 }
 
-// ══ LANDING — barra de compra fixa ═══════════════════════════
+// ══ LANDING — FAQ accordion ══════════════════════════════════
 (() => {
-  const buybar = document.getElementById('buybar');
-  if (!buybar) return;
-  const onScroll = () => {
-    buybar.classList.toggle('show', window.scrollY > 720);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    item.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach((i) => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
 })();
