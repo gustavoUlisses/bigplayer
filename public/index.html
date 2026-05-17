@@ -127,7 +127,7 @@
   }
 
   section { padding: 72px 0; }
-  section + section { border-top: 1px solid var(--border); }
+  section + section { border-top: none; }
 
   /* ── Wireframe box util ──────────────────────────── */
   .wf-box {
@@ -173,12 +173,16 @@
 
   /* ── NAV ─────────────────────────────────────────── */
   nav {
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
+    border-bottom: 1px solid #2a2a2a;
+    background: #000;
     position: sticky;
     top: 0;
     z-index: 100;
   }
+  .nav-logo { color: #fff !important; }
+  .nav-link-blog { color: #A0A0A0 !important; }
+  .nav-link-blog:hover { color: #fff !important; }
+  .nav-cta { background: #fff; color: #000; }
   .nav-inner {
     display: flex;
     align-items: center;
@@ -708,6 +712,40 @@
   .pain-icon i, .zip-icon i { font-size: 24px; }
   .check-mark i { font-size: 11px; line-height: 1; }
   .badge i, .trust-badge i, .garantia-title i, .for-title i { vertical-align: -2px; margin-right: 4px; }
+
+  /* ── SEÇÕES ESCURAS ──────────────────────────────────────── */
+  .section--dark {
+    background: #000;
+    --bg:     #000;
+    --ink:    #FFFFFF;
+    --ink2:   #A0A0A0;
+    --ink3:   #666666;
+    --box:    #111111;
+    --border: #2a2a2a;
+    --white:  #111111;
+  }
+  .section--dark section { border-top-color: #2a2a2a; }
+  .section--light {
+    background: #fff;
+    --bg:     #FFFFFF;
+    --ink:    #000000;
+    --ink2:   #444444;
+    --ink3:   #888888;
+    --box:    #F0F0F0;
+    --border: #E0E0E0;
+    --white:  #FFFFFF;
+  }
+
+  /* nav e footer acompanham o body */
+  nav { background: var(--bg); border-bottom-color: var(--border); }
+  footer { background: #000; --ink: #fff; --ink2: #A0A0A0; --ink3: #666; --border: #2a2a2a; border-top-color: #2a2a2a; }
+  footer .footer-logo, footer p { color: var(--ink); }
+  footer .footer-link { color: var(--ink3); }
+  footer .footer-link:hover { color: var(--ink); }
+  footer .trust-badge { border-color: #2a2a2a; color: var(--ink2); }
+
+  /* body base = preto (hero é dark) */
+  body { background: #000; }
 </style>
 </head>
 <body>
@@ -724,7 +762,7 @@
 </nav>
 
 <!-- ══ 01. HERO ════════════════════════════════════ -->
-<section id="hero">
+<section id="hero" class="section--dark">
   <div class="container">
     <div class="hero-grid">
       <!-- texto -->
@@ -773,7 +811,7 @@
 </section>
 
 <!-- ══ 02. A ESTRATÉGIA ════════════════════════════ -->
-<section id="didi">
+<section id="didi" class="section--light">
   <div class="container">
     <div class="section-label">
       <span class="section-num">02</span>
@@ -818,7 +856,7 @@
 </section>
 
 <!-- ══ 03. A DOR ══════════════════════════════════ -->
-<section id="dor">
+<section id="dor" class="section--dark">
   <div class="container">
     <div class="section-label">
       <span class="section-num">03</span>
@@ -852,7 +890,7 @@
 </section>
 
 <!-- ══ 04. O PRODUTO ══════════════════════════════ -->
-<section id="produto">
+<section id="produto" class="section--light">
   <div class="container">
     <div class="section-label">
       <span class="section-num">04</span>
@@ -898,7 +936,7 @@
 </section>
 
 <!-- ══ 05. COMO INSTALAR ══════════════════════════ -->
-<section id="instalacao">
+<section id="instalacao" class="section--dark">
   <div class="container">
     <div class="section-label">
       <span class="section-num">05</span>
@@ -938,7 +976,7 @@
 </section>
 
 <!-- ══ 06. CURSO ══════════════════════════════════ -->
-<section id="curso">
+<section id="curso" class="section--light">
   <div class="container">
     <div class="section-label">
       <span class="section-num">06</span>
@@ -972,7 +1010,7 @@
 </section>
 
 <!-- ══ 07. DEPOIMENTOS ════════════════════════════ -->
-<section id="depoimentos">
+<section id="depoimentos" class="section--dark">
   <div class="container">
     <div class="section-label">
       <span class="section-num">07</span>
@@ -1018,7 +1056,7 @@
 </section>
 
 <!-- ══ 08. PARA QUEM É ════════════════════════════ -->
-<section id="para-quem">
+<section id="para-quem" class="section--light">
   <div class="container">
     <div class="section-label">
       <span class="section-num">08</span>
@@ -1051,7 +1089,7 @@
 </section>
 
 <!-- ══ 09. MÉTODO CONSAGRADO ══════════════════════ -->
-<section id="metodo">
+<section id="metodo" class="section--dark">
   <div class="container">
     <div class="section-label">
       <span class="section-num">09</span>
@@ -1085,7 +1123,7 @@
 </section>
 
 <!-- ══ 10. OFERTA ════════════════════════════════ -->
-<section id="oferta">
+<section id="oferta" class="section--light">
   <div class="container">
     <div class="section-label">
       <span class="section-num">10</span>
@@ -1130,7 +1168,7 @@
 </section>
 
 <!-- ══ 11. FAQ ════════════════════════════════════ -->
-<section id="faq">
+<section id="faq" class="section--dark">
   <div class="container">
     <div class="section-label">
       <span class="section-num">11</span>
