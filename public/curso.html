@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -174,12 +174,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
     transition: background var(--transition), border-color var(--transition), color var(--transition);
     flex-shrink: 0;
+    padding: 0;
   }
 
   .btn-theme:hover { border-color: var(--ink2); color: var(--ink); }
+
+  .btn-theme svg { width: 16px; height: 16px; display: block; }
+
+  /* Mostra ícone correto por tema */
+  .icon-sun  { display: none; }
+  .icon-moon { display: block; }
+  [data-theme="dark"] .icon-sun  { display: block; }
+  [data-theme="dark"] .icon-moon { display: none; }
 
   .curso-nav-logout {
     font-size: 12px;
@@ -611,7 +619,19 @@
       <span class="curso-nav-logo">DIDI INDEX ▸ SETUP</span>
       <div class="curso-nav-right">
         <span class="curso-progress-mini" id="progress-mini">0% concluído</span>
-        <button class="btn-theme" id="btn-theme" title="Alternar tema" aria-label="Alternar tema claro/escuro">🌙</button>
+        <button class="btn-theme" id="btn-theme" title="Alternar tema" aria-label="Alternar tema claro/escuro">
+          <!-- sol: aparece no dark mode -->
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- lua: aparece no light mode -->
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
         <button class="curso-nav-logout" id="btn-logout">Sair</button>
       </div>
     </div>
@@ -632,20 +652,15 @@
 <script src="/curso.js" defer></script>
 
 <script>
-  /* ── TEMA ── roda antes do curso.js pra evitar flash ── */
+  /* ── TEMA ── inline para evitar flash no carregamento ── */
   (function() {
-    const saved = localStorage.getItem('curso_tema') || 'dark';
+    const saved = localStorage.getItem('curso_tema') || 'light';
     document.documentElement.setAttribute('data-theme', saved);
     document.addEventListener('DOMContentLoaded', function() {
-      const btn = document.getElementById('btn-theme');
-      if (!btn) return;
-      btn.textContent = saved === 'dark' ? '🌙' : '☀️';
-      btn.addEventListener('click', function() {
-        const cur = document.documentElement.getAttribute('data-theme');
-        const next = cur === 'dark' ? 'light' : 'dark';
+      document.getElementById('btn-theme').addEventListener('click', function() {
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('curso_tema', next);
-        btn.textContent = next === 'dark' ? '🌙' : '☀️';
       });
     });
   })();
