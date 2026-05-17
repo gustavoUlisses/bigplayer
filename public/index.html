@@ -808,51 +808,48 @@
 <section id="hero" class="section--dark">
   <svg class="hero-grid-bg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="white" stop-opacity="0"/>
-        <stop offset="50%" stop-color="white" stop-opacity="1"/>
+      <!-- fade: visível embaixo, some em cima -->
+      <linearGradient id="gridFade" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="white" stop-opacity="1"/>
+        <stop offset="70%" stop-color="white" stop-opacity="0"/>
       </linearGradient>
       <mask id="gridMask">
         <rect width="1200" height="700" fill="url(#gridFade)"/>
       </mask>
     </defs>
-    <g mask="url(#gridMask)" stroke="#4a4a4a" stroke-width="0.8" fill="none">
-      <!-- verticais: retas no topo, expandem para fora na base -->
-      <path d='M0.0 0 Q-162.0 455.0 -360.0 700'/>
-      <path d='M60.0 0 Q-85.8 455.0 -264.0 700'/>
-      <path d='M120.0 0 Q-9.6 455.0 -168.0 700'/>
-      <path d='M180.0 0 Q66.6 455.0 -72.0 700'/>
-      <path d='M240.0 0 Q142.8 455.0 24.0 700'/>
-      <path d='M300.0 0 Q219.0 455.0 120.0 700'/>
-      <path d='M360.0 0 Q295.2 455.0 216.0 700'/>
-      <path d='M420.0 0 Q371.4 455.0 312.0 700'/>
-      <path d='M480.0 0 Q447.6 455.0 408.0 700'/>
-      <path d='M540.0 0 Q523.8 455.0 504.0 700'/>
-      <path d='M600.0 0 Q600.0 455.0 600.0 700'/>
-      <path d='M660.0 0 Q676.2 455.0 696.0 700'/>
-      <path d='M720.0 0 Q752.4 455.0 792.0 700'/>
-      <path d='M780.0 0 Q828.6 455.0 888.0 700'/>
-      <path d='M840.0 0 Q904.8 455.0 984.0 700'/>
-      <path d='M900.0 0 Q981.0 455.0 1080.0 700'/>
-      <path d='M960.0 0 Q1057.2 455.0 1176.0 700'/>
-      <path d='M1020.0 0 Q1133.4 455.0 1272.0 700'/>
-      <path d='M1080.0 0 Q1209.6 455.0 1368.0 700'/>
-      <path d='M1140.0 0 Q1285.8 455.0 1464.0 700'/>
-      <path d='M1200.0 0 Q1362.0 455.0 1560.0 700'/>
-      <!-- horizontais: leve curva côncava crescente para baixo -->
-      <path d='M0 50.0 Q600 50.2 1200 50.0'/>
-      <path d='M0 100.0 Q600 100.7 1200 100.0'/>
-      <path d='M0 150.0 Q600 151.6 1200 150.0'/>
-      <path d='M0 200.0 Q600 202.9 1200 200.0'/>
-      <path d='M0 250.0 Q600 254.5 1200 250.0'/>
-      <path d='M0 300.0 Q600 306.4 1200 300.0'/>
-      <path d='M0 350.0 Q600 358.8 1200 350.0'/>
-      <path d='M0 400.0 Q600 411.4 1200 400.0'/>
-      <path d='M0 450.0 Q600 464.5 1200 450.0'/>
-      <path d='M0 500.0 Q600 517.9 1200 500.0'/>
-      <path d='M0 550.0 Q600 571.6 1200 550.0'/>
-      <path d='M0 600.0 Q600 625.7 1200 600.0'/>
-      <path d='M0 650.0 Q600 680.2 1200 650.0'/>
+    <g mask="url(#gridMask)" stroke="#4a4a4a" stroke-width="0.9" fill="none">
+      <!-- verticais: retas no topo, expandem fortemente para fora na base -->
+      <path d='M0.0 0 Q-162.0 385.0 -1080.0 700'/>
+      <path d='M66.7 0 Q-77.3 385.0 -893.3 700'/>
+      <path d='M133.3 0 Q7.3 385.0 -706.7 700'/>
+      <path d='M200.0 0 Q92.0 385.0 -520.0 700'/>
+      <path d='M266.7 0 Q176.7 385.0 -333.3 700'/>
+      <path d='M333.3 0 Q261.3 385.0 -146.7 700'/>
+      <path d='M400.0 0 Q346.0 385.0 40.0 700'/>
+      <path d='M466.7 0 Q430.7 385.0 226.7 700'/>
+      <path d='M533.3 0 Q515.3 385.0 413.3 700'/>
+      <path d='M600.0 0 Q600.0 385.0 600.0 700'/>
+      <path d='M666.7 0 Q684.7 385.0 786.7 700'/>
+      <path d='M733.3 0 Q769.3 385.0 973.3 700'/>
+      <path d='M800.0 0 Q854.0 385.0 1160.0 700'/>
+      <path d='M866.7 0 Q938.7 385.0 1346.7 700'/>
+      <path d='M933.3 0 Q1023.3 385.0 1533.3 700'/>
+      <path d='M1000.0 0 Q1108.0 385.0 1720.0 700'/>
+      <path d='M1066.7 0 Q1192.7 385.0 1906.7 700'/>
+      <path d='M1133.3 0 Q1277.3 385.0 2093.3 700'/>
+      <path d='M1200.0 0 Q1362.0 385.0 2280.0 700'/>
+      <!-- horizontais: curva côncava crescente embaixo -->
+      <path d='M0 58.3 Q600 58.9 1200 58.3'/>
+      <path d='M0 116.7 Q600 118.9 1200 116.7'/>
+      <path d='M0 175.0 Q600 180.0 1200 175.0'/>
+      <path d='M0 233.3 Q600 242.2 1200 233.3'/>
+      <path d='M0 291.7 Q600 305.6 1200 291.7'/>
+      <path d='M0 350.0 Q600 370.0 1200 350.0'/>
+      <path d='M0 408.3 Q600 435.6 1200 408.3'/>
+      <path d='M0 466.7 Q600 502.2 1200 466.7'/>
+      <path d='M0 525.0 Q600 570.0 1200 525.0'/>
+      <path d='M0 583.3 Q600 638.9 1200 583.3'/>
+      <path d='M0 641.7 Q600 708.9 1200 641.7'/>
     </g>
   </svg>
   <div class="container">
