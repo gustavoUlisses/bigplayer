@@ -14,8 +14,9 @@ function build(tokens, window) {
 // Buckets de limite por IP.
 const limiters = {
   standard: build(20, '60 s'),    // criação de cliente, QR code
-  charge: build(10, '600 s'),     // cartão — janela curta corta ataques de teste de cartão sem punir compradores legítimos (inclusive em IPs compartilhados de operadora)
+  charge: build(10, '600 s'),     // cartão
   webhook: build(300, '60 s'),    // proteção contra flood no webhook
+  login: build(5, '60 s'),        // tentativas de login no curso
 };
 
 export function clientIp(req) {

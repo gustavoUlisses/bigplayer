@@ -29,8 +29,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 
 <script type="application/ld+json">
 {
@@ -102,8 +103,8 @@
     --tag-bg:  #1A1917;
     --tag-txt: #F5F3EE;
 
-    --mono: 'Space Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --mono: 'DM Sans', sans-serif;
+    --sans: 'DM Sans', sans-serif;
     --r: 4px;
     --gap: 24px;
   }
@@ -688,7 +689,7 @@
 
   /* responsive */
   @media (max-width: 700px) {
-    .hero-grid, .produto-grid, .oferta-wrap, .for-grid, .didi-grid { grid-template-columns: 1fr; }
+    .hero-grid, .produto-grid, .oferta-wrap, .for-grid, .didi-grid, #didi .container > div { grid-template-columns: 1fr; }
     .steps, .testimonials { grid-template-columns: 1fr; }
     .pain-grid { grid-template-columns: 1fr; }
     .step-arrow { display: none; }
@@ -698,6 +699,11 @@
 
   /* mantém os títulos do checkout (modal) com a fonte original */
   .modal h1, .modal h2 { font-family: var(--font); }
+
+  /* ícones Phosphor */
+  .pain-icon i, .zip-icon i { font-size: 24px; }
+  .check-mark i { font-size: 11px; line-height: 1; }
+  .badge i, .trust-badge i, .garantia-title i, .for-title i { vertical-align: -2px; margin-right: 4px; }
 </style>
 </head>
 <body>
@@ -719,12 +725,12 @@
         <span class="hero-tag">Setup Original do Didi Aguiar</span>
         <h1>O Setup Completo do<br><span class="highlight">Didi Index</span> Pronto<br>para o MetaTrader</h1>
         <p class="hero-sub">
-          Arraste o arquivo para o gráfico e o setup já aparece configurado —
+          Arraste o arquivo para o gráfico e o setup já aparece configurado:
           Bollinger, ADX, Didi Index, Estocástico e TRIX exatamente como o Didi ensina.
           Sem montar nada na mão.
         </p>
         <div class="hero-cta">
-          <button class="btn-primary js-buy">Quero o Setup Pronto → R$ 29,90</button>
+          <button class="btn-primary js-buy">Quero o Setup Pronto →</button>
           <a href="#produto" class="btn-ghost">Ver como funciona ↓</a>
         </div>
         <div class="hero-trust">
@@ -752,36 +758,44 @@
     <!-- stats bar -->
     <div class="stats-bar">
       <div class="stat-item"><span class="stat-num">+1.200</span><span class="stat-label">traders usando</span></div>
-      <div class="stat-item"><span class="stat-num">⭐ 4.9</span><span class="stat-label">avaliação média</span></div>
+      <div class="stat-item"><span class="stat-num">Multimercado</span><span class="stat-label">Forex · B3 · Cripto · Ações</span></div>
       <div class="stat-item"><span class="stat-num">MT4 / MT5</span><span class="stat-label">ambas as versões</span></div>
-      <div class="stat-item"><span class="stat-num">7 dias</span><span class="stat-label">garantia total</span></div>
+      <div class="stat-item"><span class="stat-num">+Curso</span><span class="stat-label">aprenda a usar o setup</span></div>
     </div>
   </div>
 </section>
 
-<!-- ══ 02. QUEM É O DIDI ══════════════════════════ -->
+<!-- ══ 02. A ESTRATÉGIA ════════════════════════════ -->
 <section id="didi">
   <div class="container">
     <div class="section-label">
       <span class="section-num">02</span>
-      Quem é o Didi Aguiar
+      O que é o Didi Index
     </div>
-    <div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
       <div>
-        <h2>A estratégia mais copiada<br>do mercado brasileiro</h2>
+        <h2>Uma estratégia visual,<br>usada há décadas no Brasil</h2>
         <p style="color:var(--ink2);font-size:14px;line-height:1.7;margin-bottom:16px;">
-          Odir Aguiar — o "Didi" — é trader com mais de 40 anos de mercado. Ele criou as
-          <strong>Agulhadas do Didi</strong>: um método baseado no cruzamento de 3 médias
-          móveis (3, 8 e 20 períodos) que sinaliza entradas de alta probabilidade quando
-          as três passam pelo mesmo corpo de candle.
+          O <strong>Didi Index</strong> é uma estratégia de análise técnica criada pelo trader Odir Aguiar.
+          A ideia é simples: o gráfico mostra visualmente quando o mercado está prestes a se mover com força.
+          Você não precisa calcular nada, só aprender a ler o sinal na tela.
+          Por isso é uma das estratégias mais usadas por traders brasileiros, do iniciante ao profissional.
         </p>
         <div class="badge-row">
-          <span class="badge badge-dark">40+ anos de mercado</span>
-          <span class="badge badge-outline">Forex · Índices · Ações</span>
-          <span class="badge badge-yellow">Método 100% visual</span>
+          <span class="badge badge-dark">Setup dos Big Players</span>
+          <span class="badge badge-outline">Forex</span>
+          <span class="badge badge-outline">Índices</span>
+          <span class="badge badge-outline">B3</span>
+          <span class="badge badge-outline">WIN</span>
+          <span class="badge badge-outline">DOL</span>
+          <span class="badge badge-outline">Ações</span>
+          <span class="badge badge-outline">Cripto</span>
+          <span class="badge badge-yellow">MetaTrader 4/5</span>
         </div>
+      </div>
+      <div>
         <div class="agulhada-demo">
-          <div class="agulhada-label">O que é a "Agulhada" — as 3 médias no mesmo candle</div>
+          <div class="agulhada-label">A Agulhada: as 3 médias no mesmo candle</div>
           <div class="ma-lines">
             <div class="ma-line" style="background:#EF5350; width:60%"><span>MM 3 — rápida</span></div>
             <div class="ma-line" style="background:#888; width:60%"><span>MM 8 — central (0)</span></div>
@@ -801,28 +815,28 @@
   <div class="container">
     <div class="section-label">
       <span class="section-num">03</span>
-      O problema — montar na mão
+      O problema: montar na mão
     </div>
     <h2 style="margin-bottom:8px;">Configurar esse setup no zero<br>é uma dor de cabeça real</h2>
     <p style="color:var(--ink2);font-size:14px;margin-bottom:32px;">São 5 indicadores, cada um com parâmetros específicos. Qualquer configuração errada muda o sinal.</p>
     <div class="pain-grid">
       <div class="pain-card">
-        <div class="pain-icon">🔍</div>
+        <div class="pain-icon"><i class="ph ph-magnifying-glass"></i></div>
         <div class="pain-title">10 tutoriais diferentes, 10 configurações diferentes</div>
         <div class="pain-desc">Você pesquisa e cada vídeo ensina de um jeito. Fica na dúvida se está realmente certo.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">⏱️</div>
+        <div class="pain-icon"><i class="ph ph-timer"></i></div>
         <div class="pain-title">3 a 6 horas de configuração manual</div>
-        <div class="pain-desc">ADX, Didi Index, Estocástico, TRIX, Bollinger — cada um tem período, cor e timeframe específico.</div>
+        <div class="pain-desc">ADX, Didi Index, Estocástico, TRIX, Bollinger. Cada um com período, cor e timeframe específico.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">🖥️</div>
+        <div class="pain-icon"><i class="ph ph-monitor"></i></div>
         <div class="pain-title">Tela dividida não é padrão no MT</div>
         <div class="pain-desc">A divisão do gráfico em dois painéis é um dos pontos mais difíceis de replicar sem ajuda.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">❓</div>
+        <div class="pain-icon"><i class="ph ph-question"></i></div>
         <div class="pain-title">"Estou configurado igual ao Didi?"</div>
         <div class="pain-desc">Sem referência visual confirmada, você opera com a dúvida de se o setup está realmente certo.</div>
       </div>
@@ -840,12 +854,13 @@
     <div class="produto-grid">
       <div>
         <div class="zip-box">
-          <div class="zip-icon">📦</div>
+          <div class="zip-icon"><i class="ph ph-package"></i></div>
           <div class="zip-title">setup-didi-index.zip</div>
           <ul class="file-list">
             <li class="file-item"><span class="file-ext ext-ex4">.ex4</span> Setup completo para MT4</li>
             <li class="file-item"><span class="file-ext ext-ex5">.ex5</span> Setup completo para MT5</li>
             <li class="file-item"><span class="file-ext ext-pdf">.pdf</span> Guia de instalação passo a passo</li>
+            <li class="file-item"><span class="file-ext ext-pdf" style="background:#F3E8FF;color:#6B21A8">curso</span> Curso completo da estratégia</li>
           </ul>
           <p style="font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:16px;letter-spacing:.05em;">
             DOWNLOAD IMEDIATO APÓS PAGAMENTO
@@ -855,13 +870,14 @@
       <div>
         <h2 style="margin-bottom:20px;">Um arquivo.<br>Setup completo.</h2>
         <ul class="checklist">
-          <li class="check-item"><span class="check-mark">✓</span> Bollinger Bands no gráfico esquerdo — parâmetros originais</li>
-          <li class="check-item"><span class="check-mark">✓</span> ADX Wilder configurado (período e cores do Didi)</li>
-          <li class="check-item"><span class="check-mark">✓</span> Didi Index com médias 3, 8 e 20</li>
-          <li class="check-item"><span class="check-mark">✓</span> Estocástico 8,3,3 pré-configurado</li>
-          <li class="check-item"><span class="check-mark">✓</span> TRIX 9,3 já incluso</li>
-          <li class="check-item"><span class="check-mark">✓</span> Tela dividida exatamente como o Didi usa</li>
-          <li class="check-item"><span class="check-mark">✓</span> Funciona em qualquer ativo e corretora</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Bollinger Bands no gráfico esquerdo, parâmetros originais</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> ADX Wilder configurado (período e cores do Didi)</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Didi Index com médias 3, 8 e 20</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Estocástico 8,3,3 pré-configurado</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> TRIX 9,3 já incluso</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Tela dividida exatamente como o Didi usa</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Funciona em qualquer ativo e corretora</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Curso completo da estratégia incluso</li>
         </ul>
       </div>
     </div>
@@ -905,20 +921,54 @@
       <div class="step-card">
         <div class="step-num">04</div>
         <div class="step-title">Arraste e pronto</div>
-        <div class="step-desc">Arraste o indicador para o gráfico — o setup aparece exatamente como o Didi usa</div>
+        <div class="step-desc">Arraste o indicador para o gráfico. O setup aparece exatamente como o Didi usa.</div>
       </div>
     </div>
     <div style="margin-top:24px;padding:16px 20px;border:1px dashed var(--border);border-radius:var(--r);background:var(--white);font-size:13px;color:var(--ink2);">
-      🟢 <strong style="font-family:var(--mono);font-size:11px;color:var(--ink)">SUPORTE INCLUSO:</strong> Travou em algum passo? Suporte por e-mail — respondo em menos de 24h: didi.index@gmail.com
+      <i class="ph ph-headset" style="font-size:16px;vertical-align:-2px;margin-right:4px;"></i> <strong style="font-family:var(--mono);font-size:11px;color:var(--ink)">SUPORTE INCLUSO:</strong> Travou em algum passo? Suporte por e-mail, respondo em menos de 24h: didi.index@gmail.com
     </div>
   </div>
 </section>
 
-<!-- ══ 06. DEPOIMENTOS ════════════════════════════ -->
-<section id="depoimentos">
+<!-- ══ 06. CURSO ══════════════════════════════════ -->
+<section id="curso">
   <div class="container">
     <div class="section-label">
       <span class="section-num">06</span>
+      Curso da estratégia
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+      <div>
+        <h2 style="margin-bottom:16px;">Não só o setup —<br>você aprende a estratégia.</h2>
+        <p style="color:var(--ink2);font-size:14px;line-height:1.7;margin-bottom:20px;">
+          Junto com os arquivos, você recebe acesso ao curso completo da estratégia das Agulhadas do Didi.
+          Do básico das médias móveis até como identificar e operar cada tipo de agulhada. Em vídeo, no seu ritmo.
+        </p>
+        <ul class="checklist">
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> O que são as médias 3, 8 e 20 e por que esses períodos</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Como identificar a agulhada de alta e de baixa no gráfico</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Como usar o Didi Index e o ADX juntos para confirmar o sinal</li>
+          <li class="check-item"><span class="check-mark"><i class="ph ph-check"></i></span> Gestão de entrada, alvo e stop dentro da estratégia</li>
+        </ul>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:var(--r);background:var(--white);padding:32px;text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;"><i class="ph ph-graduation-cap"></i></div>
+        <div style="font-family:var(--mono);font-size:13px;font-weight:700;margin-bottom:8px;">Curso Agulhadas do Didi</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:20px;">Acesso imediato após a compra.<br>Assista no seu ritmo, quantas vezes quiser.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span class="badge badge-dark" style="justify-content:center;text-align:center;padding:8px 16px;">Incluso no pacote</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.05em;">SEM CUSTO ADICIONAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07. DEPOIMENTOS ════════════════════════════ -->
+<section id="depoimentos">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-num">07</span>
       O que dizem os traders
     </div>
     <h2 style="margin-bottom:36px;">+1.200 traders já usam o setup</h2>
@@ -960,16 +1010,16 @@
   </div>
 </section>
 
-<!-- ══ 07. PARA QUEM É ════════════════════════════ -->
+<!-- ══ 08. PARA QUEM É ════════════════════════════ -->
 <section id="para-quem">
   <div class="container">
     <div class="section-label">
-      <span class="section-num">07</span>
+      <span class="section-num">08</span>
       Para quem é (e para quem não é)
     </div>
     <div class="for-grid">
       <div class="for-card">
-        <div class="for-title"><span style="font-size:16px">✅</span> Este setup é para você se...</div>
+        <div class="for-title"><i class="ph ph-check-circle" style="font-size:18px;color:#16a34a"></i> Este setup é para você se...</div>
         <ul class="for-list">
           <li class="for-item"><span class="for-bullet">→</span> Já opera com Didi Index e quer o setup original sem configurar do zero</li>
           <li class="for-item"><span class="for-bullet">→</span> Conhece o mercado mas ainda não usa a estratégia das Agulhadas</li>
@@ -979,47 +1029,47 @@
         </ul>
       </div>
       <div class="for-card not">
-        <div class="for-title"><span style="font-size:16px">❌</span> Não é para você se...</div>
+        <div class="for-title"><i class="ph ph-x-circle" style="font-size:18px;color:#dc2626"></i> Não é para você se...</div>
         <ul class="for-list">
           <li class="for-item"><span class="for-bullet" style="color:var(--ink3)">–</span> Você quer um robô ou EA que opera automaticamente</li>
           <li class="for-item"><span class="for-bullet" style="color:var(--ink3)">–</span> Você usa TradingView, Profit ou outra plataforma (só MT4/MT5)</li>
           <li class="for-item"><span class="for-bullet" style="color:var(--ink3)">–</span> Você quer sinais prontos de compra e venda via app ou telegram</li>
         </ul>
         <p style="font-size:12px;color:var(--ink3);margin-top:16px;font-family:var(--mono);line-height:1.6;">
-          Este é um indicador visual para operação manual — você lê o sinal e decide a entrada.
+          Este é um indicador visual para operação manual. Você lê o sinal e decide a entrada.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ 08. MÉTODO CONSAGRADO ══════════════════════ -->
+<!-- ══ 09. MÉTODO CONSAGRADO ══════════════════════ -->
 <section id="metodo">
   <div class="container">
     <div class="section-label">
-      <span class="section-num">08</span>
+      <span class="section-num">09</span>
       Por que confiar no método
     </div>
     <h2 style="margin-bottom:8px;">Não é modismo —<br>é um método com décadas de mercado</h2>
-    <p style="color:var(--ink2);font-size:14px;margin-bottom:32px;">O Didi Index não é uma estratégia nova ou da moda. É um dos métodos de análise técnica mais conhecidos do trader brasileiro — e aqui ele vem montado e pronto pra você usar.</p>
+    <p style="color:var(--ink2);font-size:14px;margin-bottom:32px;">O Didi Index não é uma estratégia nova ou da moda. É um dos métodos de análise técnica mais conhecidos do trader brasileiro. Aqui ele vem montado e pronto pra você usar.</p>
     <div class="pain-grid">
       <div class="pain-card">
-        <div class="pain-icon">📈</div>
+        <div class="pain-icon"><i class="ph ph-trend-up"></i></div>
         <div class="pain-title">Décadas no mercado</div>
-        <div class="pain-desc">O método das Agulhadas é usado por traders brasileiros há mais de 20 anos — tempo de sobra para se consolidar.</div>
+        <div class="pain-desc">O método das Agulhadas é usado por traders brasileiros há mais de 20 anos. Tempo de sobra para se consolidar.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">🏦</div>
+        <div class="pain-icon"><i class="ph ph-bank"></i></div>
         <div class="pain-title">Presente nas corretoras</div>
-        <div class="pain-desc">O Didi Index está disponível nos home brokers de diversas corretoras nacionais — virou referência no país.</div>
+        <div class="pain-desc">O Didi Index está disponível nos home brokers de diversas corretoras nacionais. Virou referência no país.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">👁️</div>
+        <div class="pain-icon"><i class="ph ph-eye"></i></div>
         <div class="pain-title">Método 100% visual</div>
         <div class="pain-desc">Baseado no cruzamento de 3 médias móveis: você lê o sinal direto no gráfico, sem cálculo nem programação.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-icon">🎯</div>
+        <div class="pain-icon"><i class="ph ph-target"></i></div>
         <div class="pain-title">Criado por quem entende</div>
         <div class="pain-desc">Desenvolvido por Odir Aguiar, trader com mais de 40 anos de experiência no mercado financeiro.</div>
       </div>
@@ -1027,25 +1077,25 @@
   </div>
 </section>
 
-<!-- ══ 09. OFERTA ════════════════════════════════ -->
+<!-- ══ 10. OFERTA ════════════════════════════════ -->
 <section id="oferta">
   <div class="container">
     <div class="section-label">
-      <span class="section-num">09</span>
+      <span class="section-num">10</span>
       Oferta + garantia
     </div>
     <div class="oferta-wrap">
       <div class="oferta-left">
         <h2>Acesso vitalício.<br>Pague uma vez só.</h2>
-        <p>Configurar esse setup com a ajuda de um trader experiente custa em média R$150 a R$200 por hora — sem garantia de que vai ficar certo. Aqui você paga uma vez e usa para sempre.</p>
+        <p>Configurar esse setup com a ajuda de um trader experiente custa em média R$150 a R$200 por hora, sem garantia de que vai ficar certo. Aqui você paga uma vez e usa para sempre.</p>
         <div class="ancoragem">
           <strong>O QUE ESTÁ INCLUSO:</strong><br>
-          Setup para MT4 · Setup para MT5 · Guia PDF de instalação · Suporte por e-mail
+          Setup para MT4 · Setup para MT5 · Guia PDF de instalação · Curso completo da estratégia · Suporte por e-mail
         </div>
         <div class="badge-row" style="margin-top:20px">
-          <span class="badge badge-outline">🔒 Pagamento seguro</span>
-          <span class="badge badge-outline">📦 Entrega imediata</span>
-          <span class="badge badge-outline">♾️ Acesso vitalício</span>
+          <span class="badge badge-outline"><i class="ph ph-lock-simple"></i> Pagamento seguro</span>
+          <span class="badge badge-outline"><i class="ph ph-package"></i> Entrega imediata</span>
+          <span class="badge badge-outline"><i class="ph ph-infinity"></i> Acesso vitalício</span>
         </div>
       </div>
 
@@ -1056,7 +1106,7 @@
           <div class="preco-sub">pagamento único · acesso imediato</div>
 
 <div class="garantia-box">
-            <div class="garantia-title">🛡️ Garantia de 7 dias</div>
+            <div class="garantia-title"><i class="ph ph-shield-check"></i> Garantia de 7 dias</div>
             Se o arquivo não funcionar no seu MetaTrader, devolvemos 100% do valor. Sem perguntas.
           </div>
 
@@ -1072,18 +1122,18 @@
   </div>
 </section>
 
-<!-- ══ 10. FAQ ════════════════════════════════════ -->
+<!-- ══ 11. FAQ ════════════════════════════════════ -->
 <section id="faq">
   <div class="container">
     <div class="section-label">
-      <span class="section-num">10</span>
+      <span class="section-num">11</span>
       Perguntas frequentes
     </div>
     <h2 style="margin-bottom:32px;">Ainda tem dúvidas?</h2>
     <div class="faq-list">
       <div class="faq-item">
         <div class="faq-q">Funciona no meu MetaTrader? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Sim. O .zip inclui o arquivo .ex4 para MT4 e o .ex5 para MT5. Funciona em qualquer corretora que use essas plataformas — brasileira ou internacional.</div>
+        <div class="faq-a">Sim. O .zip inclui o arquivo .ex4 para MT4 e o .ex5 para MT5. Funciona em qualquer corretora que use essas plataformas, brasileira ou internacional.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Preciso saber programar ou configurar algo? <span class="faq-toggle">+</span></div>
@@ -1095,7 +1145,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">Os parâmetros são realmente os do Didi Aguiar? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Sim. Médias 3, 8 e 20 períodos no Didi Index, ADX com configuração padrão, Estocástico 8,3,3 e TRIX 9,3 — exatamente como o Didi ensina nos seus conteúdos.</div>
+        <div class="faq-a">Sim. Médias 3, 8 e 20 períodos no Didi Index, ADX com configuração padrão, Estocástico 8,3,3 e TRIX 9,3. Exatamente como o Didi ensina nos seus conteúdos.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">E se não funcionar no meu computador? <span class="faq-toggle">+</span></div>
@@ -1110,7 +1160,7 @@
   <div class="container">
     <div style="text-align:center;margin-bottom:32px;">
       <h2 style="margin-bottom:12px;">Pronto para operar com o setup certo?</h2>
-      <button class="btn-primary js-buy" style="font-size:13px;">Quero o Setup do Didi Index → R$ 29,90</button>
+      <button class="btn-primary js-buy" style="font-size:13px;">Quero o Setup do Didi Index →</button>
     </div>
     <div class="footer-inner">
       <span class="footer-logo">DIDI INDEX ▸ SETUP</span>
@@ -1118,14 +1168,14 @@
         <a class="footer-link" href="privacidade.html">Privacidade</a>
       </div>
       <div class="footer-trust">
-        <span class="trust-badge">🔒 Compra segura</span>
-        <span class="trust-badge">✅ PIX e Cartão</span>
+        <span class="trust-badge"><i class="ph ph-lock-simple"></i> Compra segura</span>
+        <span class="trust-badge"><i class="ph ph-credit-card"></i> PIX e Cartão</span>
       </div>
     </div>
     <p style="font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:24px;text-align:center;letter-spacing:.04em;line-height:1.7;">
       Este produto é um material de configuração para MetaTrader 4 e 5. "Didi Index" refere-se ao método de
       Odir Aguiar; este produto não possui vínculo ou endosso oficial. Não constitui recomendação de investimento.
-      Operações no mercado financeiro envolvem risco — resultados passados não garantem resultados futuros.
+      Operações no mercado financeiro envolvem risco. Resultados passados não garantem resultados futuros.
     </p>
   </div>
 </footer>
@@ -1143,7 +1193,7 @@
       <div class="order-summary__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 9-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="order-summary__info">
         <span class="order-summary__name">Setup Didi Index — MT4 &amp; MT5</span>
-        <span class="order-summary__perks">✓ Acesso imediato &nbsp;·&nbsp; ✓ Entrega por email</span>
+        <span class="order-summary__perks">✓ Setup MT4/MT5 &nbsp;·&nbsp; ✓ Curso incluso &nbsp;·&nbsp; ✓ Entrega por email</span>
       </div>
       <div class="order-summary__price">
         <span class="order-summary__value">R$29,90</span>
@@ -1222,7 +1272,7 @@
 </div>
 
 <!-- WhatsApp float -->
-<a href="https://wa.me/5500000000000" class="wpp-btn" title="Suporte WhatsApp">💬</a>
+<a href="https://wa.me/5500000000000" class="wpp-btn" title="Suporte WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
 
 <script src="checkout.js" type="module"></script>
 </body>

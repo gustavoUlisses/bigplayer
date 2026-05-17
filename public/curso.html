@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso Didi Index | Big Players Setup</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:     #F5F3EE;
+    --ink:    #1A1917;
+    --ink2:   #6B6860;
+    --ink3:   #A8A59E;
+    --box:    #E8E5DE;
+    --border: #C8C4BB;
+    --white:  #FFFFFF;
+    --yellow: #F5E642;
+    --sans:   'DM Sans', sans-serif;
+    --r: 6px;
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── LOGIN ─────────────────────────────────────── */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .login-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .login-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+
+  .login-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .login-sub {
+    font-size: 13px;
+    color: var(--ink2);
+    margin-bottom: 28px;
+  }
+
+  .login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  .login-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .login-field input {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color .15s;
+  }
+
+  .login-field input:focus { border-color: var(--ink); }
+
+  .login-btn {
+    width: 100%;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--r);
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: opacity .15s;
+    margin-top: 4px;
+  }
+
+  .login-btn:hover { opacity: .85; }
+  .login-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .login-error {
+    font-size: 12px;
+    color: #dc2626;
+    margin-top: 12px;
+    min-height: 18px;
+  }
+
+  /* ── CURSO ─────────────────────────────────────── */
+  #curso-screen { display: none; }
+
+  .curso-nav {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .curso-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .curso-nav-logo { font-size: 13px; font-weight: 700; }
+
+  .curso-nav-logout {
+    font-size: 12px;
+    color: var(--ink3);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+
+  .curso-nav-logout:hover { color: var(--ink); }
+
+  .curso-body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+
+  .curso-header {
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .curso-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 2px;
+    color: var(--ink2);
+    margin-bottom: 16px;
+  }
+
+  .curso-header h1 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .curso-header p {
+    font-size: 15px;
+    color: var(--ink2);
+    max-width: 560px;
+  }
+
+  /* módulos */
+  .modulos { display: flex; flex-direction: column; gap: 12px; }
+
+  .modulo {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    background: var(--white);
+    overflow: hidden;
+  }
+
+  .modulo-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .modulo-header:hover { background: var(--bg); }
+
+  .modulo-num {
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 3px 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .modulo-title {
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .modulo-toggle {
+    font-size: 18px;
+    color: var(--ink3);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+
+  .modulo.open .modulo-toggle { transform: rotate(45deg); }
+
+  .modulo-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+
+  .modulo.open .modulo-body { max-height: 600px; }
+
+  .aulas {
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .aula {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--ink2);
+  }
+
+  .aula:last-child { border-bottom: none; }
+
+  .aula-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ink3);
+  }
+
+  .aula-icon svg { width: 12px; height: 12px; }
+
+  .aula-nome { flex: 1; }
+  .aula-duracao { font-size: 12px; color: var(--ink3); }
+
+  /* placeholder de vídeo */
+  .video-placeholder {
+    background: var(--ink);
+    border-radius: var(--r);
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 13px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-placeholder span {
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .curso-body { padding: 32px 20px; }
+    .curso-nav-inner { padding: 0 20px; }
+    .modulo-header { padding: 16px 20px; }
+    .aula { padding: 12px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TELA DE LOGIN ─────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">DIDI INDEX ▸ SETUP</div>
+    <div class="login-title">Área do Aluno</div>
+    <div class="login-sub">Digite a senha de acesso enviada por e-mail.</div>
+    <form id="form-login" novalidate>
+      <div class="login-field">
+        <label for="inp-senha">Senha de acesso</label>
+        <input id="inp-senha" type="password" placeholder="••••••••••••" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="login-btn" id="btn-login">Entrar</button>
+      <div class="login-error" id="login-error"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ── ÁREA DO CURSO ──────────────────────────────── -->
+<div id="curso-screen">
+  <nav class="curso-nav">
+    <div class="curso-nav-inner">
+      <span class="curso-nav-logo">DIDI INDEX ▸ SETUP — Área do Aluno</span>
+      <button class="curso-nav-logout" id="btn-logout">Sair</button>
+    </div>
+  </nav>
+
+  <div class="curso-body">
+    <div class="curso-header">
+      <span class="curso-tag">Curso completo</span>
+      <h1>Estratégia Didi Index:<br>do zero ao sinal</h1>
+      <p>Aprenda a ler o setup e identificar as Agulhadas no seu MetaTrader. Em vídeo, no seu ritmo.</p>
+    </div>
+
+    <div class="video-placeholder">
+      <span>Aula em breve</span>
+    </div>
+
+    <div class="modulos">
+
+      <div class="modulo open">
+        <div class="modulo-header">
+          <span class="modulo-num">01</span>
+          <span class="modulo-title">Fundamentos da estratégia</span>
+          <span class="modulo-toggle">+</span>
+        </div>
+        <div class="modulo-body">
+          <ul class="aulas">
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">O que é o Didi Index e como surgiu</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">As 3 médias móveis: 3, 8 e 20</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">O oscilador Didi Index explicado</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modulo">
+        <div class="modulo-header">
+          <span class="modulo-num">02</span>
+          <span class="modulo-title">Instalando e configurando o setup</span>
+          <span class="modulo-toggle">+</span>
+        </div>
+        <div class="modulo-body">
+          <ul class="aulas">
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Instalando no MetaTrader 4</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Instalando no MetaTrader 5</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Conhecendo o setup na prática</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modulo">
+        <div class="modulo-header">
+          <span class="modulo-num">03</span>
+          <span class="modulo-title">Identificando a Agulhada</span>
+          <span class="modulo-toggle">+</span>
+        </div>
+        <div class="modulo-body">
+          <ul class="aulas">
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Agulhada de alta: como reconhecer</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Agulhada de baixa: como reconhecer</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Sinais falsos: o que evitar</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modulo">
+        <div class="modulo-header">
+          <span class="modulo-num">04</span>
+          <span class="modulo-title">Operando na prática</span>
+          <span class="modulo-toggle">+</span>
+        </div>
+        <div class="modulo-body">
+          <ul class="aulas">
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Entrada, alvo e stop dentro da estratégia</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Exemplos reais no WIN e WDO</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+            <li class="aula">
+              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+              <span class="aula-nome">Perguntas frequentes dos alunos</span>
+              <span class="aula-duracao">Em breve</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const TOKEN_KEY = 'curso_token';
+
+async function verificarToken(token) {
+  try {
+    const res = await fetch('/api/curso-verify', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+function mostrarCurso() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('curso-screen').style.display = 'block';
+}
+
+function mostrarLogin() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('curso-screen').style.display = 'none';
+}
+
+// verificar token salvo ao carregar
+(async () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token && await verificarToken(token)) {
+    mostrarCurso();
+  }
+})();
+
+// login
+document.getElementById('form-login').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn   = document.getElementById('btn-login');
+  const erro  = document.getElementById('login-error');
+  const senha = document.getElementById('inp-senha').value;
+
+  erro.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+
+  try {
+    const res  = await fetch('/api/curso-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ senha })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      erro.textContent = data.error || 'Senha incorreta.';
+      return;
+    }
+    localStorage.setItem(TOKEN_KEY, data.token);
+    mostrarCurso();
+  } catch {
+    erro.textContent = 'Erro de conexão. Tente novamente.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+  }
+});
+
+// logout
+document.getElementById('btn-logout').addEventListener('click', () => {
+  localStorage.removeItem(TOKEN_KEY);
+  mostrarLogin();
+});
+
+// accordion dos módulos
+document.querySelectorAll('.modulo-header').forEach((header) => {
+  header.addEventListener('click', () => {
+    const modulo = header.closest('.modulo');
+    const open   = modulo.classList.contains('open');
+    document.querySelectorAll('.modulo.open').forEach(m => m.classList.remove('open'));
+    if (!open) modulo.classList.add('open');
+  });
+});
+</script>
+
+</body>
+</html>
