@@ -106,6 +106,16 @@ document.getElementById('inp-card-expiry').addEventListener('input', (e) => {
   e.target.value = v;
 });
 
+// ── PHONE MASK ────────────────────────────────────────────────
+document.getElementById('inp-card-phone').addEventListener('input', (e) => {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+  if (v.length > 10)     v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+  else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+  else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+  else if (v.length > 0) v = v.replace(/(\d{0,2})/, '($1');
+  e.target.value = v;
+});
+
 // ── PIX COPY ─────────────────────────────────────────────────
 document.getElementById('btn-copy-pix').addEventListener('click', () => {
   const payload = document.getElementById('pix-payload').textContent;
@@ -174,17 +184,21 @@ formCard.addEventListener('submit', async (e) => {
   e.preventDefault();
   setError(cardError, '');
 
-  const number = document.getElementById('inp-card-number').value.replace(/\s/g, '');
-  const expiry = document.getElementById('inp-card-expiry').value;
-  const cvv    = document.getElementById('inp-card-cvv').value;
-  const holder = document.getElementById('inp-card-holder').value.trim().toUpperCase();
-  const cepRaw = document.getElementById('inp-card-cep').value.replace(/\D/g, '');
+  const number   = document.getElementById('inp-card-number').value.replace(/\s/g, '');
+  const expiry   = document.getElementById('inp-card-expiry').value;
+  const cvv      = document.getElementById('inp-card-cvv').value;
+  const holder   = document.getElementById('inp-card-holder').value.trim().toUpperCase();
+  const phoneRaw = document.getElementById('inp-card-phone').value.replace(/\D/g, '');
+  const cepRaw   = document.getElementById('inp-card-cep').value.replace(/\D/g, '');
+  const addrNum  = document.getElementById('inp-card-addrnum').value.replace(/\D/g, '');
 
-  if (number.length < 13)  return setError(cardError, 'Número do cartão inválido.');
-  if (expiry.length !== 5) return setError(cardError, 'Validade inválida (MM/AA).');
-  if (cvv.length < 3)      return setError(cardError, 'CVV inválido.');
-  if (!holder)             return setError(cardError, 'Informe o nome no cartão.');
-  if (cepRaw.length !== 8) return setError(cardError, 'CEP inválido.');
+  if (number.length < 13)   return setError(cardError, 'Número do cartão inválido.');
+  if (expiry.length !== 5)  return setError(cardError, 'Validade inválida (MM/AA).');
+  if (cvv.length < 3)       return setError(cardError, 'CVV inválido.');
+  if (!holder)              return setError(cardError, 'Informe o nome no cartão.');
+  if (phoneRaw.length < 10) return setError(cardError, 'Telefone inválido (com DDD).');
+  if (cepRaw.length !== 8)  return setError(cardError, 'CEP inválido.');
+  if (!addrNum)             return setError(cardError, 'Informe o número do endereço.');
 
   const [expMonth, expYear] = expiry.split('/');
 
@@ -208,8 +222,8 @@ formCard.addEventListener('submit', async (e) => {
         email: state.email,
         cpfCnpj: state.cpf,
         postalCode: cepRaw,
-        addressNumber: '0',
-        phone: '00000000000',
+        addressNumber: addrNum,
+        phone: phoneRaw,
       },
     });
 
@@ -230,7 +244,7 @@ formCard.addEventListener('submit', async (e) => {
 function startPolling() {
   stopPolling();
   let attempts = 0;
-  const MAX_ATTEMPTS = 200; // ~10 min at 3s intervals
+  const MAX_ATTEMPTS = 600; // ~30 min at 3s intervals (alinhado à validade do QR Pix)
   state.pollingTimer = setInterval(async () => {
     if (++attempts > MAX_ATTEMPTS) {
       stopPolling();
