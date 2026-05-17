@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F5F3EE">
+<title>ADX Wilder: o que é e como usar junto com o Didi Index | Didi Index Setup</title>
+<meta name="description" content="Entenda o que o ADX Wilder mede, como interpretar seus valores no MetaTrader e como usá-lo para filtrar agulhadas do Didi Index em mercado lateral.">
+<link rel="canonical" href="https://bigplayer.vercel.app/dicas/adx-wilder-o-que-e-como-usar">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Didi Index ▸ Setup">
+<meta property="og:title" content="ADX Wilder: o que é e como usar junto com o Didi Index">
+<meta property="og:description" content="O ADX é o filtro de força do método Didi. Saiba interpretar seus valores e evitar agulhadas em mercado lateral.">
+<meta property="og:url" content="https://bigplayer.vercel.app/dicas/adx-wilder-o-que-e-como-usar">
+<meta property="article:published_time" content="2026-05-17T00:00:00-03:00">
+<meta property="article:section" content="Indicadores">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/dicas.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ADX Wilder: o que é e como usar junto com o Didi Index",
+  "description": "O ADX é o filtro de força do método Didi. Saiba interpretar seus valores e evitar agulhadas em mercado lateral.",
+  "datePublished": "2026-05-17",
+  "dateModified": "2026-05-17",
+  "author": { "@type": "Organization", "name": "Didi Index Setup", "url": "https://bigplayer.vercel.app/" },
+  "publisher": { "@type": "Organization", "name": "Didi Index Setup", "url": "https://bigplayer.vercel.app/" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://bigplayer.vercel.app/dicas/adx-wilder-o-que-e-como-usar" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é o ADX Wilder?",
+      "acceptedAnswer": { "@type": "Answer", "text": "O ADX (Average Directional Index) criado por J. Welles Wilder mede a força de uma tendência em uma escala de 0 a 100, independente da direção. Valores acima de 25 indicam tendência em formação." }
+    },
+    {
+      "@type": "Question",
+      "name": "Como configurar o ADX no MetaTrader para o Didi Index?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No MetaTrader 5: Inserir > Indicadores > Tendência > Average Directional Movement Index. Período padrão: 14. No setup do Didi, o ADX já vem configurado com período 14 e as cores padrão do método." }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://bigplayer.vercel.app/" },
+    { "@type": "ListItem", "position": 2, "name": "Dicas", "item": "https://bigplayer.vercel.app/dicas" },
+    { "@type": "ListItem", "position": 3, "name": "ADX Wilder", "item": "https://bigplayer.vercel.app/dicas/adx-wilder-o-que-e-como-usar" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">DIDI INDEX ▸ SETUP</a>
+    <div class="nav-right">
+      <a href="/dicas" class="nav-link">Dicas</a>
+      <a href="/" class="nav-cta">Quero o Setup →</a>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb-bar">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Navegação estrutural">
+      <a href="/">Início</a>
+      <span class="bc-sep">›</span>
+      <a href="/dicas">Dicas</a>
+      <span class="bc-sep">›</span>
+      <span>ADX Wilder</span>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <div class="container post-layout">
+    <div class="post-main">
+      <header class="post-header">
+        <div class="post-meta">
+          <span class="post-tag">Indicadores</span>
+          <span class="post-date">17 mai. 2026</span>
+          <span class="post-read">· 5 min de leitura</span>
+        </div>
+        <h1>ADX Wilder: o que é e como usar junto com o Didi Index</h1>
+        <p class="post-lead">O ADX (Average Directional Movement Index) criado por J. Welles Wilder é o confirmador de força no setup do Didi Index. Sem o ADX, uma agulhada pode ser apenas ruído de mercado lateral. Com o ADX acima de 25, o sinal muda de categoria.</p>
+      </header>
+
+      <article class="post-body">
+        <h2>O que o ADX mede</h2>
+        <p>O ADX mede a força de uma tendência em uma escala de 0 a 100, mas <strong>não diz a direção</strong>. Um ADX de 30 pode indicar tendência forte de alta ou de baixa. Wilder o desenvolveu nos anos 70 para filtrar mercados laterais — responsáveis pela maior parte das operações perdedoras em estratégias seguidoras de tendência.</p>
+
+        <div class="post-cta-inline">
+          <p class="post-cta-inline__text">O ADX já vem configurado no setup, junto com o Didi Index, Bollinger, Estocástico e TRIX. Pronto para MT4 e MT5.</p>
+          <a href="/" class="btn-primary">Ver Setup →</a>
+        </div>
+
+        <h2>Como interpretar os valores do ADX</h2>
+        <ul>
+          <li><strong>0–20:</strong> mercado sem tendência definida. Agulhadas nessa faixa têm alta taxa de falha.</li>
+          <li><strong>20–25:</strong> zona de transição. Atenção redobrada — confirmar com outros indicadores.</li>
+          <li><strong>25–40:</strong> tendência se formando. Agulhadas nessa faixa têm mais confiabilidade.</li>
+          <li><strong>40+:</strong> tendência forte. Sinais de entrada são mais confiáveis, mas o movimento pode estar maduro para reversão.</li>
+        </ul>
+
+        <h2>ADX no MetaTrader 5: configuração</h2>
+        <p>No MT5: <strong>Inserir &gt; Indicadores &gt; Tendência &gt; Average Directional Movement Index</strong>. Período padrão no método Didi: 14. O indicador plota três linhas — a linha ADX principal (força da tendência), DI+ (força compradora) e DI- (força vendedora).</p>
+        <p>Para o método Didi, o foco é na linha ADX principal: está subindo e acima de 20? Boa hora para prestar atenção na agulhada. Se o DI+ está acima do DI-, a tendência é de alta; se DI- está acima, de baixa.</p>
+
+        <h2>ADX junto com o Didi Index na prática</h2>
+        <p>Fluxo de decisão para uma operação com o setup completo:</p>
+        <ol>
+          <li>Uma potencial agulhada está se formando no painel do Didi Index?</li>
+          <li>O ADX está acima de 20 e subindo?</li>
+          <li>O Estocástico confirma a direção (saindo de sobrevenda para alta, de sobrecompra para baixa)?</li>
+        </ol>
+        <p>Se as três respostas forem sim, a entrada tem maior embasamento. Se o ADX estiver caindo ou abaixo de 20, a agulhada merece ser ignorada ou operada com posição menor.</p>
+      </article>
+
+      <section class="related-posts">
+        <h3 class="related-posts__title">Continue lendo</h3>
+        <div class="related-posts__grid">
+          <a href="/dicas/agulhada-do-didi-como-identificar" class="post-card post-card--sm">
+            <span class="post-card__tag">Estratégia</span>
+            <div class="post-card__title">Como identificar a Agulhada do Didi no gráfico</div>
+          </a>
+          <a href="/dicas/medias-moveis-3-8-20-explicadas" class="post-card post-card--sm">
+            <span class="post-card__tag">Análise Técnica</span>
+            <div class="post-card__title">Médias Móveis 3, 8 e 20: por que o Didi usa esses períodos</div>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="post-sidebar">
+      <div class="post-cta-box">
+        <span class="post-cta-box__label">Produto</span>
+        <h3 class="post-cta-box__title">Setup Didi Index para MetaTrader 4 e 5</h3>
+        <p class="post-cta-box__desc">Bollinger, ADX, Didi Index, Estocástico e TRIX configurados e prontos. MT4 e MT5 inclusos. Download imediato.</p>
+        <div class="post-cta-box__price">R$ 29,90</div>
+        <a href="/" class="btn-primary">Quero o Setup Pronto →</a>
+        <span class="post-cta-box__guarantee">Garantia de 7 dias</span>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">DIDI INDEX ▸ SETUP</a>
+      <div class="footer-links">
+        <a class="footer-link" href="/dicas">Dicas</a>
+        <a class="footer-link" href="/privacidade">Privacidade</a>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Este site é um material de configuração para MetaTrader 4 e 5. Não constitui recomendação de investimento.
+      Operações no mercado financeiro envolvem risco. Resultados passados não garantem resultados futuros.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

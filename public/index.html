@@ -697,6 +697,10 @@
     .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
   }
 
+  .nav-logo { text-decoration: none; color: var(--ink); }
+  .nav-link-blog { font-size: 13px; color: var(--ink2); text-decoration: none; font-weight: 500; }
+  .nav-link-blog:hover { color: var(--ink); }
+
   /* mantém os títulos do checkout (modal) com a fonte original */
   .modal h1, .modal h2 { font-family: var(--font); }
 
@@ -711,8 +715,11 @@
 <!-- NAV -->
 <nav>
   <div class="container nav-inner">
-    <span class="nav-logo">DIDI INDEX ▸ SETUP</span>
-    <button class="nav-cta js-buy">Quero o Setup →</button>
+    <a href="/" class="nav-logo">DIDI INDEX ▸ SETUP</a>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <a href="/dicas" class="nav-link-blog">Dicas</a>
+      <button class="nav-cta js-buy">Quero o Setup →</button>
+    </div>
   </div>
 </nav>
 
@@ -1165,7 +1172,8 @@
     <div class="footer-inner">
       <span class="footer-logo">DIDI INDEX ▸ SETUP</span>
       <div class="footer-links">
-        <a class="footer-link" href="privacidade.html">Privacidade</a>
+        <a class="footer-link" href="/dicas">Dicas</a>
+        <a class="footer-link" href="/privacidade">Privacidade</a>
       </div>
       <div class="footer-trust">
         <span class="trust-badge"><i class="ph ph-lock-simple"></i> Compra segura</span>
