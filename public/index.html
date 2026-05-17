@@ -206,7 +206,6 @@
   /* ── HERO ────────────────────────────────────────── */
   #hero {
     padding: 80px 0 72px;
-    background: var(--bg);
   }
   .hero-grid {
     display: grid;
@@ -621,9 +620,7 @@
 
   /* ── FOOTER ──────────────────────────────────────── */
   footer {
-    border-top: 1px solid var(--border);
     padding: 40px 0;
-    background: var(--bg);
   }
   .footer-inner {
     display: flex;
@@ -713,38 +710,72 @@
   .check-mark i { font-size: 11px; line-height: 1; }
   .badge i, .trust-badge i, .garantia-title i, .for-title i { vertical-align: -2px; margin-right: 4px; }
 
-  /* ── SEÇÕES ESCURAS ──────────────────────────────────────── */
+  /* ── SEÇÕES ESCURAS / CLARAS ─────────────────────── */
   .section--dark {
     background: #000;
+    color: #fff;
     --bg:     #000;
     --ink:    #FFFFFF;
     --ink2:   #A0A0A0;
-    --ink3:   #666666;
-    --box:    #111111;
+    --ink3:   #555555;
+    --box:    #141414;
     --border: #2a2a2a;
-    --white:  #111111;
+    --white:  #141414;
+    --yellow: #F5E642;
   }
-  .section--dark section { border-top-color: #2a2a2a; }
   .section--light {
     background: #fff;
+    color: #000;
     --bg:     #FFFFFF;
     --ink:    #000000;
     --ink2:   #444444;
     --ink3:   #888888;
-    --box:    #F0F0F0;
+    --box:    #F2F2F2;
     --border: #E0E0E0;
     --white:  #FFFFFF;
+    --yellow: #F5E642;
   }
 
-  /* nav e footer acompanham o body */
-  nav { background: var(--bg); border-bottom-color: var(--border); }
-  footer { background: #000; --ink: #fff; --ink2: #A0A0A0; --ink3: #666; --border: #2a2a2a; border-top-color: #2a2a2a; }
-  footer .footer-logo, footer p { color: var(--ink); }
-  footer .footer-link { color: var(--ink3); }
-  footer .footer-link:hover { color: var(--ink); }
-  footer .trust-badge { border-color: #2a2a2a; color: var(--ink2); }
+  /* garante que todos os elementos herdam a cor do contexto */
+  .section--dark h1, .section--dark h2, .section--dark h3,
+  .section--dark .step-title, .section--dark .pain-title,
+  .section--dark .zip-title, .section--dark .section-label,
+  .section--dark .faq-q, .section--dark .stat-num,
+  .section--dark .author-name { color: #fff; }
 
-  /* body base = preto (hero é dark) */
+  .section--light h1, .section--light h2, .section--light h3,
+  .section--light .step-title, .section--light .pain-title,
+  .section--light .zip-title, .section--light .section-label,
+  .section--light .faq-q, .section--light .stat-num,
+  .section--light .author-name { color: #000; }
+
+  /* btn-primary inverte nas seções escuras */
+  .section--dark .btn-primary { background: #fff; color: #000; }
+  .section--dark .btn-primary:hover { background: #e0e0e0; }
+  .section--dark .btn-ghost { color: #A0A0A0; }
+
+  /* nav — sempre preta */
+  nav { background: #000; border-bottom: 1px solid #2a2a2a; }
+  .nav-logo { color: #fff !important; }
+  .nav-link-blog { color: #777 !important; }
+  .nav-link-blog:hover { color: #fff !important; }
+  .nav-cta { background: #fff !important; color: #000 !important; }
+
+  /* footer — sempre preto */
+  footer {
+    background: #000;
+    border-top: 1px solid #2a2a2a;
+    --ink: #fff; --ink2: #777; --ink3: #555; --border: #2a2a2a;
+  }
+  footer .footer-logo { color: #fff; }
+  footer .footer-link { color: #777; }
+  footer .footer-link:hover { color: #fff; }
+  footer .trust-badge { border-color: #2a2a2a; color: #777; }
+  footer p { color: #555; }
+  footer h2 { color: #fff; }
+  footer .btn-primary { background: #fff; color: #000; }
+
+  /* body base preto */
   body { background: #000; }
 </style>
 </head>
