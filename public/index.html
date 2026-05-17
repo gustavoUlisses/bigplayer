@@ -931,15 +931,15 @@
               <text x="1005" y="225" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">-0.09</text>
               <!-- linha de referencia tracejada (nivel 32) -->
               <line x1="0" y1="135" x2="990" y2="135" stroke="#444" stroke-width="0.5" stroke-dasharray="3,3"/>
-              <!-- linha branca grossa (media): segue o eixo, sobe gradualmente -->
-              <polyline fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"
+              <!-- linha branca tracejada (media): segue suavemente, cruza no centro e sobe -->
+              <polyline fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="6,4"
                 points="10,148 50,150 90,148 130,145 170,142 210,140 250,138 290,138 330,138 370,138 410,138 450,138 470,137 490,136 500,135 525,130 555,120 585,108 615,98 645,90 675,82 705,75 735,68 765,62 795,58 825,55 855,52 885,50 915,48 945,46 975,45"/>
-              <!-- linha amarela: oscila em cima, cruza a ciano no centro com queda curta antes, depois desce em tendencia de baixa -->
-              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round"
-                points="10,90 30,82 60,80 90,85 120,92 150,100 180,108 210,112 240,108 260,98 280,92 300,98 320,108 340,116 360,122 380,126 400,128 420,130 440,132 460,134 480,134 500,135 520,148 540,160 560,172 580,182 600,190 620,196 640,200 660,200 680,196 700,192 720,194 740,200 760,206 780,210 800,212 820,210 840,206 860,202 880,200 900,202 920,206 940,208 975,206"/>
-              <!-- linha ciano: oscila embaixo, sobe e cruza no centro com queda curta antes, depois sobe em alta com duas pequenas quedas -->
-              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round"
-                points="10,196 30,202 60,206 90,208 120,206 150,200 180,194 210,190 240,184 270,178 300,172 330,166 360,160 390,154 410,156 425,160 440,164 455,160 470,150 485,142 500,135 520,122 540,108 560,98 580,92 600,98 620,104 640,98 660,88 680,78 700,72 720,66 740,72 760,78 780,72 800,62 820,55 840,48 860,42 880,38 900,35 920,32 945,30 975,28"/>
+              <!-- linha amarela: ziguezague serrilhado oscilando, cruza no centro, depois desce em ziguezague de baixa -->
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="miter"
+                points="10,95 25,75 40,108 55,82 70,115 85,90 100,118 115,95 130,120 145,98 160,122 175,100 190,125 205,105 220,128 235,108 250,130 265,112 280,108 295,100 310,118 325,108 340,128 355,115 370,132 385,118 400,128 415,118 430,130 445,122 460,132 475,128 490,134 500,135 515,142 530,158 545,150 560,168 575,160 590,178 605,172 620,188 635,182 650,196 665,190 680,200 695,196 710,202 725,198 740,204 755,200 770,206 785,202 800,208 815,205 830,210 845,207 860,212 875,208 890,213 905,210 920,214 935,212 950,215 975,213"/>
+              <!-- linha ciano: ziguezague serrilhado oscilando, cruza no centro, depois sobe em ziguezague de alta -->
+              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="miter"
+                points="10,200 25,178 40,210 55,182 70,212 85,180 100,215 115,185 130,218 145,188 160,215 175,185 190,212 205,182 220,210 235,180 250,205 265,178 280,195 295,170 310,188 325,168 340,182 355,162 370,178 385,158 400,170 415,160 430,165 445,150 460,162 475,148 490,140 500,135 515,122 530,108 545,118 560,100 575,112 590,95 605,108 620,92 635,105 650,88 665,102 680,85 695,98 710,80 725,93 740,75 755,88 770,70 785,82 800,65 815,78 830,60 845,72 860,55 875,68 890,50 905,62 920,45 935,58 950,40 975,52"/>
             </g>
 
             <!-- ═══ PAINEL 2: Didi Index (235-470) ═══ -->
