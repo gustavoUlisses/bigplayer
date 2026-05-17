@@ -18,29 +18,8 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── PALETA ESCURA (padrão) ─────────────────────────────── */
+  /* ── PALETA CLARA (padrão) ─────────────────────────────── */
   :root {
-    --bg:        #0f1117;
-    --surface:   #1a1d27;
-    --surface2:  #22263a;
-    --ink:       #f0f0f0;
-    --ink2:      #9ca3af;
-    --ink3:      #6b7280;
-    --border:    #2d3148;
-    --accent:    #f0f0f0;
-    --yellow:    #f5e642;
-    --green:     #16a34a;
-    --green-bg:  #052e16;
-    --red:       #dc2626;
-    --red-bg:    #1f0a0a;
-    --key-bg:    #1a1a00;
-    --sans:      'DM Sans', sans-serif;
-    --r:         8px;
-    --transition: 200ms ease;
-  }
-
-  /* ── PALETA CLARA ───────────────────────────────────────── */
-  [data-theme="light"] {
     --bg:        #f5f3ee;
     --surface:   #ffffff;
     --surface2:  #e8e5de;
@@ -48,10 +27,29 @@
     --ink2:      #6b6860;
     --ink3:      #a8a59e;
     --border:    #c8c4bb;
-    --accent:    #1a1917;
+    --yellow:    #f5e642;
+    --green:     #16a34a;
     --green-bg:  #f0fdf4;
+    --red:       #dc2626;
     --red-bg:    #fef2f2;
     --key-bg:    #fbf8e0;
+    --sans:      'DM Sans', sans-serif;
+    --r:         8px;
+    --transition: 200ms ease;
+  }
+
+  /* ── PALETA ESCURA ──────────────────────────────────────── */
+  [data-theme="dark"] {
+    --bg:        #0f1117;
+    --surface:   #1a1d27;
+    --surface2:  #22263a;
+    --ink:       #f0f0f0;
+    --ink2:      #9ca3af;
+    --ink3:      #6b7280;
+    --border:    #2d3148;
+    --green-bg:  #052e16;
+    --red-bg:    #1f0a0a;
+    --key-bg:    #1a1a00;
   }
 
   html, body { height: 100%; }
@@ -187,13 +185,7 @@
 
   .btn-theme:hover { border-color: var(--ink2); color: var(--ink); }
 
-  .btn-theme svg { width: 16px; height: 16px; display: block; }
-
-  /* Mostra ícone correto por tema */
-  .icon-sun  { display: none; }
-  .icon-moon { display: block; }
-  [data-theme="dark"] .icon-sun  { display: block; }
-  [data-theme="dark"] .icon-moon { display: none; }
+  .btn-theme svg { width: 16px; height: 16px; display: block; pointer-events: none; }
 
   .curso-nav-logout {
     font-size: 12px;
@@ -626,15 +618,7 @@
       <div class="curso-nav-right">
         <span class="curso-progress-mini" id="progress-mini">0% concluído</span>
         <button class="btn-theme" id="btn-theme" title="Alternar tema" aria-label="Alternar tema claro/escuro">
-          <!-- sol: aparece no dark mode -->
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <!-- lua: aparece no light mode -->
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="icon-theme" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
@@ -658,9 +642,20 @@
 <script src="/curso.js" defer></script>
 
 <script>
+  var SVG_MOON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  var SVG_SUN  = '<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('icon-theme').innerHTML = theme === 'dark' ? SVG_SUN : SVG_MOON;
+  }
+
+  // aplica ícone inicial (o data-theme já foi setado no <head>)
+  applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+
   document.getElementById('btn-theme').addEventListener('click', function() {
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
     localStorage.setItem('curso_tema', next);
   });
 </script>
