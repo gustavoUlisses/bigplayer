@@ -971,7 +971,7 @@ const CURSO = [
             <p>Introdução ao método, os indicadores e a lógica por trás do setup.</p>
             <div style="margin-top:14px;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--ink);">
               <iframe
-                src="https://www.youtube.com/embed/jG5NlHs9d7I"
+                src="https://www.youtube.com/embed/epeLGFv7WCg"
                 title="Curso Didi Index - Parte 1"
                 style="width:100%;height:100%;border:none;"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -985,7 +985,7 @@ const CURSO = [
             <p>Aprofundamento nos indicadores e como identificar a agulhada no gráfico.</p>
             <div style="margin-top:14px;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--ink);">
               <iframe
-                src="https://www.youtube.com/embed/epeLGFv7WCg"
+                src="https://www.youtube.com/embed/DilZidxMXg0"
                 title="Curso Didi Index - Parte 2"
                 style="width:100%;height:100%;border:none;"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -999,7 +999,7 @@ const CURSO = [
             <p>Exemplos práticos, agulhada santa e operação no mercado real.</p>
             <div style="margin-top:14px;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--ink);">
               <iframe
-                src="https://www.youtube.com/embed/DilZidxMXg0"
+                src="https://www.youtube.com/embed/jG5NlHs9d7I"
                 title="Curso Didi Index - Parte 3"
                 style="width:100%;height:100%;border:none;"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
