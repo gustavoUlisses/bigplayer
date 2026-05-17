@@ -6,6 +6,12 @@
 <title>Curso Didi Index | Big Players Setup</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script>
+  (function(){
+    var t = localStorage.getItem('curso_tema') || 'light';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -638,7 +644,7 @@
   </nav>
 
   <div class="curso-layout">
-    <button class="sidebar-toggle" id="sidebar-toggle">☰ Menu de aulas</button>
+    <button class="sidebar-toggle" id="sidebar-toggle">Menu de aulas</button>
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-title">Curso completo</div>
@@ -652,18 +658,11 @@
 <script src="/curso.js" defer></script>
 
 <script>
-  /* ── TEMA ── inline para evitar flash no carregamento ── */
-  (function() {
-    const saved = localStorage.getItem('curso_tema') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('btn-theme').addEventListener('click', function() {
-        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('curso_tema', next);
-      });
-    });
-  })();
+  document.getElementById('btn-theme').addEventListener('click', function() {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('curso_tema', next);
+  });
 </script>
 
 </body>
