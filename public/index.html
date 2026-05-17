@@ -309,18 +309,40 @@
 
   /* chart mockup */
   .chart-mockup {
-    border: 1px solid #003366;
+    border: 1px solid #2a2a2a;
     border-radius: var(--r);
-    background: #001a33;
+    background: #0a0a0a;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(0,0,0,.5);
   }
   .mt5-chart { display: block; width: 100%; height: auto; }
   .chart-topbar {
-    background: #002244;
-    color: #cccccc;
-    font-family: 'Tahoma', Arial, sans-serif;
+    background: #141414;
+    color: #d4d4d4;
+    font-family: 'DM Sans', sans-serif;
     font-size: 11px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chart-topbar__title { font-weight: 600; letter-spacing: .02em; }
+  .chart-topbar__controls { display: flex; gap: 8px; align-items: center; }
+  .chart-topbar__ctrl {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .chart-topbar__ctrl--min { background: #f5e642; }
+  .chart-topbar__ctrl--max { background: #16a34a; }
+  .chart-topbar__ctrl--close { background: #dc2626; }
+  .chart-topbar-orig {
+    background: #1A1917;
+    color: #9DF76B;
+    font-family: var(--mono);
+    font-size: 9px;
     padding: 6px 12px;
     letter-spacing: .05em;
     display: flex;
@@ -881,22 +903,27 @@
       <div>
         <div class="chart-mockup">
           <div class="chart-topbar">
-            <span>EURUSD,M1 — Setup Agulhadas do Didi</span>
-            <span style="color:#888">_  □  ×</span>
+            <div class="chart-topbar__controls">
+              <span class="chart-topbar__ctrl chart-topbar__ctrl--close"></span>
+              <span class="chart-topbar__ctrl chart-topbar__ctrl--min"></span>
+              <span class="chart-topbar__ctrl chart-topbar__ctrl--max"></span>
+            </div>
+            <span class="chart-topbar__title">EURUSD,M1 — Setup Agulhadas do Didi</span>
+            <span style="width:48px"></span>
           </div>
           <svg class="mt5-chart" viewBox="0 0 1060 850" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Setup Didi Index aplicado no MetaTrader 5: Wilder/ADX, Didi Index, Estocástico e TRIX">
             <!-- fundo escuro do MT -->
-            <rect width="1060" height="850" fill="#001a33"/>
+            <rect width="1060" height="850" fill="#0a0a0a"/>
 
             <!-- separadores verticais (eixo de preço à direita) -->
-            <line x1="990" y1="0" x2="990" y2="850" stroke="#003366" stroke-width="0.5"/>
+            <line x1="990" y1="0" x2="990" y2="850" stroke="#2a2a2a" stroke-width="0.5"/>
 
             <!-- ═══ PAINEL 1: Wilder/ADX (0-235) ═══ -->
             <g>
               <rect x="0" y="0" width="990" height="235" fill="none"/>
               <!-- labels topo -->
               <text x="10" y="20" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#cccccc">
-                <tspan fill="#ffff00">█</tspan> Wilder(8) <tspan fill="#ffffff">37.67</tspan> <tspan fill="#ffff00">25.54</tspan> <tspan fill="#00d4d4">20.30</tspan>
+                <tspan fill="#F5E642">█</tspan> Wilder(8) <tspan fill="#ffffff">37.67</tspan> <tspan fill="#F5E642">25.54</tspan> <tspan fill="#a0a0a0">20.30</tspan>
               </text>
               <!-- escala lateral -->
               <text x="1005" y="50" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">59.47</text>
@@ -908,18 +935,18 @@
               <polyline fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"
                 points="10,108 50,118 90,125 130,135 170,150 210,158 250,160 290,158 330,150 370,142 410,135 450,128 490,125 530,122 570,118 610,108 650,90 690,70 730,55 770,50 810,52 850,58 890,72 930,90 970,110"/>
               <!-- linha amarela (oscilando) -->
-              <polyline fill="none" stroke="#ffff00" stroke-width="1.4" stroke-linejoin="round"
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round"
                 points="10,85 30,108 50,135 70,118 90,145 110,128 130,155 150,125 170,150 190,128 210,155 230,130 250,160 270,140 290,160 310,140 330,158 350,142 370,158 390,140 410,150 430,138 450,148 470,135 490,145 510,128 530,135 550,118 570,115 590,100 610,90 630,75 650,70 670,68 690,72 710,78 730,72 750,70 770,75 790,80 810,85 830,95 850,108 870,120 890,118 910,130 930,135 950,128 970,138"/>
               <!-- linha ciano (volatil) -->
-              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round"
+              <polyline fill="none" stroke="#a0a0a0" stroke-width="1.4" stroke-linejoin="round"
                 points="10,180 30,150 50,178 70,165 90,180 110,162 130,180 150,148 170,175 190,158 210,180 230,160 250,178 270,155 290,170 310,148 330,168 350,150 370,165 390,148 410,160 430,148 450,160 470,150 490,162 510,148 530,165 550,148 570,168 590,155 610,175 630,160 650,180 670,175 690,185 710,185 730,178 750,182 770,175 790,180 810,168 830,165 850,158 870,150 890,155 910,148 930,160 950,150 970,162"/>
             </g>
 
             <!-- ═══ PAINEL 2: Didi Index (235-470) ═══ -->
             <g>
-              <line x1="0" y1="235" x2="1060" y2="235" stroke="#003366" stroke-width="0.5"/>
+              <line x1="0" y1="235" x2="1060" y2="235" stroke="#2a2a2a" stroke-width="0.5"/>
               <text x="10" y="255" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#cccccc">
-                DidiIndex(3, 8, 20)  <tspan fill="#ffffff">1.000089</tspan>  <tspan fill="#ffff00">1.000000</tspan>  <tspan fill="#00d4d4">1.000125</tspan>
+                DidiIndex(3, 8, 20)  <tspan fill="#ffffff">1.000089</tspan>  <tspan fill="#F5E642">1.000000</tspan>  <tspan fill="#a0a0a0">1.000125</tspan>
               </text>
               <text x="1005" y="280" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">1.000307</text>
               <text x="1005" y="355" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">1.000000</text>
@@ -927,18 +954,18 @@
               <!-- linha central (zero) -->
               <line x1="0" y1="355" x2="990" y2="355" stroke="#666" stroke-width="0.6"/>
               <!-- linha amarela suave -->
-              <polyline fill="none" stroke="#ffff00" stroke-width="1.4" stroke-linejoin="round"
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round"
                 points="10,345 50,348 90,352 130,355 170,360 210,365 250,365 290,360 330,355 370,350 410,348 450,345 490,340 530,335 570,325 610,310 650,295 690,285 730,280 770,290 810,305 850,320 890,335 930,335 970,325"/>
               <!-- linha ciano suave -->
-              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round"
+              <polyline fill="none" stroke="#a0a0a0" stroke-width="1.4" stroke-linejoin="round"
                 points="10,375 50,378 90,380 130,378 170,375 210,372 250,370 290,372 330,375 370,378 410,382 450,388 490,395 530,405 570,415 610,425 650,430 690,432 730,430 770,420 810,408 850,392 890,372 930,358 970,335"/>
             </g>
 
             <!-- ═══ PAINEL 3: Stoch (470-680) ═══ -->
             <g>
-              <line x1="0" y1="470" x2="1060" y2="470" stroke="#003366" stroke-width="0.5"/>
+              <line x1="0" y1="470" x2="1060" y2="470" stroke="#2a2a2a" stroke-width="0.5"/>
               <text x="10" y="490" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#cccccc">
-                Stoch(8,3,3)  <tspan fill="#ffff00">80.25</tspan>  <tspan fill="#00d4d4">63.61</tspan>  <tspan fill="#ffffff">0.00</tspan>
+                Stoch(8,3,3)  <tspan fill="#F5E642">80.25</tspan>  <tspan fill="#a0a0a0">63.61</tspan>  <tspan fill="#ffffff">0.00</tspan>
               </text>
               <text x="1005" y="505" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">100.00</text>
               <text x="1005" y="555" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">80.00</text>
@@ -948,18 +975,18 @@
               <line x1="0" y1="555" x2="990" y2="555" stroke="#444" stroke-width="0.5" stroke-dasharray="3,3"/>
               <line x1="0" y1="625" x2="990" y2="625" stroke="#444" stroke-width="0.5" stroke-dasharray="3,3"/>
               <!-- linha amarela -->
-              <polyline fill="none" stroke="#ffff00" stroke-width="1.4" stroke-linejoin="round"
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round"
                 points="10,640 30,610 50,580 70,540 90,520 110,535 130,570 150,545 170,555 190,580 210,595 230,605 250,620 270,615 290,600 310,575 330,545 350,520 370,530 390,560 410,580 430,605 450,615 470,620 490,625 510,620 530,615 550,625 570,628 590,635 610,635 630,632 650,635 670,635 690,635 710,635 730,635 750,635 770,635 790,628 810,615 830,592 850,565 870,540 890,520 910,510 930,520 950,545 970,565"/>
               <!-- linha ciano (mais agressiva) -->
-              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round"
+              <polyline fill="none" stroke="#a0a0a0" stroke-width="1.4" stroke-linejoin="round"
                 points="10,650 30,615 50,575 70,530 90,510 110,540 130,575 150,540 170,560 190,585 210,600 230,610 250,625 270,618 290,600 310,570 330,540 350,515 370,535 390,565 410,585 430,608 450,620 470,623 490,628 510,623 530,615 550,628 570,632 590,635 610,635 630,635 650,635 670,635 690,635 710,635 730,632 750,628 770,625 790,615 810,600 830,575 850,550 870,525 890,508 910,495 930,510 950,540 970,558"/>
             </g>
 
             <!-- ═══ PAINEL 4: TRIX (680-820) ═══ -->
             <g>
-              <line x1="0" y1="680" x2="1060" y2="680" stroke="#003366" stroke-width="0.5"/>
+              <line x1="0" y1="680" x2="1060" y2="680" stroke="#2a2a2a" stroke-width="0.5"/>
               <text x="10" y="700" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#cccccc">
-                TRIX(8, 3)  <tspan fill="#ffff00">-0.001927</tspan>  <tspan fill="#00d4d4">-0.002401</tspan>  <tspan fill="#ffffff">0.000000</tspan>
+                TRIX(8, 3)  <tspan fill="#F5E642">-0.001927</tspan>  <tspan fill="#a0a0a0">-0.002401</tspan>  <tspan fill="#ffffff">0.000000</tspan>
               </text>
               <text x="1005" y="710" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">0.000628</text>
               <text x="1005" y="745" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#888">-0.000000</text>
@@ -967,15 +994,15 @@
               <!-- zero line -->
               <line x1="0" y1="745" x2="990" y2="745" stroke="#444" stroke-width="0.5" stroke-dasharray="3,3"/>
               <!-- linha amarela onda -->
-              <polyline fill="none" stroke="#ffff00" stroke-width="1.5" stroke-linejoin="round"
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.5" stroke-linejoin="round"
                 points="10,805 50,795 90,775 130,755 170,740 210,732 250,728 290,730 330,735 370,740 410,742 450,740 490,738 530,738 570,740 610,745 650,752 690,762 730,772 770,782 810,790 850,795 870,795 890,795 910,792 930,785 950,775 970,768"/>
               <!-- linha ciano sobreposta (quase igual) -->
-              <polyline fill="none" stroke="#00d4d4" stroke-width="1.5" stroke-linejoin="round"
+              <polyline fill="none" stroke="#a0a0a0" stroke-width="1.5" stroke-linejoin="round"
                 points="10,810 50,798 90,778 130,758 170,742 210,734 250,730 290,732 330,737 370,742 410,744 450,742 490,740 530,740 570,742 610,747 650,754 690,764 730,774 770,784 810,792 850,798 870,800 890,800 910,797 930,790 950,780 970,770"/>
             </g>
 
             <!-- ═══ EIXO INFERIOR DE TEMPO ═══ -->
-            <line x1="0" y1="820" x2="1060" y2="820" stroke="#003366" stroke-width="0.5"/>
+            <line x1="0" y1="820" x2="1060" y2="820" stroke="#2a2a2a" stroke-width="0.5"/>
             <g font-family="Tahoma,Arial,sans-serif" font-size="9" fill="#888">
               <text x="5"  y="840">21 Aug 2024</text>
               <text x="95" y="840">21 Aug 03:48</text>
