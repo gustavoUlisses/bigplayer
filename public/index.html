@@ -209,18 +209,16 @@
     position: relative;
     overflow: hidden;
   }
-  #hero::before {
-    content: '';
+  #hero .container { position: relative; z-index: 1; }
+  .hero-grid-bg {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700' width='1200' height='700'%3E%3Cdefs%3E%3ClinearGradient id='fade' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='white' stop-opacity='0'/%3E%3Cstop offset='60%25' stop-color='white' stop-opacity='1'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='1200' height='700' fill='url(%23fade)'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23m)' stroke='%23444' stroke-width='0.7' fill='none'%3E%3C!-- ponto de fuga: 600,0 --  linhas radiais --%3E%3Cline x1='600' y1='0' x2='-200' y2='700'/%3E%3Cline x1='600' y1='0' x2='-100' y2='700'/%3E%3Cline x1='600' y1='0' x2='0' y2='700'/%3E%3Cline x1='600' y1='0' x2='80' y2='700'/%3E%3Cline x1='600' y1='0' x2='160' y2='700'/%3E%3Cline x1='600' y1='0' x2='240' y2='700'/%3E%3Cline x1='600' y1='0' x2='310' y2='700'/%3E%3Cline x1='600' y1='0' x2='380' y2='700'/%3E%3Cline x1='600' y1='0' x2='440' y2='700'/%3E%3Cline x1='600' y1='0' x2='500' y2='700'/%3E%3Cline x1='600' y1='0' x2='550' y2='700'/%3E%3Cline x1='600' y1='0' x2='600' y2='700'/%3E%3Cline x1='600' y1='0' x2='650' y2='700'/%3E%3Cline x1='600' y1='0' x2='700' y2='700'/%3E%3Cline x1='600' y1='0' x2='760' y2='700'/%3E%3Cline x1='600' y1='0' x2='820' y2='700'/%3E%3Cline x1='600' y1='0' x2='890' y2='700'/%3E%3Cline x1='600' y1='0' x2='960' y2='700'/%3E%3Cline x1='600' y1='0' x2='1040' y2='700'/%3E%3Cline x1='600' y1='0' x2='1120' y2='700'/%3E%3Cline x1='600' y1='0' x2='1200' y2='700'/%3E%3Cline x1='600' y1='0' x2='1300' y2='700'/%3E%3Cline x1='600' y1='0' x2='1400' y2='700'/%3E%3C!-- linhas horizontais curvadas (perspectiva) --%3E%3Cpath d='M-200 700 Q600 420 1400 700'/%3E%3Cpath d='M-150 640 Q600 378 1350 640'/%3E%3Cpath d='M-80 580 Q600 338 1280 580'/%3E%3Cpath d='M0 522 Q600 300 1200 522'/%3E%3Cpath d='M60 468 Q600 264 1140 468'/%3E%3Cpath d='M120 416 Q600 230 1080 416'/%3E%3Cpath d='M180 366 Q600 198 1020 366'/%3E%3Cpath d='M240 318 Q600 168 960 318'/%3E%3Cpath d='M300 272 Q600 140 900 272'/%3E%3Cpath d='M360 228 Q600 114 840 228'/%3E%3Cpath d='M400 188 Q600 90 800 188'/%3E%3Cpath d='M440 150 Q600 68 760 150'/%3E%3Cpath d='M480 116 Q600 48 720 116'/%3E%3Cpath d='M510 86 Q600 30 690 86'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-position: center;
-    opacity: 0.5;
+    opacity: 0.45;
   }
-  #hero .container { position: relative; z-index: 1; }
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -808,6 +806,59 @@
 
 <!-- ══ 01. HERO ════════════════════════════════════ -->
 <section id="hero" class="section--dark">
+  <svg class="hero-grid-bg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="white" stop-opacity="0"/>
+        <stop offset="55%" stop-color="white" stop-opacity="1"/>
+      </linearGradient>
+      <mask id="gridMask">
+        <rect width="1200" height="700" fill="url(#gridFade)"/>
+      </mask>
+    </defs>
+    <g mask="url(#gridMask)" stroke="#555" stroke-width="0.8" fill="none">
+      <!-- linhas radiais convergindo para 600,0 -->
+      <line x1="600" y1="0" x2="-300" y2="700"/>
+      <line x1="600" y1="0" x2="-150" y2="700"/>
+      <line x1="600" y1="0" x2="0" y2="700"/>
+      <line x1="600" y1="0" x2="80" y2="700"/>
+      <line x1="600" y1="0" x2="160" y2="700"/>
+      <line x1="600" y1="0" x2="240" y2="700"/>
+      <line x1="600" y1="0" x2="310" y2="700"/>
+      <line x1="600" y1="0" x2="375" y2="700"/>
+      <line x1="600" y1="0" x2="435" y2="700"/>
+      <line x1="600" y1="0" x2="490" y2="700"/>
+      <line x1="600" y1="0" x2="540" y2="700"/>
+      <line x1="600" y1="0" x2="570" y2="700"/>
+      <line x1="600" y1="0" x2="600" y2="700"/>
+      <line x1="600" y1="0" x2="630" y2="700"/>
+      <line x1="600" y1="0" x2="660" y2="700"/>
+      <line x1="600" y1="0" x2="710" y2="700"/>
+      <line x1="600" y1="0" x2="765" y2="700"/>
+      <line x1="600" y1="0" x2="825" y2="700"/>
+      <line x1="600" y1="0" x2="890" y2="700"/>
+      <line x1="600" y1="0" x2="960" y2="700"/>
+      <line x1="600" y1="0" x2="1040" y2="700"/>
+      <line x1="600" y1="0" x2="1120" y2="700"/>
+      <line x1="600" y1="0" x2="1200" y2="700"/>
+      <line x1="600" y1="0" x2="1350" y2="700"/>
+      <line x1="600" y1="0" x2="1500" y2="700"/>
+      <!-- linhas horizontais curvadas em perspectiva -->
+      <path d="M-300 700 Q600 430 1500 700"/>
+      <path d="M-200 630 Q600 375 1400 630"/>
+      <path d="M-80 560 Q600 323 1280 560"/>
+      <path d="M20 495 Q600 274 1180 495"/>
+      <path d="M100 434 Q600 228 1100 434"/>
+      <path d="M175 376 Q600 185 1025 376"/>
+      <path d="M245 322 Q600 146 955 322"/>
+      <path d="M310 272 Q600 110 890 272"/>
+      <path d="M370 226 Q600 78 830 226"/>
+      <path d="M425 184 Q600 50 775 184"/>
+      <path d="M470 148 Q600 28 730 148"/>
+      <path d="M510 116 Q600 10 690 116"/>
+      <path d="M540 90 Q600 0 660 90"/>
+    </g>
+  </svg>
   <div class="container">
     <div class="hero-grid">
       <!-- texto -->
