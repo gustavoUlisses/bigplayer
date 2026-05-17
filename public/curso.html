@@ -21,6 +21,8 @@
     --border: #C8C4BB;
     --white:  #FFFFFF;
     --yellow: #F5E642;
+    --green:  #16a34a;
+    --red:    #dc2626;
     --sans:   'DM Sans', sans-serif;
     --r: 6px;
   }
@@ -31,8 +33,8 @@
     font-family: var(--sans);
     background: var(--bg);
     color: var(--ink);
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.65;
   }
 
   /* ── LOGIN ─────────────────────────────────────── */
@@ -122,7 +124,7 @@
 
   .login-error {
     font-size: 12px;
-    color: #dc2626;
+    color: var(--red);
     margin-top: 12px;
     min-height: 18px;
   }
@@ -139,7 +141,7 @@
   }
 
   .curso-nav-inner {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 32px;
     height: 56px;
@@ -149,6 +151,13 @@
   }
 
   .curso-nav-logo { font-size: 13px; font-weight: 700; }
+
+  .curso-nav-right { display: flex; align-items: center; gap: 18px; }
+
+  .curso-progress-mini {
+    font-size: 12px;
+    color: var(--ink2);
+  }
 
   .curso-nav-logout {
     font-size: 12px;
@@ -161,19 +170,122 @@
 
   .curso-nav-logout:hover { color: var(--ink); }
 
-  .curso-body {
-    max-width: 960px;
+  /* Layout grid */
+  .curso-layout {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 48px 32px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 32px;
+    padding: 32px;
   }
 
-  .curso-header {
-    margin-bottom: 40px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--border);
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
   }
 
-  .curso-tag {
+  .sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 16px;
+  }
+
+  .modulo {
+    margin-bottom: 18px;
+  }
+
+  .modulo:last-child { margin-bottom: 0; }
+
+  .modulo-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .modulo-num {
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .aulas { list-style: none; }
+
+  .aula-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    font-size: 13px;
+    color: var(--ink2);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    margin-bottom: 2px;
+  }
+
+  .aula-item:hover { background: var(--bg); color: var(--ink); }
+
+  .aula-item.active {
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 500;
+  }
+
+  .aula-item.active .aula-check { color: var(--bg); border-color: var(--bg); }
+
+  .aula-check {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--ink3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 10px;
+  }
+
+  .aula-item.done .aula-check {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--white);
+  }
+
+  .aula-item.quiz .aula-check {
+    border-style: dashed;
+  }
+
+  .aula-text { flex: 1; }
+
+  /* Content area */
+  .content {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 48px;
+    min-height: 60vh;
+  }
+
+  .content-tag {
     display: inline-block;
     font-size: 10px;
     font-weight: 600;
@@ -186,133 +298,274 @@
     margin-bottom: 16px;
   }
 
-  .curso-header h1 {
-    font-size: clamp(24px, 4vw, 36px);
+  .content h1 {
+    font-size: clamp(24px, 3.5vw, 32px);
     font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 12px;
+    line-height: 1.25;
+    margin-bottom: 14px;
   }
 
-  .curso-header p {
-    font-size: 15px;
+  .content .lead {
+    font-size: 17px;
     color: var(--ink2);
-    max-width: 560px;
+    margin-bottom: 32px;
+    line-height: 1.55;
   }
 
-  /* módulos */
-  .modulos { display: flex; flex-direction: column; gap: 12px; }
-
-  .modulo {
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    background: var(--white);
-    overflow: hidden;
+  .content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 36px 0 14px;
   }
 
-  .modulo-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 24px;
-    cursor: pointer;
-    user-select: none;
+  .content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 24px 0 10px;
   }
 
-  .modulo-header:hover { background: var(--bg); }
+  .content p { margin-bottom: 14px; }
 
-  .modulo-num {
+  .content ul, .content ol {
+    padding-left: 22px;
+    margin-bottom: 14px;
+  }
+
+  .content li { margin-bottom: 6px; }
+
+  .content strong { font-weight: 700; color: var(--ink); }
+
+  .content em { font-style: italic; color: var(--ink); }
+
+  .callout {
+    background: var(--bg);
+    border-left: 3px solid var(--ink);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+
+  .callout.warn { border-left-color: var(--red); }
+  .callout.tip  { border-left-color: var(--green); }
+  .callout.key  { border-left-color: var(--yellow); background: #FBF8E0; }
+
+  .callout-title {
     font-size: 11px;
     font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 6px;
+  }
+
+  .indicator-card {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 20px;
+    margin: 14px 0;
+    background: var(--bg);
+  }
+
+  .indicator-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .role-pill {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
     background: var(--ink);
     color: var(--bg);
-    padding: 3px 8px;
-    border-radius: 2px;
-    flex-shrink: 0;
   }
 
-  .modulo-title {
-    font-size: 15px;
-    font-weight: 600;
-    flex: 1;
-  }
+  .role-pill.com  { background: #16a34a; }
+  .role-pill.sem  { background: #d97706; }
+  .role-pill.pres { background: var(--ink); }
+  .role-pill.time { background: #2563eb; }
 
-  .modulo-toggle {
-    font-size: 18px;
-    color: var(--ink3);
-    transition: transform .2s;
-    flex-shrink: 0;
-  }
-
-  .modulo.open .modulo-toggle { transform: rotate(45deg); }
-
-  .modulo-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .3s ease;
-  }
-
-  .modulo.open .modulo-body { max-height: 600px; }
-
-  .aulas {
-    list-style: none;
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 48px;
+    padding-top: 24px;
     border-top: 1px solid var(--border);
   }
 
-  .aula {
+  .nav-btn {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--sans);
+    color: var(--ink);
+    transition: background .15s;
+  }
+
+  .nav-btn:hover:not(:disabled) { background: var(--bg); }
+  .nav-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+  .nav-btn.primary {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .nav-btn.primary:hover:not(:disabled) { opacity: .85; background: var(--ink); }
+
+  /* QUIZ */
+  .quiz-intro {
+    text-align: center;
+    padding: 20px 0 32px;
+  }
+
+  .quiz-question {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px;
+    margin-bottom: 18px;
+    background: var(--bg);
+  }
+
+  .quiz-q-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink2);
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+  }
+
+  .quiz-q-text {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.45;
+  }
+
+  .quiz-options {
+    list-style: none;
     display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 24px;
-    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-opt {
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: var(--r);
+    padding: 12px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    font-family: var(--sans);
+    text-align: left;
+    color: var(--ink);
+    width: 100%;
+  }
+
+  .quiz-opt:hover:not(.disabled) { border-color: var(--ink); }
+  .quiz-opt.selected { border-color: var(--ink); background: var(--bg); }
+  .quiz-opt.correct {
+    border-color: var(--green);
+    background: #f0fdf4;
+    color: var(--green);
+    font-weight: 600;
+  }
+  .quiz-opt.wrong {
+    border-color: var(--red);
+    background: #fef2f2;
+    color: var(--red);
+  }
+  .quiz-opt.disabled { cursor: default; }
+
+  .quiz-explain {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--ink2);
+    padding: 10px 14px;
+    background: var(--white);
+    border-radius: 4px;
+    border-left: 3px solid var(--ink);
+  }
+
+  .quiz-result {
+    text-align: center;
+    padding: 32px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    background: var(--bg);
+    margin-bottom: 24px;
+  }
+
+  .quiz-score {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .quiz-result-text {
     font-size: 14px;
     color: var(--ink2);
+    margin-bottom: 18px;
   }
 
-  .aula:last-child { border-bottom: none; }
-
-  .aula-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--ink3);
-  }
-
-  .aula-icon svg { width: 12px; height: 12px; }
-
-  .aula-nome { flex: 1; }
-  .aula-duracao { font-size: 12px; color: var(--ink3); }
-
-  /* placeholder de vídeo */
-  .video-placeholder {
-    background: var(--ink);
-    border-radius: var(--r);
-    aspect-ratio: 16/9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #555;
-    font-size: 13px;
-    margin-bottom: 40px;
-    position: relative;
+  .progress-bar {
+    height: 4px;
+    background: var(--bg);
+    border-radius: 2px;
     overflow: hidden;
+    margin-top: 16px;
   }
 
-  .video-placeholder span {
-    font-size: 11px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    transition: width .3s ease;
   }
 
-  @media (max-width: 600px) {
-    .curso-body { padding: 32px 20px; }
+  /* Mobile */
+  .sidebar-toggle {
+    display: none;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--r);
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--sans);
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .curso-layout {
+      grid-template-columns: 1fr;
+      padding: 20px;
+      gap: 16px;
+    }
+    .sidebar {
+      position: static;
+      max-height: none;
+      display: none;
+    }
+    .sidebar.open { display: block; }
+    .sidebar-toggle { display: block; }
+    .content { padding: 28px 24px; }
     .curso-nav-inner { padding: 0 20px; }
-    .modulo-header { padding: 16px 20px; }
-    .aula { padding: 12px 20px; }
+    .curso-progress-mini { display: none; }
   }
 </style>
 </head>
@@ -340,132 +593,22 @@
   <nav class="curso-nav">
     <div class="curso-nav-inner">
       <span class="curso-nav-logo">DIDI INDEX ▸ SETUP — Área do Aluno</span>
-      <button class="curso-nav-logout" id="btn-logout">Sair</button>
+      <div class="curso-nav-right">
+        <span class="curso-progress-mini" id="progress-mini">0% concluído</span>
+        <button class="curso-nav-logout" id="btn-logout">Sair</button>
+      </div>
     </div>
   </nav>
 
-  <div class="curso-body">
-    <div class="curso-header">
-      <span class="curso-tag">Curso completo</span>
-      <h1>Estratégia Didi Index:<br>do zero ao sinal</h1>
-      <p>Aprenda a ler o setup e identificar as Agulhadas no seu MetaTrader. Em vídeo, no seu ritmo.</p>
-    </div>
+  <div class="curso-layout">
+    <button class="sidebar-toggle" id="sidebar-toggle">Menu de aulas ▾</button>
 
-    <div class="video-placeholder">
-      <span>Aula em breve</span>
-    </div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-title">Curso completo</div>
+      <div id="sidebar-modulos"></div>
+    </aside>
 
-    <div class="modulos">
-
-      <div class="modulo open">
-        <div class="modulo-header">
-          <span class="modulo-num">01</span>
-          <span class="modulo-title">Fundamentos da estratégia</span>
-          <span class="modulo-toggle">+</span>
-        </div>
-        <div class="modulo-body">
-          <ul class="aulas">
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">O que é o Didi Index e como surgiu</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">As 3 médias móveis: 3, 8 e 20</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">O oscilador Didi Index explicado</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="modulo">
-        <div class="modulo-header">
-          <span class="modulo-num">02</span>
-          <span class="modulo-title">Instalando e configurando o setup</span>
-          <span class="modulo-toggle">+</span>
-        </div>
-        <div class="modulo-body">
-          <ul class="aulas">
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Instalando no MetaTrader 4</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Instalando no MetaTrader 5</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Conhecendo o setup na prática</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="modulo">
-        <div class="modulo-header">
-          <span class="modulo-num">03</span>
-          <span class="modulo-title">Identificando a Agulhada</span>
-          <span class="modulo-toggle">+</span>
-        </div>
-        <div class="modulo-body">
-          <ul class="aulas">
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Agulhada de alta: como reconhecer</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Agulhada de baixa: como reconhecer</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Sinais falsos: o que evitar</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="modulo">
-        <div class="modulo-header">
-          <span class="modulo-num">04</span>
-          <span class="modulo-title">Operando na prática</span>
-          <span class="modulo-toggle">+</span>
-        </div>
-        <div class="modulo-body">
-          <ul class="aulas">
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Entrada, alvo e stop dentro da estratégia</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Exemplos reais no WIN e WDO</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-            <li class="aula">
-              <div class="aula-icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
-              <span class="aula-nome">Perguntas frequentes dos alunos</span>
-              <span class="aula-duracao">Em breve</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
+    <main class="content" id="content"></main>
   </div>
 </div>
 
