@@ -10,12 +10,16 @@ export default async function handler(req, res) {
   const customerId = typeof body.customerId === 'string' ? body.customerId.trim() : '';
   const billingType = body.billingType;
   const { creditCard, creditCardHolderInfo } = body;
+  const installments = billingType === 'CREDIT_CARD' ? (parseInt(body.installments) || 1) : 1;
 
   if (!/^cus_[\w]+$/.test(customerId)) {
     return res.status(400).json({ error: 'customerId inválido' });
   }
   if (!['PIX', 'CREDIT_CARD'].includes(billingType)) {
     return res.status(400).json({ error: 'billingType inválido' });
+  }
+  if (![1, 2, 3].includes(installments)) {
+    return res.status(400).json({ error: 'Parcelamento inválido' });
   }
 
   // Cartão usa limite estrito (anti card-testing); PIX usa o limite padrão.
@@ -25,14 +29,21 @@ export default async function handler(req, res) {
   const today = new Date().toISOString().split('T')[0];
 
   // O valor vem SEMPRE do servidor — o frontend não envia preço.
-  // PIX tem 5% de desconto; cartão paga preço cheio.
+  // PIX tem R$5 de desconto; cartão paga com juros compostos de 1,99% a.m. quando parcelado.
   const basePrice = parseFloat(process.env.PRODUCT_PRICE);
-  const value = billingType === 'PIX' ? basePrice - 5 : basePrice;
+
+  function calcInstallment(principal, n, rate = 0.0199) {
+    if (n === 1) return principal;
+    return Math.round((principal * rate * Math.pow(1 + rate, n)) / (Math.pow(1 + rate, n) - 1) * 100) / 100;
+  }
+
+  const installmentValue = calcInstallment(basePrice, installments);
+  const totalValue = billingType === 'PIX' ? basePrice - 5 : Math.round(installmentValue * installments * 100) / 100;
 
   const payload = {
     customer: customerId,
     billingType,
-    value,
+    value: totalValue,
     dueDate: today,
     description: 'Compra de produto digital',
     externalReference: 'bigplayer-checkout',
@@ -42,6 +53,10 @@ export default async function handler(req, res) {
     if (!creditCard || typeof creditCard !== 'object' ||
         !creditCardHolderInfo || typeof creditCardHolderInfo !== 'object') {
       return res.status(400).json({ error: 'Dados do cartão são obrigatórios' });
+    }
+    if (installments > 1) {
+      payload.installmentCount = installments;
+      payload.installmentValue = installmentValue;
     }
     // Os dados do cartão apenas trafegam até o Asaas — nunca são gravados nem logados.
     payload.creditCard = creditCard;

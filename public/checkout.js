@@ -206,18 +206,30 @@ formCheckout.addEventListener('submit', async (e) => {
   }
 });
 
+// ── INSTALLMENTS LABEL ────────────────────────────────────────
+const INSTALLMENT_LABELS = {
+  1: 'Pagar 1x R$29,90',
+  2: 'Pagar 2x R$15,49',
+  3: 'Pagar 3x R$10,49',
+};
+document.getElementById('inp-card-installments').addEventListener('change', (e) => {
+  const label = document.getElementById('btn-card-label');
+  if (label) label.textContent = INSTALLMENT_LABELS[parseInt(e.target.value)] || INSTALLMENT_LABELS[1];
+});
+
 // ── STEP 2b CARD SUBMIT ───────────────────────────────────────
 formCard.addEventListener('submit', async (e) => {
   e.preventDefault();
   setError(cardError, '');
 
-  const number   = document.getElementById('inp-card-number').value.replace(/\s/g, '');
-  const expiry   = document.getElementById('inp-card-expiry').value;
-  const cvv      = document.getElementById('inp-card-cvv').value;
-  const holder   = document.getElementById('inp-card-holder').value.trim().toUpperCase();
-  const phoneRaw = document.getElementById('inp-card-phone').value.replace(/\D/g, '');
-  const cepRaw   = document.getElementById('inp-card-cep').value.replace(/\D/g, '');
-  const addrNum  = document.getElementById('inp-card-addrnum').value.replace(/\D/g, '');
+  const number       = document.getElementById('inp-card-number').value.replace(/\s/g, '');
+  const expiry       = document.getElementById('inp-card-expiry').value;
+  const cvv          = document.getElementById('inp-card-cvv').value;
+  const holder       = document.getElementById('inp-card-holder').value.trim().toUpperCase();
+  const phoneRaw     = document.getElementById('inp-card-phone').value.replace(/\D/g, '');
+  const cepRaw       = document.getElementById('inp-card-cep').value.replace(/\D/g, '');
+  const addrNum      = document.getElementById('inp-card-addrnum').value.replace(/\D/g, '');
+  const installments = parseInt(document.getElementById('inp-card-installments').value) || 1;
 
   if (number.length < 13)   return setError(cardError, 'Número do cartão inválido.');
   if (expiry.length !== 5)  return setError(cardError, 'Validade inválida (MM/AA).');
@@ -237,6 +249,7 @@ formCard.addEventListener('submit', async (e) => {
     const chargeRes = await api('/api/create-charge', 'POST', {
       customerId: state.customerId,
       billingType: 'CREDIT_CARD',
+      installments,
       creditCard: {
         holderName: holder,
         number,
@@ -339,6 +352,10 @@ function resetState() {
   cardBtn.disabled = false;
   setLoading(cardBtn, false);
   setLoading(document.getElementById('btn-step1-submit'), false);
+  const installSel = document.getElementById('inp-card-installments');
+  if (installSel) installSel.value = '1';
+  const cardLabel = document.getElementById('btn-card-label');
+  if (cardLabel) cardLabel.textContent = 'Pagar 1x R$29,90';
 }
 
 // ══ LANDING — FAQ accordion ══════════════════════════════════

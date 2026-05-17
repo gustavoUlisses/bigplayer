@@ -89,9 +89,19 @@ export default async function handler(req, res) {
     // 4. Confere o valor pago contra o preço esperado (aceita preço cheio e PIX com 5% off)
     const expectedPrice    = parseFloat(process.env.PRODUCT_PRICE);
     const expectedPricePix = expectedPrice - 5;
-    const paidValue        = Number(payData.value);
-    if (Number.isFinite(expectedPrice) && paidValue !== expectedPrice && paidValue !== expectedPricePix) {
-      console.error(`[webhook] ${paymentId}: VALOR DIVERGENTE — pago ${paidValue}, esperado ${expectedPrice} ou ${expectedPricePix}.`);
+    // valores válidos: PIX com desconto, 1x, 2x (1,99% a.m.) e 3x (1,99% a.m.)
+    const rate = 0.0199;
+    const inst2 = Math.round((expectedPrice * rate * Math.pow(1+rate,2)) / (Math.pow(1+rate,2)-1) * 100) / 100;
+    const inst3 = Math.round((expectedPrice * rate * Math.pow(1+rate,3)) / (Math.pow(1+rate,3)-1) * 100) / 100;
+    const validValues = [
+      expectedPrice,
+      expectedPricePix,
+      Math.round(inst2 * 2 * 100) / 100,
+      Math.round(inst3 * 3 * 100) / 100,
+    ];
+    const paidValue = Number(payData.value);
+    if (Number.isFinite(expectedPrice) && !validValues.includes(paidValue)) {
+      console.error(`[webhook] ${paymentId}: VALOR DIVERGENTE — pago ${paidValue}, esperados ${validValues.join(', ')}.`);
       return res.status(200).json({ ok: true, skipped: 'value-mismatch' });
     }
 
