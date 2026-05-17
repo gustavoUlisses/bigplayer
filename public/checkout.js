@@ -127,6 +127,7 @@ const BRAND_SVGS = {
   amex:       `<img src="/images/amex.png" alt="Amex" class="card-brand-img">`,
   elo:        `<img src="/images/elo.png" alt="Elo" class="card-brand-img">`,
   hipercard:  `<img src="/images/hipercard.png" alt="Hipercard" class="card-brand-img">`,
+  diners:     `<img src="/images/diners.png" alt="Diners" class="card-brand-img">`,
   default:    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#9ca3af" stroke-width="1.5"/><path d="M2 10h20" stroke="#9ca3af" stroke-width="1.5"/><circle cx="7" cy="15" r="1.2" fill="#9ca3af"/></svg>`,
 };
 
@@ -137,6 +138,7 @@ function detectBrand(num) {
   if (/^3[47]/.test(n)) return 'amex';
   if (/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
   if (/^(384100|384140|384160|606282|637095|637599|637568)/.test(n)) return 'hipercard';
+  if (/^(30[0-5]|36|38)/.test(n)) return 'diners';
   return 'default';
 }
 
