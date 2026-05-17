@@ -27,9 +27,7 @@ export default async function handler(req, res) {
   // O valor vem SEMPRE do servidor — o frontend não envia preço.
   // PIX tem 5% de desconto; cartão paga preço cheio.
   const basePrice = parseFloat(process.env.PRODUCT_PRICE);
-  const value = billingType === 'PIX'
-    ? Math.round(basePrice * 0.95 * 100) / 100
-    : basePrice;
+  const value = billingType === 'PIX' ? basePrice - 5 : basePrice;
 
   const payload = {
     customer: customerId,

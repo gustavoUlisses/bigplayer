@@ -88,7 +88,7 @@ export default async function handler(req, res) {
 
     // 4. Confere o valor pago contra o preço esperado (aceita preço cheio e PIX com 5% off)
     const expectedPrice    = parseFloat(process.env.PRODUCT_PRICE);
-    const expectedPricePix = Math.round(expectedPrice * 0.95 * 100) / 100;
+    const expectedPricePix = expectedPrice - 5;
     const paidValue        = Number(payData.value);
     if (Number.isFinite(expectedPrice) && paidValue !== expectedPrice && paidValue !== expectedPricePix) {
       console.error(`[webhook] ${paymentId}: VALOR DIVERGENTE — pago ${paidValue}, esperado ${expectedPrice} ou ${expectedPricePix}.`);

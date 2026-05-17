@@ -26,7 +26,7 @@ const steps = {
 
 // ── PREÇOS ────────────────────────────────────────────────────
 const PRICE_FULL = 29.90;
-const PRICE_PIX  = 28.40; // 5% off
+const PRICE_PIX  = 24.90;
 
 function updatePriceSummary(billing) {
   const bar   = document.getElementById('pix-discount-bar');
@@ -35,8 +35,8 @@ function updatePriceSummary(billing) {
   if (!bar || !price) return;
   if (billing === 'PIX') {
     bar.style.display = 'block';
-    price.textContent = 'R$28,40';
-    tag.textContent   = '5% off no PIX';
+    price.textContent = 'R$24,90';
+    tag.textContent   = 'R$5 off no PIX';
   } else {
     bar.style.display = 'none';
     price.textContent = 'R$29,90';
