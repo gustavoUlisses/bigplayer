@@ -206,7 +206,24 @@
   /* ── HERO ────────────────────────────────────────── */
   #hero {
     padding: 80px 0 72px;
+    position: relative;
+    overflow: hidden;
   }
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      /* linhas verticais em perspectiva via SVG data URI */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Cg stroke='%23333' stroke-width='0.8' fill='none' opacity='0.6'%3E%3C!-- linhas horizontais curvas (convergem para o centro-topo) --%3E%3Cpath d='M0 600 Q600 200 1200 600'/%3E%3Cpath d='M0 560 Q600 175 1200 560'/%3E%3Cpath d='M0 520 Q600 155 1200 520'/%3E%3Cpath d='M0 480 Q600 138 1200 480'/%3E%3Cpath d='M0 440 Q600 122 1200 440'/%3E%3Cpath d='M0 400 Q600 108 1200 400'/%3E%3Cpath d='M0 360 Q600 95 1200 360'/%3E%3Cpath d='M0 320 Q600 83 1200 320'/%3E%3Cpath d='M0 280 Q600 72 1200 280'/%3E%3Cpath d='M0 240 Q600 62 1200 240'/%3E%3Cpath d='M0 200 Q600 53 1200 200'/%3E%3Cpath d='M0 160 Q600 44 1200 160'/%3E%3Cpath d='M0 120 Q600 36 1200 120'/%3E%3C!-- linhas verticais que convergem para o centro-topo --%3E%3Cline x1='600' y1='0' x2='0' y2='600'/%3E%3Cline x1='600' y1='0' x2='1200' y2='600'/%3E%3Cline x1='600' y1='0' x2='100' y2='600'/%3E%3Cline x1='600' y1='0' x2='1100' y2='600'/%3E%3Cline x1='600' y1='0' x2='200' y2='600'/%3E%3Cline x1='600' y1='0' x2='1000' y2='600'/%3E%3Cline x1='600' y1='0' x2='300' y2='600'/%3E%3Cline x1='600' y1='0' x2='900' y2='600'/%3E%3Cline x1='600' y1='0' x2='400' y2='600'/%3E%3Cline x1='600' y1='0' x2='800' y2='600'/%3E%3Cline x1='600' y1='0' x2='500' y2='600'/%3E%3Cline x1='600' y1='0' x2='700' y2='600'/%3E%3Cline x1='600' y1='0' x2='550' y2='600'/%3E%3Cline x1='600' y1='0' x2='650' y2='600'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center bottom;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);
+  }
+  #hero .container { position: relative; z-index: 1; }
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
