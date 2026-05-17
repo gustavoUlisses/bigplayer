@@ -120,11 +120,33 @@ document.getElementById('inp-card-cep').addEventListener('input', (e) => {
   e.target.value = v;
 });
 
+// ── CARD BRAND DETECTION ──────────────────────────────────────
+const BRAND_SVGS = {
+  visa: `<svg width="38" height="24" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#1A1F71"/><path d="M14.5 16.5l1.8-9h2.9l-1.8 9h-2.9zm10.1-8.8c-.6-.2-1.5-.5-2.6-.5-2.9 0-4.9 1.5-4.9 3.6 0 1.6 1.4 2.4 2.5 3 1.1.5 1.5.9 1.5 1.4 0 .7-.9 1.1-1.7 1.1-1.2 0-1.8-.2-2.8-.6l-.4-.2-.4 2.4c.7.3 1.9.6 3.2.6 3 0 5-1.5 5-3.7 0-1.2-.8-2.2-2.4-3-.9-.5-1.5-.8-1.5-1.3 0-.4.5-.9 1.5-.9.9 0 1.5.2 2 .4l.2.1.4-2.4zm7.1-0.2h-2.2c-.7 0-1.2.2-1.5.9l-4.2 9.1h3l.6-1.6h3.6l.3 1.6h2.6l-2.2-9zm-3.5 5.8l1.1-2.9.6 2.9h-1.7zm-18.3-5.8L7 16.5H4.2L2.4 9.8c-.1-.4-.3-.8-.8-1C1 8.5.1 8.2 0 8.2v-.3h4.6c.6 0 1.1.4 1.3 1l1.2 6.2 2.9-7.2h3z" fill="#fff"/></svg>`,
+  mastercard: `<svg width="38" height="24" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#252525"/><circle cx="15" cy="12" r="7" fill="#EB001B"/><circle cx="23" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.8a7 7 0 010 10.4A7 7 0 0119 6.8z" fill="#FF5F00"/></svg>`,
+  amex: `<svg width="38" height="24" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#2557D6"/><text x="19" y="16" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9" fill="white">AMEX</text></svg>`,
+  elo: `<svg width="38" height="24" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#FFD700"/><text x="19" y="16" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9" fill="#333">ELO</text></svg>`,
+  hipercard: `<svg width="38" height="24" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#B3131A"/><text x="19" y="16" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="7" fill="white">HIPER</text></svg>`,
+  default: `<svg width="28" height="18" viewBox="0 0 48 30" fill="none" opacity=".35"><rect width="48" height="30" rx="4" fill="#9ca3af"/><path d="M10 15h28M10 10h10M10 20h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>`,
+};
+
+function detectBrand(num) {
+  const n = num.replace(/\D/g, '');
+  if (/^4/.test(n)) return 'visa';
+  if (/^5[1-5]|^2[2-7]/.test(n)) return 'mastercard';
+  if (/^3[47]/.test(n)) return 'amex';
+  if (/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
+  if (/^(384100|384140|384160|606282|637095|637599|637568)/.test(n)) return 'hipercard';
+  return 'default';
+}
+
 // ── CARD MASKS ────────────────────────────────────────────────
 document.getElementById('inp-card-number').addEventListener('input', (e) => {
   let v = e.target.value.replace(/\D/g, '').slice(0, 16);
   v = v.replace(/(\d{4})(?=\d)/g, '$1 ');
   e.target.value = v;
+  const icon = document.getElementById('card-brand-icon');
+  if (icon) icon.innerHTML = BRAND_SVGS[detectBrand(v)] || BRAND_SVGS.default;
 });
 
 document.getElementById('inp-card-expiry').addEventListener('input', (e) => {
