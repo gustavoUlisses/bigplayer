@@ -11,7 +11,6 @@ let state = {
 
 // ── DOM REFS ─────────────────────────────────────────────────
 const overlay       = document.getElementById('modal-overlay');
-const btnOpen       = document.getElementById('btn-open-checkout');
 const btnClose      = document.getElementById('btn-close-modal');
 const formCheckout  = document.getElementById('form-checkout');
 const formCard      = document.getElementById('form-card');
@@ -26,7 +25,8 @@ const steps = {
 };
 
 // ── MODAL ─────────────────────────────────────────────────────
-btnOpen.addEventListener('click', openModal);
+// todos os botões "Comprar" da landing abrem o checkout
+document.querySelectorAll('.js-buy').forEach((b) => b.addEventListener('click', openModal));
 btnClose.addEventListener('click', closeModal);
 overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
@@ -313,3 +313,38 @@ function resetState() {
   setLoading(cardBtn, false);
   setLoading(document.getElementById('btn-step1-submit'), false);
 }
+
+// ══ LANDING PAGE — navegação e reveal ════════════════════════
+(() => {
+  // marca que o JS está ativo (habilita as animações de scroll-reveal)
+  document.documentElement.classList.add('js-on');
+
+  // menu mobile
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('nav-burger');
+  if (nav && burger) {
+    burger.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('.nav__mobile a').forEach((a) =>
+      a.addEventListener('click', () => {
+        nav.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+      })
+    );
+  }
+
+  // scroll-reveal
+  const reveals = document.querySelectorAll('.reveal');
+  if (reveals.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+    reveals.forEach((el) => io.observe(el));
+  } else {
+    reveals.forEach((el) => el.classList.add('is-in'));
+  }
+})();
