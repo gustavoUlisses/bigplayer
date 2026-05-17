@@ -11,13 +11,139 @@ const QUIZ_KEY     = 'curso_quiz_v1';
 const CURSO = [
   {
     num: '01',
-    titulo: 'Fundamentos da estratégia',
+    titulo: 'Introdução',
     aulas: [
+      {
+        id: 'm1-a0',
+        titulo: 'Quem é Didi Aguiar e como nasceu o método',
+        html: `
+          <span class="content-tag">Módulo 1 · Aula 1</span>
+          <h1>Quem é Didi Aguiar e como nasceu o método</h1>
+          <p class="lead">Antes de aprender o setup, vale entender de onde ele veio. Conhecer o autor e o raciocínio por trás da estratégia ajuda você a aplicar o método com a cabeça certa — não só decorando regras.</p>
+
+          <h2>Quem é Didi Aguiar</h2>
+          <p><strong>Odir Aguiar</strong>, mais conhecido como <strong>Didi Aguiar</strong>, é um dos analistas técnicos mais respeitados do Brasil. Engenheiro de formação, dedicou décadas ao estudo do mercado financeiro e do comportamento dos preços, tornando-se referência em análise gráfica no país.</p>
+
+          <p>Didi é o criador do indicador que leva seu nome — o <strong>Didi Index</strong> — e também do conceito de <strong>agulhada</strong>, que se tornou tão popular entre traders brasileiros que hoje é praticamente sinônimo da sua escola de análise.</p>
+
+          <h2>De onde veio o Didi Index</h2>
+          <p>O Didi Index não foi inventado: foi <em>percebido</em>. Em uma madrugada, por volta das 4 da manhã, depois de horas observando gráficos, Didi notou uma formação específica entre três médias móveis que <strong>se repetia inúmeras vezes</strong> e quase sempre antecedia movimentos fortes.</p>
+
+          <div class="callout">
+            <div class="callout-title">Nas palavras dele</div>
+            "Vasculhei todos os tempos gráficos, todos os ativos daqui e de fora do Brasil, e fiquei como louco tentando provar que eu não havia descoberto isto. Mas foi inevitável… a coisa insistia em funcionar."
+          </div>
+
+          <p>O que ele havia percebido — e que mais tarde batizaria de <strong>agulhada</strong> — é o momento em que as três médias móveis (períodos 3, 8 e 20) se encontram praticamente no mesmo ponto e saem ordenadas, na compra ou na venda.</p>
+
+          <h2>O que torna o método especial</h2>
+          <p>Existem dezenas de indicadores no mercado. O grande mérito do Didi não foi criar mais um — foi montar um <strong>sistema</strong> em que <em>cinco</em> indicadores diferentes conversam entre si com regras claras de hierarquia. Cada indicador resolve uma parte do problema:</p>
+
+          <ul>
+            <li>Um decide se vale a pena operar (existe tendência?)</li>
+            <li>Um decide quando agir (timing)</li>
+            <li>Um confirma a direção do movimento</li>
+            <li>Um valida cenários laterais</li>
+            <li>Um dispara o gatilho de entrada (a agulhada)</li>
+          </ul>
+
+          <p>Essa <strong>divisão de tarefas</strong> é o que diferencia o setup do Didi de qualquer outra estratégia baseada em um único indicador. É também o motivo de o método continuar funcionando décadas depois de criado.</p>
+
+          <h2>O que você vai aprender neste curso</h2>
+          <ul>
+            <li>Como instalar o setup pronto no MetaTrader 4, MetaTrader 5, Profit Chart e Tryd</li>
+            <li>Quem é cada um dos 5 indicadores e qual é o papel dele</li>
+            <li>Como ler a hierarquia (quem manda em quem)</li>
+            <li>Como identificar uma agulhada — e quando ela vira uma "agulhada santa"</li>
+            <li>Como entrar, sair e operar a estratégia na prática</li>
+          </ul>
+
+          <div class="callout tip">
+            <div class="callout-title">Como aproveitar o curso</div>
+            As aulas são curtas e diretas. Leia no seu ritmo, faça os quizzes ao fim de cada módulo para checar o que ficou e use as aulas como referência sempre que tiver dúvida operando no gráfico.
+          </div>
+        `
+      },
+      {
+        id: 'm1-a-install',
+        titulo: 'Instalando o setup: MT4, MT5, Profit e Tryd',
+        html: `
+          <span class="content-tag">Módulo 1 · Aula 2</span>
+          <h1>Instalando o setup: MT4, MT5, Profit e Tryd</h1>
+          <p class="lead">O setup foi entregue para você em um arquivo único por plataforma. Em todas elas a ideia é a mesma: <strong>copiar o arquivo para a pasta correta</strong> e reiniciar o programa. A seguir, o passo a passo de cada uma.</p>
+
+          <div class="callout">
+            <div class="callout-title">Antes de começar</div>
+            Tenha o arquivo do setup salvo em um lugar fácil de encontrar (Downloads ou Desktop). Se a sua plataforma estiver aberta, feche-a antes de copiar os arquivos.
+          </div>
+
+          <h2>MetaTrader 4 (MT4)</h2>
+          <ol>
+            <li>Abra o MT4.</li>
+            <li>No menu superior, vá em <strong>Arquivo &gt; Abrir Pasta de Dados</strong>.</li>
+            <li>Uma janela do Windows Explorer vai abrir. Entre em <strong>MQL4 &gt; Templates</strong> e cole o arquivo <strong>.tpl</strong> do setup ali. Os arquivos <strong>.ex4</strong> (indicadores), se houver, vão em <strong>MQL4 &gt; Indicators</strong>.</li>
+            <li>Feche o MT4 completamente e abra de novo.</li>
+            <li>Abra um gráfico de qualquer ativo (ex: WIN, WDO). Clique com o botão direito no gráfico &gt; <strong>Modelo (Template) &gt; nome do setup</strong>.</li>
+            <li>Pronto. Bollinger, ADX, Didi Index, TRIX e Estocástico aparecem já configurados.</li>
+          </ol>
+
+          <h2>MetaTrader 5 (MT5)</h2>
+          <ol>
+            <li>Abra o MT5.</li>
+            <li>Vá em <strong>Arquivo &gt; Abrir Pasta de Dados</strong>.</li>
+            <li>Entre em <strong>MQL5 &gt; Profiles &gt; Templates</strong> e cole o arquivo <strong>.tpl</strong>. Indicadores <strong>.ex5</strong>, se houver, vão em <strong>MQL5 &gt; Indicators</strong>.</li>
+            <li>Feche e reabra o MT5.</li>
+            <li>Abra um gráfico, clique com o botão direito &gt; <strong>Modelos &gt; nome do setup</strong>.</li>
+            <li>Os 5 indicadores aparecem no gráfico, prontos para uso.</li>
+          </ol>
+
+          <div class="callout tip">
+            <div class="callout-title">Dica para MT4 e MT5</div>
+            Se preferir que o setup seja o padrão ao abrir qualquer gráfico, salve o template com o nome <strong>default</strong>. A partir daí, todo novo gráfico já vai abrir com o setup aplicado.
+          </div>
+
+          <h2>Profit Chart</h2>
+          <ol>
+            <li>Abra o Profit Chart.</li>
+            <li>No menu, vá em <strong>Estudos &gt; Importar Estudo</strong> (ou <strong>Arquivo &gt; Importar</strong>, dependendo da versão).</li>
+            <li>Selecione o arquivo do setup que você recebeu (extensão própria do Profit).</li>
+            <li>O Profit pede para você confirmar a importação — confirme.</li>
+            <li>Abra o gráfico do ativo desejado, clique com o botão direito &gt; <strong>Aplicar Estudo &gt; nome do setup</strong>.</li>
+            <li>Os indicadores são aplicados automaticamente com os parâmetros corretos.</li>
+          </ol>
+
+          <h2>Tryd</h2>
+          <ol>
+            <li>Abra o Tryd.</li>
+            <li>No menu, vá em <strong>Configurações &gt; Importar Layout</strong> (ou <strong>Gráfico &gt; Importar Template</strong>, dependendo da versão).</li>
+            <li>Selecione o arquivo do setup recebido.</li>
+            <li>Confirme a importação.</li>
+            <li>Abra um gráfico, clique com o botão direito &gt; <strong>Aplicar Template &gt; nome do setup</strong>.</li>
+            <li>Os 5 indicadores aparecem aplicados, com os períodos e configurações do método.</li>
+          </ol>
+
+          <div class="callout warn">
+            <div class="callout-title">Importante</div>
+            Os parâmetros já vêm prontos no arquivo: <strong>Didi Index com médias de 3, 8 e 20</strong>; Bollinger com 20 períodos e 2 desvios; ADX com 14 períodos; TRIX e Estocástico nos valores tradicionais. <strong>Não altere</strong> esses números — a estratégia foi calibrada com eles.
+          </div>
+
+          <h2>Conferindo se deu certo</h2>
+          <p>Depois de aplicar o setup em qualquer plataforma, você deve ver:</p>
+          <ul>
+            <li><strong>Bandas de Bollinger</strong> envolvendo as barras de preço no gráfico principal</li>
+            <li><strong>Didi Index</strong> com três linhas (azul, branca, amarela) em uma janela inferior</li>
+            <li><strong>ADX</strong> com três linhas (AD+, AD-, ADX) em outra janela</li>
+            <li><strong>TRIX</strong> e <strong>Estocástico</strong> em janelas separadas, cada um com duas linhas</li>
+          </ul>
+
+          <p>Se algum desses não aparecer, refaça o passo 3 da sua plataforma (copiar o arquivo para a pasta correta) e reinicie o programa. Na próxima aula você vai entender o papel de cada um deles.</p>
+        `
+      },
       {
         id: 'm1-a1',
         titulo: 'O setup do Didi: 5 indicadores, 1 decisão',
         html: `
-          <span class="content-tag">Módulo 1 · Aula 1</span>
+          <span class="content-tag">Módulo 1 · Aula 3</span>
           <h1>O setup do Didi: 5 indicadores, 1 decisão</h1>
           <p class="lead">A estratégia do Didi Aguiar não é "um indicador mágico". É um sistema com cinco indicadores trabalhando juntos — cada um com um papel específico — para chegar em uma única decisão: <strong>comprar, vender ou ficar de fora</strong>.</p>
 
@@ -64,7 +190,7 @@ const CURSO = [
         id: 'm1-a2',
         titulo: 'A hierarquia dos indicadores',
         html: `
-          <span class="content-tag">Módulo 1 · Aula 2</span>
+          <span class="content-tag">Módulo 1 · Aula 4</span>
           <h1>A hierarquia: quem manda em quem</h1>
           <p class="lead">Os 5 indicadores não falam ao mesmo tempo. Existe uma ordem clara — e respeitar essa ordem é o que separa quem entende o método de quem só decorou o nome dos indicadores.</p>
 
@@ -99,8 +225,30 @@ const CURSO = [
       }
     ],
     quiz: {
-      titulo: 'Quiz · Fundamentos',
+      titulo: 'Quiz · Introdução',
       perguntas: [
+        {
+          q: 'Quem é Didi Aguiar?',
+          opcoes: [
+            'Um operador estrangeiro famoso da bolsa de Nova York',
+            'O analista técnico brasileiro que criou o Didi Index e o conceito de agulhada',
+            'O fundador da B3',
+            'Um robô automatizado de operações'
+          ],
+          correta: 1,
+          explica: 'Odir "Didi" Aguiar é um dos analistas técnicos mais respeitados do Brasil. Criou o indicador Didi Index e o conceito de agulhada.'
+        },
+        {
+          q: 'Em qual pasta do MetaTrader 5 você deve colar o arquivo .tpl do setup?',
+          opcoes: [
+            'MQL5 > Indicators',
+            'MQL5 > Profiles > Templates',
+            'MQL5 > Experts',
+            'MQL5 > Scripts'
+          ],
+          correta: 1,
+          explica: 'No MT5, os templates (.tpl) vão em MQL5 > Profiles > Templates. Os indicadores compilados (.ex5), quando há, vão em MQL5 > Indicators.'
+        },
         {
           q: 'Quantos indicadores compõem o setup completo do Didi Aguiar?',
           opcoes: ['3', '4', '5', '7'],
