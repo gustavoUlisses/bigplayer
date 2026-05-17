@@ -765,94 +765,94 @@
   .agulhada-hotspot:hover + .agulhada-tooltip,
   .agulhada-hotspot:focus + .agulhada-tooltip { opacity: 1; }
 
-  /* label flutuante "AGULHADA DE COMPRA" */
+  /* label flutuante "AGULHADA DE COMPRA" (tipografia escalada para o SVG redimensionado) */
   .agulhada-glass-label {
     font-family: 'DM Sans', sans-serif;
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.85), rgba(10, 10, 10, 0.7));
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-    border: 1px solid rgba(245, 230, 66, 0.45);
-    border-radius: 12px;
-    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.88), rgba(10, 10, 10, 0.72));
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1.5px solid rgba(245, 230, 66, 0.55);
+    border-radius: 18px;
+    padding: 22px 26px;
     box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-      0 1px 0 rgba(255, 255, 255, 0.06) inset;
+      0 14px 40px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+      0 1px 0 rgba(255, 255, 255, 0.08) inset;
     display: inline-block;
-    min-width: 220px;
+    width: 100%;
   }
   .agulhada-glass-label__tag {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 9px;
+    gap: 10px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #F5E642;
-    margin-bottom: 8px;
-    opacity: 0.95;
+    margin-bottom: 14px;
   }
   .agulhada-glass-label__dot {
-    width: 6px;
-    height: 6px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: #F5E642;
-    box-shadow: 0 0 8px rgba(245, 230, 66, 0.8);
+    box-shadow: 0 0 14px rgba(245, 230, 66, 0.9);
     animation: pulse-dot-yellow 1.6s ease-in-out infinite;
+    flex-shrink: 0;
   }
   @keyframes pulse-dot-yellow {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.85); }
+    50% { opacity: 0.4; transform: scale(0.8); }
   }
   .agulhada-glass-label__title {
-    font-size: 17px;
+    font-size: 34px;
     font-weight: 700;
     color: #ffffff;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin-bottom: 6px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 10px;
   }
   .agulhada-glass-label__sub {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.65);
     line-height: 1.4;
   }
 
   /* tooltip interativo (visível no hover do hotspot) */
   .agulhada-glass-tooltip {
     font-family: 'DM Sans', sans-serif;
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.88), rgba(8, 8, 8, 0.78));
-    backdrop-filter: blur(14px) saturate(150%);
-    -webkit-backdrop-filter: blur(14px) saturate(150%);
-    border: 1px solid rgba(245, 230, 66, 0.55);
-    border-radius: 12px;
-    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(8, 8, 8, 0.8));
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1.5px solid rgba(245, 230, 66, 0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
     box-shadow:
-      0 12px 32px rgba(0, 0, 0, 0.5),
+      0 16px 40px rgba(0, 0, 0, 0.55),
       0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     display: inline-block;
-    min-width: 240px;
+    width: 100%;
   }
   .agulhada-glass-tooltip__line {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.5;
-    padding: 2px 0;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.4;
+    padding: 4px 0;
   }
   .agulhada-glass-tooltip__line--accent {
     color: #F5E642;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 22px;
     letter-spacing: -0.01em;
   }
   .agulhada-glass-tooltip__line--strong {
     color: #ffffff;
     font-weight: 700;
-    font-size: 13px;
-    margin-top: 4px;
-    padding-top: 6px;
-    border-top: 1px solid rgba(245, 230, 66, 0.2);
+    font-size: 22px;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(245, 230, 66, 0.25);
   }
 
   /* ── COMO LER O SINAL: 3 passos ──────────────────── */
@@ -1188,9 +1188,9 @@
             </g>
 
             <!-- linha guia conectando o pulse ao label -->
-            <line x1="500" y1="355" x2="565" y2="282" stroke="#F5E642" stroke-width="0.8" opacity="0.6" stroke-dasharray="2,3"/>
-            <!-- label flutuante: AGULHADA DE COMPRA (HTML com glassmorphism) -->
-            <foreignObject x="560" y="232" width="280" height="120">
+            <line x1="500" y1="355" x2="555" y2="240" stroke="#F5E642" stroke-width="1.2" opacity="0.6" stroke-dasharray="3,4"/>
+            <!-- label flutuante: AGULHADA DE COMPRA (HTML com glassmorphism, tipografia ampliada para ficar legivel no SVG escalado) -->
+            <foreignObject x="545" y="155" width="490" height="180">
               <div xmlns="http://www.w3.org/1999/xhtml" class="agulhada-glass-label">
                 <div class="agulhada-glass-label__tag">
                   <span class="agulhada-glass-label__dot"></span>
@@ -1203,7 +1203,7 @@
 
             <!-- ═══ HOTSPOT + TOOLTIP INTERATIVO ═══ -->
             <!-- tooltip oculto por padrão (HTML glassmorphism), aparece no :hover do hotspot -->
-            <foreignObject x="510" y="380" width="280" height="120" class="agulhada-tooltip">
+            <foreignObject x="520" y="395" width="480" height="220" class="agulhada-tooltip">
               <div xmlns="http://www.w3.org/1999/xhtml" class="agulhada-glass-tooltip">
                 <div class="agulhada-glass-tooltip__line agulhada-glass-tooltip__line--accent">Cruzamento simultâneo</div>
                 <div class="agulhada-glass-tooltip__line">5 indicadores em fase</div>
