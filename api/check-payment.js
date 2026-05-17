@@ -1,12 +1,11 @@
-import { enforceRateLimit } from './_lib/ratelimit.js';
 import { readJson } from './_lib/http.js';
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
 
+// Sem rate limit aqui: este endpoint só LÊ o status do pagamento (baixo risco)
+// e é consultado em loop pelo polling — limitá-lo gastaria muito do Upstash à toa.
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-
-  if (!(await enforceRateLimit(req, res, 'poll'))) return;
 
   const { paymentId } = req.query;
   if (!paymentId || !/^pay_[\w]+$/.test(paymentId)) {

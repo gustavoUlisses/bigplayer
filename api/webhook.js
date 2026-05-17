@@ -1,10 +1,12 @@
 import crypto from 'crypto';
 import { redis } from './_lib/redis.js';
 import { enforceRateLimit } from './_lib/ratelimit.js';
+import { readJson } from './_lib/http.js';
 
 const ASAAS_BASE = 'https://api-sandbox.asaas.com/v3';
-const CLAIM_TTL = 600;                  // 10 min — janela de processamento
-const DONE_TTL = 60 * 60 * 24 * 30;     // 30 dias — marca de "já entregue"
+const PRODUCT_REF = 'bigplayer-checkout';   // etiqueta deste produto (externalReference)
+const CLAIM_TTL = 600;                      // 10 min — janela de processamento
+const DONE_TTL = 60 * 60 * 24 * 30;         // 30 dias — marca de "já entregue"
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function escapeHtml(str) {
@@ -52,65 +54,92 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'paymentId inválido' });
   }
 
-  // ── Idempotência: tenta "reservar" a entrega deste pagamento ──────────
-  // Se a chave já existe, outro webhook (duplicado/reentrega) já tratou.
-  let claimed = true;
-  if (redis) {
-    try {
-      const r = await redis.set(`delivery:${paymentId}`, 'processing', { nx: true, ex: CLAIM_TTL });
-      claimed = r === 'OK';
-    } catch {
-      claimed = true; // Redis indisponível — segue (fail-open) para não perder a entrega
-    }
-  }
-  if (!claimed) {
-    return res.status(200).json({ ok: true, skipped: 'already-delivered' });
-  }
-
+  // Libera a reserva de idempotência — só age se NÓS a tivermos feito.
+  let weHoldClaim = false;
   const release = async () => {
-    if (redis) { try { await redis.del(`delivery:${paymentId}`); } catch { /* noop */ } }
+    if (weHoldClaim && redis) {
+      try { await redis.del(`delivery:${paymentId}`); } catch { /* noop */ }
+    }
   };
 
   try {
-    // Fonte da verdade: re-consulta o pagamento na API do Asaas
+    // 1. Fonte da verdade: re-consulta o pagamento na API do Asaas
     const payRes = await fetch(`${ASAAS_BASE}/payments/${paymentId}`, {
       headers: { access_token: process.env.ASAAS_API_KEY },
     });
-    const payData = await payRes.json();
-    if (!payRes.ok) { await release(); return res.status(502).json({ error: 'Erro ao buscar pagamento' }); }
-
-    // Só entrega se o pagamento estiver realmente pago
-    if (payData.status !== 'RECEIVED' && payData.status !== 'CONFIRMED') {
-      return res.status(200).json({ ok: true, skipped: 'not-paid' });
+    const payData = await readJson(payRes);
+    if (!payRes.ok) {
+      console.error(`[webhook] ${paymentId}: erro ao buscar pagamento no Asaas`);
+      return res.status(502).json({ error: 'Erro ao buscar pagamento' });
     }
 
-    // Confere o valor pago contra o preço esperado do produto
+    // 2. Só entrega se realmente pago. Se ainda não consta pago (corrida rara),
+    //    responde 503 para o Asaas reenviar — em vez de desistir calado.
+    if (payData.status !== 'RECEIVED' && payData.status !== 'CONFIRMED') {
+      console.warn(`[webhook] ${paymentId}: status "${payData.status}" ainda não pago — pedindo reenvio`);
+      return res.status(503).json({ error: 'Pagamento ainda não confirmado' });
+    }
+
+    // 3. Confere se o pagamento é DESTE produto (a conta Asaas pode ter outros projetos)
+    if (payData.externalReference !== PRODUCT_REF) {
+      console.log(`[webhook] ${paymentId}: ignorado — não é deste produto (ref: ${payData.externalReference})`);
+      return res.status(200).json({ ok: true, skipped: 'other-product' });
+    }
+
+    // 4. Confere o valor pago contra o preço esperado
     const expectedPrice = parseFloat(process.env.PRODUCT_PRICE);
     if (Number.isFinite(expectedPrice) && Number(payData.value) !== expectedPrice) {
+      console.error(`[webhook] ${paymentId}: VALOR DIVERGENTE — pago ${payData.value}, esperado ${expectedPrice}. Verifique a variável PRODUCT_PRICE.`);
       return res.status(200).json({ ok: true, skipped: 'value-mismatch' });
     }
 
+    // 5. Idempotência: só AGORA reserva a entrega — apenas entregas reais consomem reserva.
+    if (redis) {
+      let r;
+      try {
+        r = await redis.set(`delivery:${paymentId}`, 'processing', { nx: true, ex: CLAIM_TTL });
+      } catch {
+        r = 'OK'; // Redis indisponível — segue (fail-open) para não perder a entrega
+      }
+      if (r !== 'OK') {
+        console.log(`[webhook] ${paymentId}: já entregue — ignorando duplicata`);
+        return res.status(200).json({ ok: true, skipped: 'already-delivered' });
+      }
+      weHoldClaim = true;
+    }
+
+    // 6. Busca o cliente
     const custRes = await fetch(`${ASAAS_BASE}/customers/${payData.customer}`, {
       headers: { access_token: process.env.ASAAS_API_KEY },
     });
-    const customer = await custRes.json();
-    if (!custRes.ok) { await release(); return res.status(502).json({ error: 'Erro ao buscar cliente' }); }
+    const customer = await readJson(custRes);
+    if (!custRes.ok) {
+      await release();
+      console.error(`[webhook] ${paymentId}: erro ao buscar cliente`);
+      return res.status(502).json({ error: 'Erro ao buscar cliente' });
+    }
 
     const email = customer.email;
     if (!email || !EMAIL_RE.test(email)) {
       await release();
+      console.error(`[webhook] ${paymentId}: e-mail do cliente inválido`);
       return res.status(502).json({ error: 'E-mail do cliente inválido' });
     }
     const safeName = escapeHtml(customer.name || 'cliente');
 
-    // Baixa o arquivo do Blob privado usando a URL permanente + token.
+    // 7. Baixa o arquivo do produto (Blob privado — URL permanente + token)
     const fileRes = await fetch(process.env.BLOB_FILE_URL, {
       headers: { Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` },
     });
-    if (!fileRes.ok) { await release(); return res.status(502).json({ error: 'Erro ao baixar arquivo' }); }
+    if (!fileRes.ok) {
+      await release();
+      console.error(`[webhook] ${paymentId}: erro ao baixar arquivo do Blob`);
+      return res.status(502).json({ error: 'Erro ao baixar arquivo' });
+    }
     const fileBuffer = await fileRes.arrayBuffer();
     const fileBase64 = Buffer.from(fileBuffer).toString('base64');
 
+    // 8. Envia o e-mail de entrega
     const mailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -131,18 +160,20 @@ export default async function handler(req, res) {
     });
 
     if (!mailRes.ok) {
-      // Libera a reserva para o Asaas reenviar o webhook e tentar de novo
-      await release();
+      await release(); // libera a reserva para o Asaas reenviar e tentar de novo
+      console.error(`[webhook] ${paymentId}: erro ao enviar e-mail (Resend)`);
       return res.status(502).json({ error: 'Erro ao enviar email' });
     }
 
-    // Sucesso: marca como entregue por 30 dias — qualquer duplicata futura é ignorada
+    // 9. Sucesso: marca como entregue por 30 dias — qualquer duplicata futura é ignorada
     if (redis) {
       try { await redis.set(`delivery:${paymentId}`, 'done', { ex: DONE_TTL }); } catch { /* noop */ }
     }
+    console.log(`[webhook] ${paymentId}: entregue com sucesso`);
     return res.status(200).json({ ok: true });
-  } catch {
+  } catch (err) {
     await release();
+    console.error(`[webhook] ${paymentId}: erro interno —`, err?.message);
     return res.status(500).json({ error: 'Erro interno' });
   }
 }
