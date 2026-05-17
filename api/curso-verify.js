@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { enforceRateLimit } from './_lib/ratelimit.js';
 
 function timingSafeEqual(a, b) {
   const ba = Buffer.from(a);
@@ -27,6 +28,8 @@ function verifyToken(token, secret) {
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+
+  if (!(await enforceRateLimit(req, res, 'standard'))) return;
 
   const auth = req.headers.authorization ?? '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
