@@ -765,19 +765,22 @@
   .agulhada-hotspot:hover + .agulhada-tooltip,
   .agulhada-hotspot:focus + .agulhada-tooltip { opacity: 1; }
 
-  /* label flutuante "AGULHADA DE COMPRA" (tipografia escalada para o SVG redimensionado) */
+  /* label flutuante "AGULHADA DE COMPRA" (glassmorphism visivel sobre fundo do grafico) */
   .agulhada-glass-label {
     font-family: 'DM Sans', sans-serif;
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.88), rgba(10, 10, 10, 0.72));
-    backdrop-filter: blur(14px) saturate(150%);
-    -webkit-backdrop-filter: blur(14px) saturate(150%);
-    border: 1.5px solid rgba(245, 230, 66, 0.55);
+    background:
+      linear-gradient(135deg, rgba(245, 230, 66, 0.08), rgba(255, 255, 255, 0.04)),
+      rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     border-radius: 18px;
     padding: 22px 26px;
     box-shadow:
-      0 14px 40px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-      0 1px 0 rgba(255, 255, 255, 0.08) inset;
+      0 14px 40px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(245, 230, 66, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.2) inset;
     display: inline-block;
     width: 100%;
   }
@@ -819,18 +822,21 @@
     line-height: 1.4;
   }
 
-  /* tooltip interativo (visível no hover do hotspot) */
+  /* tooltip interativo (glassmorphism visivel sobre fundo do grafico) */
   .agulhada-glass-tooltip {
     font-family: 'DM Sans', sans-serif;
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(8, 8, 8, 0.8));
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border: 1.5px solid rgba(245, 230, 66, 0.6);
+    background:
+      linear-gradient(135deg, rgba(245, 230, 66, 0.08), rgba(255, 255, 255, 0.04)),
+      rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     border-radius: 16px;
     padding: 20px 24px;
     box-shadow:
-      0 16px 40px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      0 16px 40px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(245, 230, 66, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset;
     display: inline-block;
     width: 100%;
   }
