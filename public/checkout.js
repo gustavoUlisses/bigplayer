@@ -122,12 +122,12 @@ document.getElementById('inp-card-cep').addEventListener('input', (e) => {
 
 // ── CARD BRAND DETECTION ──────────────────────────────────────
 const BRAND_SVGS = {
-  visa:       `<img src="/images/visa.png" alt="Visa" width="38" height="24" style="display:block;border-radius:3px;">`,
-  mastercard: `<img src="/images/mastercard.png" alt="Mastercard" width="38" height="24" style="display:block;border-radius:3px;">`,
-  amex:       `<img src="/images/amex.png" alt="Amex" width="38" height="24" style="display:block;border-radius:3px;">`,
-  elo:        `<img src="/images/elo.png" alt="Elo" width="38" height="24" style="display:block;border-radius:3px;">`,
-  hipercard:  `<img src="/images/hipercard.png" alt="Hipercard" width="38" height="24" style="display:block;border-radius:3px;">`,
-  default:    `<svg width="28" height="18" viewBox="0 0 48 30" fill="none" opacity=".35"><rect width="48" height="30" rx="4" fill="#9ca3af"/><path d="M10 15h28M10 10h10M10 20h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>`,
+  visa:       `<img src="/images/visa.png" alt="Visa" class="card-brand-img">`,
+  mastercard: `<img src="/images/mastercard.png" alt="Mastercard" class="card-brand-img">`,
+  amex:       `<img src="/images/amex.png" alt="Amex" class="card-brand-img">`,
+  elo:        `<img src="/images/elo.png" alt="Elo" class="card-brand-img">`,
+  hipercard:  `<img src="/images/hipercard.png" alt="Hipercard" class="card-brand-img">`,
+  default:    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#9ca3af" stroke-width="1.5"/><path d="M2 10h20" stroke="#9ca3af" stroke-width="1.5"/><circle cx="7" cy="15" r="1.2" fill="#9ca3af"/></svg>`,
 };
 
 function detectBrand(num) {

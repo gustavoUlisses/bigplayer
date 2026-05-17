@@ -238,7 +238,8 @@
 
 .field__input-wrap { position: relative; }
 .field__input-wrap input { padding-right: 3rem; }
-.field__card-icons { position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); opacity: 0.4; }
+.field__card-icons { position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); display: flex; align-items: center; }
+.card-brand-img { width: 40px; height: 26px; object-fit: contain; display: block; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
 
 /* ── PAYMENT SELECT ───────────────────────────────────────── */
