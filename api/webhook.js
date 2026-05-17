@@ -86,10 +86,12 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, skipped: 'other-product' });
     }
 
-    // 4. Confere o valor pago contra o preço esperado
-    const expectedPrice = parseFloat(process.env.PRODUCT_PRICE);
-    if (Number.isFinite(expectedPrice) && Number(payData.value) !== expectedPrice) {
-      console.error(`[webhook] ${paymentId}: VALOR DIVERGENTE — pago ${payData.value}, esperado ${expectedPrice}. Verifique a variável PRODUCT_PRICE.`);
+    // 4. Confere o valor pago contra o preço esperado (aceita preço cheio e PIX com 5% off)
+    const expectedPrice    = parseFloat(process.env.PRODUCT_PRICE);
+    const expectedPricePix = Math.round(expectedPrice * 0.95 * 100) / 100;
+    const paidValue        = Number(payData.value);
+    if (Number.isFinite(expectedPrice) && paidValue !== expectedPrice && paidValue !== expectedPricePix) {
+      console.error(`[webhook] ${paymentId}: VALOR DIVERGENTE — pago ${paidValue}, esperado ${expectedPrice} ou ${expectedPricePix}.`);
       return res.status(200).json({ ok: true, skipped: 'value-mismatch' });
     }
 

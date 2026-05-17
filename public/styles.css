@@ -249,6 +249,18 @@
 
 .pm-card:has(input:checked) .pm-card__check { opacity: 1; transform: scale(1); }
 
+.pm-card__badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: #d1fae5;
+  color: #065f46;
+  padding: 2px 6px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: .02em;
+}
+
 /* ── FORM ERROR ───────────────────────────────────────────── */
 .form-error {
   font-size: 0.78rem;

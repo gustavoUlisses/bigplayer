@@ -24,6 +24,33 @@ const steps = {
   ok:   document.getElementById('step-confirmed'),
 };
 
+// ── PREÇOS ────────────────────────────────────────────────────
+const PRICE_FULL = 29.90;
+const PRICE_PIX  = 28.40; // 5% off
+
+function updatePriceSummary(billing) {
+  const bar   = document.getElementById('pix-discount-bar');
+  const price = document.getElementById('summary-price');
+  const tag   = document.getElementById('summary-tag');
+  if (!bar || !price) return;
+  if (billing === 'PIX') {
+    bar.style.display = 'block';
+    price.textContent = 'R$28,40';
+    tag.textContent   = '5% off no PIX';
+  } else {
+    bar.style.display = 'none';
+    price.textContent = 'R$29,90';
+    tag.textContent   = 'à vista';
+  }
+}
+
+// atualiza ao trocar forma de pagamento
+document.querySelectorAll('input[name="payment"]').forEach((radio) => {
+  radio.addEventListener('change', () => updatePriceSummary(radio.value));
+});
+// estado inicial (PIX marcado por padrão)
+updatePriceSummary('PIX');
+
 // ── MODAL ─────────────────────────────────────────────────────
 // todos os botões "Comprar" da landing abrem o checkout
 document.querySelectorAll('.js-buy').forEach((b) => b.addEventListener('click', openModal));
@@ -154,7 +181,7 @@ formCheckout.addEventListener('submit', async (e) => {
     state.customerId = customerRes.customerId;
 
     if (billing === 'PIX') {
-      // 2. criar cobrança PIX
+      // 2. criar cobrança PIX (com desconto de 5%)
       const chargeRes = await api('/api/create-charge', 'POST', {
         customerId: state.customerId,
         billingType: 'PIX',

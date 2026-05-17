@@ -25,12 +25,16 @@ export default async function handler(req, res) {
   const today = new Date().toISOString().split('T')[0];
 
   // O valor vem SEMPRE do servidor — o frontend não envia preço.
-  // externalReference identifica este produto: o webhook só entrega o que
-  // tem essa etiqueta (a conta Asaas pode receber pagamentos de outros projetos).
+  // PIX tem 5% de desconto; cartão paga preço cheio.
+  const basePrice = parseFloat(process.env.PRODUCT_PRICE);
+  const value = billingType === 'PIX'
+    ? Math.round(basePrice * 0.95 * 100) / 100
+    : basePrice;
+
   const payload = {
     customer: customerId,
     billingType,
-    value: parseFloat(process.env.PRODUCT_PRICE),
+    value,
     dueDate: today,
     description: 'Compra de produto digital',
     externalReference: 'bigplayer-checkout',
