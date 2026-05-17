@@ -76,6 +76,18 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Como identificar a Agulhada do Didi no gráfico",
+  "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Cruzamento simultâneo", "text": "As 3 médias móveis (períodos 3, 8 e 20) passam pelo mesmo candle ao mesmo tempo, formando a agulhada." },
+    { "@type": "HowToStep", "position": 2, "name": "Confirmação múltipla", "text": "ADX confirma a força da tendência; Estocástico e TRIX confirmam a direção do movimento." },
+    { "@type": "HowToStep", "position": 3, "name": "Sinal de entrada", "text": "Com todos os indicadores alinhados no mesmo ponto, você tem a agulhada — sinal de entrada de compra ou venda." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Funciona no meu MetaTrader?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O arquivo inclui as versões para MT4 e MT5 e funciona em qualquer corretora que use essas plataformas." } },
@@ -728,7 +740,7 @@
   /* responsive */
   @media (max-width: 700px) {
     .hero-grid, .produto-grid, .oferta-wrap, .for-grid, .didi-grid, #didi .container > div { grid-template-columns: 1fr; }
-    .steps, .testimonials { grid-template-columns: 1fr; }
+    .steps, .testimonials, .passos-grid { grid-template-columns: 1fr; }
     .pain-grid { grid-template-columns: 1fr; }
     .step-arrow { display: none; }
     .stats-bar { flex-direction: column; }
@@ -746,6 +758,59 @@
   .pain-icon i, .zip-icon i { font-size: 24px; }
   .check-mark i { font-size: 11px; line-height: 1; }
   .badge i, .trust-badge i, .garantia-title i, .for-title i { vertical-align: -2px; margin-right: 4px; }
+
+  /* ── AGULHADA: tooltip interativo no grafico ────── */
+  .agulhada-hotspot { cursor: help; pointer-events: all; }
+  .agulhada-tooltip { opacity: 0; transition: opacity .25s ease; pointer-events: none; }
+  .agulhada-hotspot:hover ~ .agulhada-tooltip { opacity: 1; }
+
+  /* ── COMO LER O SINAL: 3 passos ──────────────────── */
+  .passos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .passo-card {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 28px 24px;
+    background: var(--white);
+    position: relative;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .passo-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+  .passo-num {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--box);
+    line-height: 1;
+    margin-bottom: 14px;
+    letter-spacing: -.02em;
+  }
+  .passo-icon {
+    position: absolute;
+    top: 28px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .passo-icon i { font-size: 18px; }
+  .passo-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -.01em;
+  }
+  .passo-desc { font-size: 13px; color: var(--ink2); line-height: 1.6; }
 
   /* ── SEÇÕES ESCURAS / CLARAS ─────────────────────── */
   .section--dark {
@@ -1017,6 +1082,39 @@
               <text x="905" y="840">21 Aug 04:36</text>
               <text x="985" y="840">21 Aug 04:44</text>
             </g>
+
+            <!-- ═══ MARCADOR DA AGULHADA DE COMPRA ═══ -->
+            <!-- linha vertical destacando o ponto de cruzamento dos 4 indicadores -->
+            <line x1="500" y1="0" x2="500" y2="820" stroke="#F5E642" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.55"/>
+
+            <!-- pulse animado no centro (painel Didi Index, ponto exato do cruzamento) -->
+            <g>
+              <circle cx="500" cy="355" r="5" fill="#F5E642"/>
+              <circle cx="500" cy="355" r="5" fill="none" stroke="#F5E642" stroke-width="2">
+                <animate attributeName="r" from="5" to="22" dur="1.6s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.9" to="0" dur="1.6s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+
+            <!-- label flutuante: AGULHADA DE COMPRA -->
+            <g class="agulhada-label">
+              <line x1="500" y1="355" x2="565" y2="320" stroke="#F5E642" stroke-width="0.8" opacity="0.7"/>
+              <rect x="565" y="282" width="200" height="58" rx="3" fill="#0a0a0a" stroke="#F5E642" stroke-width="1"/>
+              <text x="578" y="302" font-family="DM Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#F5E642" letter-spacing="1.5">AGULHADA DE COMPRA</text>
+              <text x="578" y="318" font-family="DM Sans, Arial, sans-serif" font-size="9" fill="#cccccc">5 indicadores alinhados</text>
+              <text x="578" y="332" font-family="DM Sans, Arial, sans-serif" font-size="9" fill="#888888">sinal confirmado ↓</text>
+            </g>
+
+            <!-- ═══ HOTSPOT + TOOLTIP INTERATIVO ═══ -->
+            <!-- tooltip oculto por padrão, aparece no :hover do hotspot -->
+            <g class="agulhada-tooltip" pointer-events="none">
+              <rect x="510" y="380" width="240" height="80" rx="4" fill="#0a0a0a" stroke="#F5E642" stroke-width="1"/>
+              <text x="524" y="404" font-family="DM Sans, Arial, sans-serif" font-size="11" font-weight="700" fill="#F5E642">Cruzamento simultâneo</text>
+              <text x="524" y="424" font-family="DM Sans, Arial, sans-serif" font-size="10" fill="#cccccc">5 indicadores em fase</text>
+              <text x="524" y="446" font-family="DM Sans, Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff">= Agulhada de compra</text>
+            </g>
+            <!-- hotspot invisível sobre a linha vertical da agulhada -->
+            <rect class="agulhada-hotspot" x="488" y="0" width="24" height="820" fill="transparent"/>
           </svg>
         </div>
         <p style="font-family:var(--mono);font-size:9px;color:var(--ink3);text-align:center;margin-top:8px;letter-spacing:.05em;">
@@ -1031,6 +1129,38 @@
       <div class="stat-item"><span class="stat-num">Multimercado</span><span class="stat-label">Forex · B3 · Cripto · Ações</span></div>
       <div class="stat-item"><span class="stat-num">MT4 / MT5</span><span class="stat-label">ambas as versões</span></div>
       <div class="stat-item"><span class="stat-num">+Curso</span><span class="stat-label">aprenda a usar o setup</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMO LER O SINAL ══════════════════════════ -->
+<section id="como-funciona" class="section--light">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-num">↑</span>
+      Como ler o sinal
+    </div>
+    <h2 style="margin-bottom:8px;">A Agulhada do Didi em 3 passos</h2>
+    <p style="color:var(--ink2);font-size:14px;margin-bottom:32px;max-width:640px;">O gráfico acima mostra exatamente o que acontece numa agulhada: 5 indicadores cruzam no mesmo ponto e confirmam a direção. É isso que voce vai ver no seu MetaTrader.</p>
+    <div class="passos-grid">
+      <div class="passo-card">
+        <div class="passo-num">01</div>
+        <div class="passo-icon"><i class="ph ph-intersect"></i></div>
+        <div class="passo-title">Cruzamento simultâneo</div>
+        <div class="passo-desc">As 3 médias móveis (períodos 3, 8 e 20) passam pelo mesmo candle ao mesmo tempo, formando a "agulhada".</div>
+      </div>
+      <div class="passo-card">
+        <div class="passo-num">02</div>
+        <div class="passo-icon"><i class="ph ph-check-circle"></i></div>
+        <div class="passo-title">Confirmação múltipla</div>
+        <div class="passo-desc">ADX confirma a força da tendência, Estocástico e TRIX confirmam a direção do movimento.</div>
+      </div>
+      <div class="passo-card">
+        <div class="passo-num">03</div>
+        <div class="passo-icon"><i class="ph ph-arrow-up-right"></i></div>
+        <div class="passo-title">Sinal de entrada</div>
+        <div class="passo-desc">Com todos os indicadores alinhados, você tem a agulhada — sinal de entrada de compra ou venda.</div>
+      </div>
     </div>
   </div>
 </section>
