@@ -328,6 +328,48 @@
     box-shadow: 0 8px 32px rgba(0,0,0,.5);
   }
   .mt5-chart { display: block; width: 100%; height: auto; }
+
+  /* cards SVG da seção 02 (substituem a imagem PNG) */
+  .didi-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .didi-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .didi-glass {
+    flex: 1;
+    background: rgba(10,10,10,.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    padding: 14px 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 8px;
+  }
+  .didi-glass span {
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: .01em;
+  }
+  .didi-card {
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    overflow: hidden;
+  }
+  .didi-card__svg { display: block; width: 100%; height: auto; }
   .chart-topbar {
     background: #141414;
     color: #d4d4d4;
@@ -696,26 +738,279 @@
     gap: 5px;
   }
 
-  /* ── whatsapp float ──────────────────────────────── */
-  .wpp-btn {
+  /* ── chat widget (dark) ──────────────────────────── */
+  .wpp-wrap {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    width: 48px;
-    height: 48px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+
+  /* botão flutuante (pílula) */
+  .wpp-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1c1c1e;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 8px 28px rgba(0,0,0,.35);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .wpp-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.45); }
+  .wpp-btn__dot {
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--bg);
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34,197,94,.6);
+    animation: wppPulse 2s infinite;
+  }
+  @keyframes wppPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+    70%  { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+  }
+
+  /* card do chat */
+  .wpp-chat {
+    display: none;
+    flex-direction: column;
+    width: 320px;
+    background: #161618;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    animation: wppSlide .22s ease;
+  }
+  .wpp-chat.open { display: flex; }
+  @keyframes wppSlide {
+    from { opacity: 0; transform: translateY(14px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+  }
+
+  /* header */
+  .wpp-head {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 16px 16px 14px;
+  }
+  .wpp-head__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #2a2a2e;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    text-decoration: none;
-    z-index: 200;
-    box-shadow: 0 4px 16px rgba(0,0,0,.25);
-    transition: transform .15s;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.1);
   }
-  .wpp-btn:hover { transform: scale(1.1); }
+  .wpp-head__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .wpp-head__info { flex: 1; min-width: 0; }
+  .wpp-head__name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: .02em;
+  }
+  .wpp-head__status {
+    color: #4ade80;
+    font-size: 10.5px;
+    font-family: var(--mono, ui-monospace, monospace);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 3px;
+  }
+  .wpp-head__online {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    flex-shrink: 0;
+  }
+  .wpp-head__close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.6);
+    font-size: 15px;
+    cursor: pointer;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .12s, color .12s;
+  }
+  .wpp-head__close:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+  /* corpo */
+  .wpp-body {
+    padding: 4px 16px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .wpp-body__title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 6px 0 14px;
+  }
+
+  /* opções (pílulas) */
+  .wpp-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .wpp-option {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 999px;
+    padding: 9px 15px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #e8e8e8;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background .12s, border-color .12s, transform .1s;
+  }
+  .wpp-option:hover {
+    background: rgba(34,197,94,.14);
+    border-color: rgba(34,197,94,.5);
+    transform: translateY(-1px);
+  }
+  .wpp-options--col { flex-direction: column; flex-wrap: nowrap; }
+  .wpp-options--col .wpp-option {
+    width: 100%;
+    border-radius: 12px;
+    padding: 12px 15px;
+    text-align: left;
+    white-space: normal;
+    font-size: 13px;
+  }
+
+  /* botão voltar */
+  .wpp-head__back {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.65);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .12s, color .12s;
+  }
+  .wpp-head__back:hover { background: rgba(255,255,255,.12); color: #fff; }
+  .wpp-head.has-back .wpp-head__back { display: flex; }
+
+  /* telas do chat */
+  .wpp-screen { display: none; flex-direction: column; }
+  .wpp-screen.active { display: flex; }
+  .wpp-screen__content { display: none; }
+  .wpp-screen__content.show { display: flex; flex-direction: column; animation: wppSlide .2s ease; }
+
+  /* mensagem do atendente */
+  .wpp-msg {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 4px 14px 14px 14px;
+    padding: 11px 13px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #d6d6d6;
+    margin-bottom: 12px;
+  }
+  .wpp-msg strong { color: #fff; font-weight: 600; }
+  .wpp-msg ul { margin: 8px 0 0; padding-left: 17px; }
+  .wpp-msg li { margin: 4px 0; }
+
+  /* indicador "digitando" */
+  .wpp-typing {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255,255,255,.06);
+    border-radius: 4px 14px 14px 14px;
+    padding: 13px 14px;
+    width: fit-content;
+  }
+  .wpp-typing.show { display: flex; }
+  .wpp-typing span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #8a8a8a;
+    animation: wppDot 1.3s infinite;
+  }
+  .wpp-typing span:nth-child(2) { animation-delay: .18s; }
+  .wpp-typing span:nth-child(3) { animation-delay: .36s; }
+  @keyframes wppDot {
+    0%, 60%, 100% { opacity: .3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  /* campos de texto */
+  .wpp-input, .wpp-textarea {
+    width: 100%;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 12px;
+    padding: 11px 13px;
+    font-size: 13px;
+    color: #fff;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color .12s;
+  }
+  .wpp-input:focus, .wpp-textarea:focus { border-color: rgba(34,197,94,.6); }
+  .wpp-input::placeholder, .wpp-textarea::placeholder { color: #6f6f6f; }
+  .wpp-textarea { resize: none; min-height: 80px; }
+  .wpp-err { color: #f87171; font-size: 11px; min-height: 14px; margin: 5px 2px 0; }
+  .wpp-send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: #22c55e;
+    color: #06210f;
+    border: none;
+    border-radius: 999px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform .1s, opacity .12s, background .12s;
+  }
+  .wpp-send:hover:not(:disabled) { transform: translateY(-1px); background: #2dd06e; }
+  .wpp-send:disabled { opacity: .35; cursor: not-allowed; }
 
   /* ── stats bar ───────────────────────────────────── */
   .stats-bar {
@@ -1288,7 +1583,7 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
       <div>
         <h2>O setup usado pelos big players e tubarões há décadas no mundo.</h2>
-        <p style="color:var(--ink2);font-size:14px;line-height:1.7;margin-bottom:16px;">
+        <p style="color:var(--ink2);font-size:14px;line-height:1.7;margin-top:16px;margin-bottom:20px;">
           O <strong>Didi Index</strong> é uma estratégia de análise técnica criada pelo trader tubarão Odir Aguiar.
           A ideia é simples: o gráfico mostra visualmente quando o mercado está prestes a se mover com força.
           Você não precisa calcular nada, só aprender a ler o sinal na tela.
@@ -1301,20 +1596,163 @@
           <span class="badge badge-outline">DOL</span>
           <span class="badge badge-outline">Ações</span>
           <span class="badge badge-outline">Cripto</span>
-
         </div>
       </div>
       <div>
-        <div class="agulhada-demo">
-          <div class="agulhada-label">A Agulhada: as 3 médias no mesmo candle</div>
-          <div class="ma-lines">
-            <div class="ma-line" style="background:#EF5350; width:60%"><span>MM 3 — rápida</span></div>
-            <div class="ma-line" style="background:#888; width:60%"><span>MM 8 — central (0)</span></div>
-            <div class="ma-line" style="background:#26C6A6; width:60%"><span>MM 20 — lenta</span></div>
+        <div class="didi-cards">
+
+          <div class="didi-col">
+
+          <!-- ═══ CARD 1: candles + Bandas de Bollinger ═══ -->
+          <div class="didi-card">
+            <svg class="didi-card__svg" viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de candles do Didi Index com Bandas de Bollinger: azul para alta, amarelo para baixa">
+              <!-- grade horizontal sutil -->
+              <g stroke="#2a2a2a" stroke-width="0.5">
+                <line x1="0" y1="48" x2="200" y2="48"/>
+                <line x1="0" y1="96" x2="200" y2="96"/>
+                <line x1="0" y1="144" x2="200" y2="144"/>
+                <line x1="0" y1="192" x2="200" y2="192"/>
+              </g>
+
+              <!-- Bandas de Bollinger (pontilhadas) -->
+              <polyline fill="none" stroke="#9fb6cf" stroke-width="1" opacity="0.55" stroke-dasharray="2,2.5" stroke-linejoin="round"
+                points="10,118 34,138 56,130 78,118 100,84 122,70 144,50 166,66 190,60"/>
+              <polyline fill="none" stroke="#9fb6cf" stroke-width="0.9" opacity="0.4" stroke-dasharray="2,2.5" stroke-linejoin="round"
+                points="10,150 34,164 56,156 78,144 100,114 122,99 144,76 166,94 190,88"/>
+              <polyline fill="none" stroke="#9fb6cf" stroke-width="1" opacity="0.55" stroke-dasharray="2,2.5" stroke-linejoin="round"
+                points="10,180 34,188 56,182 78,170 100,144 122,128 144,104 166,122 190,116"/>
+
+              <!-- Candles (ciano = alta, amarelo = baixa) -->
+              <g stroke-linecap="butt">
+                <!-- 1 -->  <line x1="16" y1="134" x2="16" y2="164" stroke="#F5E642" stroke-width="1"/>   <rect x="13" y="140" width="6" height="18" fill="#F5E642"/>
+                <!-- 2 -->  <line x1="26" y1="152" x2="26" y2="174" stroke="#F5E642" stroke-width="1"/>   <rect x="23" y="158" width="6" height="10" fill="#F5E642"/>
+                <!-- 3 -->  <line x1="36" y1="150" x2="36" y2="172" stroke="#00d4d4" stroke-width="1"/>   <rect x="33" y="156" width="6" height="12" fill="#00d4d4"/>
+                <!-- 4 -->  <line x1="46" y1="150" x2="46" y2="172" stroke="#F5E642" stroke-width="1"/>   <rect x="43" y="156" width="6" height="10" fill="#F5E642"/>
+                <!-- 5 -->  <line x1="56" y1="144" x2="56" y2="170" stroke="#00d4d4" stroke-width="1"/>   <rect x="53" y="150" width="6" height="16" fill="#00d4d4"/>
+                <!-- 6 -->  <line x1="66" y1="132" x2="66" y2="156" stroke="#00d4d4" stroke-width="1"/>   <rect x="63" y="138" width="6" height="12" fill="#00d4d4"/>
+                <!-- 7 -->  <line x1="76" y1="132" x2="76" y2="154" stroke="#F5E642" stroke-width="1"/>   <rect x="73" y="138" width="6" height="10" fill="#F5E642"/>
+                <!-- 8 -->  <line x1="86" y1="120" x2="86" y2="152" stroke="#00d4d4" stroke-width="1"/>   <rect x="83" y="128" width="6" height="20" fill="#00d4d4"/>
+                <!-- 9 -->  <line x1="96" y1="100" x2="96" y2="132" stroke="#00d4d4" stroke-width="1"/>   <rect x="93" y="108" width="6" height="20" fill="#00d4d4"/>
+                <!-- 10 --> <line x1="106" y1="84" x2="106" y2="114" stroke="#00d4d4" stroke-width="1"/>  <rect x="103" y="92" width="6" height="16" fill="#00d4d4"/>
+                <!-- 11 --> <line x1="116" y1="86" x2="116" y2="110" stroke="#F5E642" stroke-width="1"/>  <rect x="113" y="92" width="6" height="12" fill="#F5E642"/>
+                <!-- 12 --> <line x1="126" y1="74" x2="126" y2="108" stroke="#00d4d4" stroke-width="1"/>  <rect x="123" y="82" width="6" height="22" fill="#00d4d4"/>
+                <!-- 13 --> <line x1="136" y1="62" x2="136" y2="88" stroke="#00d4d4" stroke-width="1"/>   <rect x="133" y="70" width="6" height="12" fill="#00d4d4"/>
+                <!-- 14 --> <line x1="146" y1="64" x2="146" y2="92" stroke="#F5E642" stroke-width="1"/>   <rect x="143" y="70" width="6" height="16" fill="#F5E642"/>
+                <!-- 15 --> <line x1="156" y1="80" x2="156" y2="106" stroke="#F5E642" stroke-width="1"/>  <rect x="153" y="86" width="6" height="14" fill="#F5E642"/>
+                <!-- 16 --> <line x1="166" y1="82" x2="166" y2="104" stroke="#00d4d4" stroke-width="1"/>  <rect x="163" y="88" width="6" height="12" fill="#00d4d4"/>
+              </g>
+
+            </svg>
           </div>
-          <p style="font-size:11px;color:var(--ink3);margin-top:10px;font-family:var(--mono);">
-            Quando as 3 se cruzam → potencial forte movimento de alta ou baixa
-          </p>
+
+          <!-- card de plataformas (efeito vidro) -->
+          <div class="didi-glass">
+            <span>MT4 / MT5</span>
+            <span>Profit Chart</span>
+            <span>Tryd Trader</span>
+          </div>
+
+          </div>
+
+          <!-- ═══ CARD 2: conjunto de 4 indicadores ═══ -->
+          <div class="didi-card">
+            <svg class="didi-card__svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Indicadores do Didi Index: DI+/DI-, ADX, Didi Index, Estocástico e TRIX">
+              <!-- separadores entre painéis -->
+              <g stroke="#2a2a2a" stroke-width="0.8">
+                <line x1="0" y1="100" x2="200" y2="100"/>
+                <line x1="0" y1="200" x2="200" y2="200"/>
+                <line x1="0" y1="300" x2="200" y2="300"/>
+              </g>
+
+              <!-- ── PAINEL 1: DI+/DI- e ADX ── -->
+              <text x="6" y="15" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">DI+/DI- (8)</text>
+              <rect x="44" y="8.5" width="20" height="9" rx="2" fill="#00d4d4"/>
+              <text x="54" y="15" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">30.10</text>
+              <rect x="66" y="8.5" width="20" height="9" rx="2" fill="#F5E642"/>
+              <text x="76" y="15" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">19.96</text>
+              <text x="92" y="15" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">ADX (8,8)</text>
+              <rect x="124" y="8.5" width="20" height="9" rx="2" fill="#00d4d4"/>
+              <text x="134" y="15" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">29.57</text>
+              <line x1="0" y1="60" x2="200" y2="60" stroke="#3a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <polyline fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4" stroke-dasharray="3,2.5" stroke-linejoin="round"
+                points="6,74 28,72 50,70 72,68 88,64 100,60 116,56 138,50 160,46 184,42 196,40"/>
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.3" stroke-linejoin="round"
+                points="6,52 22,42 38,54 54,44 70,52 86,48 100,60 118,72 138,66 158,78 178,74 196,84"/>
+              <polyline fill="none" stroke="#00d4d4" stroke-width="1.3" stroke-linejoin="round"
+                points="6,84 22,74 38,82 54,72 70,78 86,68 100,60 116,48 132,56 148,40 164,48 180,34 196,42"/>
+
+              <!-- ── PAINEL 2: Didi Index ── -->
+              <text x="6" y="115" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">Didi Index (8,3,20)</text>
+              <rect x="68" y="108.5" width="18" height="9" rx="2" fill="#00d4d4"/>
+              <text x="77" y="115" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">4.17</text>
+              <rect x="88" y="108.5" width="24" height="9" rx="2" fill="#F5E642"/>
+              <text x="100" y="115" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">-66.23</text>
+              <line x1="0" y1="158" x2="200" y2="158" stroke="#3a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round"
+                points="6,138 24,134 44,140 64,148 84,154 100,158 120,170 140,178 160,176 180,172 196,174"/>
+              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round"
+                points="6,186 24,182 44,178 64,172 84,164 100,158 120,146 140,138 160,142 180,136 196,132"/>
+
+              <!-- ── PAINEL 3: Estocástico Lento ── -->
+              <text x="6" y="215" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">Estocástico Lento (8)</text>
+              <rect x="74" y="208.5" width="20" height="9" rx="2" fill="#00d4d4"/>
+              <text x="84" y="215" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">55.39</text>
+              <text x="100" y="215" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">Média Móvel A (3)</text>
+              <rect x="158" y="208.5" width="20" height="9" rx="2" fill="#F5E642"/>
+              <text x="168" y="215" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">62.67</text>
+              <line x1="0" y1="240" x2="200" y2="240" stroke="#3a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <line x1="0" y1="276" x2="200" y2="276" stroke="#3a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round"
+                points="6,250 22,232 40,228 58,250 76,266 90,263 100,258 116,242 134,232 152,250 170,268 188,272 196,262"/>
+              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round"
+                points="6,256 22,238 40,232 58,254 76,270 90,266 100,258 116,238 134,228 152,246 170,272 188,276 196,266"/>
+
+              <!-- ── PAINEL 4: TRIX ── -->
+              <text x="6" y="315" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">TRIX (8)</text>
+              <rect x="34" y="308.5" width="18" height="9" rx="2" fill="#00d4d4"/>
+              <text x="43" y="315" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">0.00</text>
+              <text x="58" y="315" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#cfe0f0">Média Móvel A (3)</text>
+              <rect x="116" y="308.5" width="18" height="9" rx="2" fill="#F5E642"/>
+              <text x="125" y="315" font-family="Tahoma,Arial,sans-serif" font-size="5.5" fill="#06121f" text-anchor="middle">0.00</text>
+              <line x1="0" y1="358" x2="200" y2="358" stroke="#3a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <polyline fill="none" stroke="#F5E642" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"
+                points="6,344 26,350 46,356 66,360 86,359 100,358 120,352 140,347 160,349 180,353 196,349"/>
+              <polyline fill="none" stroke="#00d4d4" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"
+                points="6,352 26,356 46,360 66,362 86,360 100,358 120,349 140,343 160,345 180,349 196,345"/>
+
+              <!-- marcador da agulhada: linha vertical + pulsos no cruzamento dos 4 indicadores -->
+              <line x1="100" y1="8" x2="100" y2="396" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,3" opacity="0.55"/>
+              <g>
+                <circle cx="100" cy="60" r="3" fill="#22c55e"/>
+                <circle cx="100" cy="60" r="3" fill="none" stroke="#22c55e" stroke-width="1.4">
+                  <animate attributeName="r" from="3" to="12" dur="1.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.85" to="0" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+              <g>
+                <circle cx="100" cy="158" r="3.4" fill="#22c55e"/>
+                <circle cx="100" cy="158" r="3.4" fill="none" stroke="#22c55e" stroke-width="1.5">
+                  <animate attributeName="r" from="3.4" to="14" dur="1.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.9" to="0" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+              <g>
+                <circle cx="100" cy="258" r="3" fill="#22c55e"/>
+                <circle cx="100" cy="258" r="3" fill="none" stroke="#22c55e" stroke-width="1.4">
+                  <animate attributeName="r" from="3" to="12" dur="1.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.85" to="0" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+              <g>
+                <circle cx="100" cy="358" r="3" fill="#22c55e"/>
+                <circle cx="100" cy="358" r="3" fill="none" stroke="#22c55e" stroke-width="1.4">
+                  <animate attributeName="r" from="3" to="12" dur="1.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.85" to="0" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+            </svg>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1789,8 +2227,189 @@
   </div>
 </div>
 
-<!-- WhatsApp float -->
-<a href="https://wa.me/5500000000000" class="wpp-btn" title="Suporte WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+<!-- Chat widget -->
+<div class="wpp-wrap">
+  <div class="wpp-chat" id="wppChat">
+    <div class="wpp-head" id="wppHead">
+      <button class="wpp-head__back" id="wppBack" aria-label="Voltar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="wpp-head__avatar" id="wppAvatar"><img src="images/atendimento-bigplayer-didi-index.jpg" alt="Atendente" /></div>
+      <div class="wpp-head__info">
+        <div class="wpp-head__name">SUPORTE DIDI</div>
+        <div class="wpp-head__status"><span class="wpp-head__online"></span>Online agora</div>
+      </div>
+      <button class="wpp-head__close" id="wppClose" aria-label="Fechar">×</button>
+    </div>
+    <div class="wpp-body">
+
+      <!-- tela: menu -->
+      <div class="wpp-screen active" data-screen="menu">
+        <p class="wpp-body__title">Como podemos te ajudar?</p>
+        <div class="wpp-options wpp-options--col">
+          <button class="wpp-option" data-act="wa" data-msg="Olá! Tenho interesse em comprar o produto. Pode me ajudar?">Quero comprar</button>
+          <button class="wpp-option" data-act="goto" data-screen="spam">Paguei e não recebi</button>
+          <button class="wpp-option" data-act="wa" data-msg="Olá! Comprei o produto mas não estou conseguindo acessar o curso.">Não consigo acessar o curso</button>
+          <button class="wpp-option" data-act="goto" data-screen="question">Tenho dúvidas</button>
+          <button class="wpp-option" data-act="goto" data-screen="other">Outra coisa</button>
+        </div>
+      </div>
+
+      <!-- tela: paguei e não recebi -->
+      <div class="wpp-screen" data-screen="spam">
+        <div class="wpp-typing"><span></span><span></span><span></span></div>
+        <div class="wpp-screen__content">
+          <div class="wpp-msg">
+            Na maioria das vezes o acesso chega em poucos minutos por e-mail. Antes de mais nada, confira:
+            <ul>
+              <li>A pasta de <strong>Spam / Lixo eletrônico</strong></li>
+              <li>A aba <strong>Promoções</strong> (no Gmail)</li>
+              <li>Aguarde de <strong>5 a 15 minutos</strong> após o pagamento</li>
+            </ul>
+          </div>
+          <div class="wpp-options wpp-options--col">
+            <button class="wpp-option" data-act="goto" data-screen="email">Já verifiquei e não recebi 📩</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- tela: e-mail da compra -->
+      <div class="wpp-screen" data-screen="email">
+        <div class="wpp-typing"><span></span><span></span><span></span></div>
+        <div class="wpp-screen__content">
+          <div class="wpp-msg">
+            Sem problema! 😊 Me informe o <strong>e-mail usado na compra</strong> para localizarmos seu pedido.
+          </div>
+          <input class="wpp-input" id="wppEmail" type="email" placeholder="seu@email.com" autocomplete="email" />
+          <div class="wpp-err" id="wppEmailErr"></div>
+          <button class="wpp-send" id="wppEmailSend" disabled>Continuar no WhatsApp</button>
+        </div>
+      </div>
+
+      <!-- tela: dúvidas -->
+      <div class="wpp-screen" data-screen="question">
+        <div class="wpp-typing"><span></span><span></span><span></span></div>
+        <div class="wpp-screen__content">
+          <div class="wpp-msg">Claro! ✍️ Escreva sua dúvida abaixo:</div>
+          <textarea class="wpp-textarea" id="wppQuestion" placeholder="Digite sua dúvida..."></textarea>
+          <div class="wpp-err" id="wppQuestionErr"></div>
+          <button class="wpp-send" id="wppQuestionSend" disabled>Enviar dúvida</button>
+        </div>
+      </div>
+
+      <!-- tela: outra coisa -->
+      <div class="wpp-screen" data-screen="other">
+        <div class="wpp-typing"><span></span><span></span><span></span></div>
+        <div class="wpp-screen__content">
+          <div class="wpp-msg">Conta pra gente o que você precisa 👇</div>
+          <textarea class="wpp-textarea" id="wppOther" placeholder="Descreva o que você precisa..."></textarea>
+          <div class="wpp-err" id="wppOtherErr"></div>
+          <button class="wpp-send" id="wppOtherSend" disabled>Enviar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <button class="wpp-btn" id="wppBtn" title="Falar com o suporte">
+    <span class="wpp-btn__dot"></span>Atendimento
+  </button>
+</div>
+
+<script>
+(function(){
+  /* número do WhatsApp — formato: 55 + DDD + número (apenas dígitos) */
+  var WA = '5500000000000';
+  /* etiqueta de origem — vai no topo de toda mensagem para você identificar de onde veio */
+  var TAG = '*[Site Setup Didi Index]*\n\n';
+
+  var btn   = document.getElementById('wppBtn');
+  var chat  = document.getElementById('wppChat');
+  var head  = document.getElementById('wppHead');
+  var close = document.getElementById('wppClose');
+  var back  = document.getElementById('wppBack');
+  var screens = chat.querySelectorAll('.wpp-screen');
+
+  function openWa(msg){
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(TAG + msg), '_blank');
+  }
+
+  function showScreen(name){
+    screens.forEach(function(s){
+      var on = s.dataset.screen === name;
+      s.classList.toggle('active', on);
+      if(!on) return;
+      var typing  = s.querySelector('.wpp-typing');
+      var content = s.querySelector('.wpp-screen__content');
+      if(typing && content){
+        typing.classList.add('show');
+        content.classList.remove('show');
+        clearTimeout(s._t);
+        s._t = setTimeout(function(){
+          typing.classList.remove('show');
+          content.classList.add('show');
+        }, 950);
+      }
+    });
+    head.classList.toggle('has-back', name !== 'menu');
+  }
+
+  function setOpen(open){
+    chat.classList.toggle('open', open);
+    if(open) showScreen('menu');
+  }
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    setOpen(!chat.classList.contains('open'));
+  });
+  close.addEventListener('click', function(e){
+    e.stopPropagation();
+    setOpen(false);
+  });
+  back.addEventListener('click', function(e){
+    e.stopPropagation();
+    showScreen('menu');
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.wpp-wrap')) chat.classList.remove('open');
+  });
+
+  /* botões com data-act */
+  chat.addEventListener('click', function(e){
+    var b = e.target.closest('[data-act]');
+    if(!b) return;
+    if(b.dataset.act === 'wa')   openWa(b.dataset.msg);
+    if(b.dataset.act === 'goto') showScreen(b.dataset.screen);
+  });
+
+  /* formulários (e-mail / dúvida / outra coisa) */
+  function bindForm(inputId, sendId, errId, build, validate){
+    var input = document.getElementById(inputId);
+    var send  = document.getElementById(sendId);
+    var err   = document.getElementById(errId);
+    function check(){ send.disabled = !validate(input.value.trim()); }
+    input.addEventListener('input', function(){ err.textContent = ''; check(); });
+    send.addEventListener('click', function(){
+      var v = input.value.trim();
+      if(!validate(v)){ err.textContent = 'Preencha o campo corretamente.'; return; }
+      openWa(build(v));
+    });
+    check();
+  }
+
+  bindForm('wppEmail', 'wppEmailSend', 'wppEmailErr',
+    function(v){ return 'Olá! Paguei mas ainda não recebi meu acesso. Já verifiquei a caixa de spam e aguardei. O e-mail que usei na compra foi: ' + v; },
+    function(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); });
+
+  bindForm('wppQuestion', 'wppQuestionSend', 'wppQuestionErr',
+    function(v){ return 'Olá! Tenho uma dúvida: ' + v; },
+    function(v){ return v.length >= 3; });
+
+  bindForm('wppOther', 'wppOtherSend', 'wppOtherErr',
+    function(v){ return 'Olá! Preciso de ajuda com o seguinte: ' + v; },
+    function(v){ return v.length >= 3; });
+})();
+</script>
 
 <script src="checkout.js" type="module"></script>
 </body>
