@@ -52,8 +52,17 @@ document.querySelectorAll('input[name="payment"]').forEach((radio) => {
 updatePriceSummary('PIX');
 
 // ── MODAL ─────────────────────────────────────────────────────
-// todos os botões "Comprar" da landing abrem o checkout
-document.querySelectorAll('.js-buy').forEach((b) => b.addEventListener('click', openModal));
+// TEMPORÁRIO: enquanto o site está em desenvolvimento, todos os botões "Comprar"
+// redirecionam para o WhatsApp com uma mensagem de interesse de compra,
+// em vez de abrirem o modal de checkout. Para reverter, basta trocar
+// `redirectToWhatsApp` por `openModal` na linha abaixo.
+const WA_NUMBER  = '5511915790207';
+const WA_MESSAGE = '*[Site Setup Didi Index]*\n\nOlá! Tenho interesse em comprar o Setup do Didi Index. Pode me ajudar?';
+function redirectToWhatsApp(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(WA_MESSAGE), '_blank');
+}
+document.querySelectorAll('.js-buy').forEach((b) => b.addEventListener('click', redirectToWhatsApp));
 btnClose.addEventListener('click', closeModal);
 overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });

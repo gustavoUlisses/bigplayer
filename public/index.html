@@ -1372,6 +1372,164 @@
 </head>
 <body>
 
+<!-- ══ POPUP TEMPORÁRIO (site em desenvolvimento) ══════════════════
+     Para remover: apague este bloco inteiro até o fim do script logo abaixo.
+     ════════════════════════════════════════════════════════════════ -->
+<style>
+  .dev-popup-overlay {
+    position: fixed; inset: 0;
+    background: rgba(26, 25, 23, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 9999;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+  .dev-popup-overlay.is-open { display: flex; opacity: 1; }
+  .dev-popup {
+    background: #F5F3EE;
+    color: #1A1917;
+    max-width: 440px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 32px 28px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+    transform: translateY(8px) scale(.98);
+    transition: transform .25s ease;
+  }
+  .dev-popup-overlay.is-open .dev-popup { transform: translateY(0) scale(1); }
+  .dev-popup__close {
+    position: absolute; top: 10px; right: 12px;
+    background: none; border: none; cursor: pointer;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    color: #6B6860; font-size: 22px; line-height: 1;
+    border-radius: 4px;
+  }
+  .dev-popup__close:hover { background: #E8E5DE; color: #1A1917; }
+  .dev-popup__tag {
+    display: inline-block;
+    background: #F5E642;
+    color: #1A1917;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-bottom: 14px;
+  }
+  .dev-popup__title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: #1A1917;
+  }
+  .dev-popup__text {
+    font-size: 15px;
+    line-height: 1.55;
+    color: #3A3833;
+    margin-bottom: 22px;
+  }
+  .dev-popup__text strong { color: #1A1917; }
+  .dev-popup__actions { display: flex; flex-direction: column; gap: 10px; }
+  .dev-popup__btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 18px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .dev-popup__btn--primary { background: #25D366; color: #fff; }
+  .dev-popup__btn--primary:hover { background: #1eb858; }
+  .dev-popup__btn--secondary {
+    background: transparent;
+    color: #6B6860;
+    border: 1px solid #C8C4BB;
+  }
+  .dev-popup__btn--secondary:hover { background: #E8E5DE; color: #1A1917; }
+  @media (max-width: 480px) {
+    .dev-popup { padding: 28px 22px 20px; }
+    .dev-popup__title { font-size: 19px; }
+    .dev-popup__text  { font-size: 14px; }
+  }
+</style>
+
+<div class="dev-popup-overlay" id="devPopup" role="dialog" aria-modal="true" aria-labelledby="devPopupTitle">
+  <div class="dev-popup">
+    <button class="dev-popup__close" id="devPopupClose" aria-label="Fechar">×</button>
+    <span class="dev-popup__tag">Aviso</span>
+    <h2 class="dev-popup__title" id="devPopupTitle">Site em ajustes finais</h2>
+    <p class="dev-popup__text">
+      Estamos finalizando o checkout aqui no site. Por enquanto, <strong>a compra do Setup é feita direto pelo WhatsApp</strong> — atendimento rápido e o mesmo preço de sempre.
+    </p>
+    <div class="dev-popup__actions">
+      <a href="#" class="dev-popup__btn dev-popup__btn--primary" id="devPopupWa">
+        <i class="ph ph-whatsapp-logo" style="font-size:18px;"></i>
+        Comprar pelo WhatsApp
+      </a>
+      <button class="dev-popup__btn dev-popup__btn--secondary" id="devPopupContinue">
+        Continuar navegando
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var WA_NUMBER  = '5511915790207';
+  var WA_MESSAGE = '*[Site Setup Didi Index]*\n\nOlá! Tenho interesse em comprar o Setup do Didi Index. Pode me ajudar?';
+  var KEY = 'devPopupSeen';
+
+  var overlay = document.getElementById('devPopup');
+  var btnClose = document.getElementById('devPopupClose');
+  var btnContinue = document.getElementById('devPopupContinue');
+  var btnWa = document.getElementById('devPopupWa');
+
+  btnWa.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(WA_MESSAGE);
+
+  function close(){
+    overlay.classList.remove('is-open');
+    try { sessionStorage.setItem(KEY, '1'); } catch(_) {}
+    setTimeout(function(){ overlay.style.display = 'none'; }, 250);
+  }
+  function open(){
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function(){ overlay.classList.add('is-open'); });
+  }
+
+  btnClose.addEventListener('click', close);
+  btnContinue.addEventListener('click', close);
+  btnWa.addEventListener('click', function(){
+    try { sessionStorage.setItem(KEY, '1'); } catch(_) {}
+  });
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) close();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+  });
+
+  var seen = false;
+  try { seen = sessionStorage.getItem(KEY) === '1'; } catch(_) {}
+  if (!seen) {
+    setTimeout(open, 800);
+  }
+})();
+</script>
+<!-- ══ FIM POPUP TEMPORÁRIO ════════════════════════════════════════ -->
+
 <!-- NAV -->
 <nav>
   <div class="container nav-inner">
