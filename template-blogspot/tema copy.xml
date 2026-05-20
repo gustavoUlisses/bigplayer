@@ -10,27 +10,6 @@
   <meta charset='UTF-8'/>
   <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
   <b:include data='blog' name='all-head-content'/>
-
-  <script type='application/ld+json'>
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Didi Index Setup",
-    "url": "https://bigplayer.vercel.app/",
-    "logo": "https://bigplayer.vercel.app/favicon.svg"
-  }
-  </script>
-  <b:if cond='data:blog.pageType == &quot;index&quot;'>
-    <script type='application/ld+json'>
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Agulhada do Didi",
-      "url": "https://agulhadadodidi.blogspot.com/"
-    }
-    </script>
-  </b:if>
-
   <link rel='preconnect' href='https://fonts.googleapis.com'/>
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin='crossorigin'/>
   <link href='https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap' rel='stylesheet'/>
@@ -197,105 +176,13 @@ img { max-width: 100%; height: auto; }
   padding: 36px 0;
   border-bottom: 1px solid #2a2a2a;
 }
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.page-band a {
   font-size: 12px;
-  letter-spacing: .04em;
-  flex-wrap: wrap;
-}
-.breadcrumb a {
   color: #A8A59E;
   text-decoration: none;
-}
-.breadcrumb a:hover { color: #fff; }
-.bc-sep { color: #555; font-size: 10px; }
-.bc-current { color: #fff; }
-
-/* DATA DO POST */
-body.item .post-header {
-  display: block !important;
-  margin-bottom: 4px;
-}
-body.item .post-header .published,
-body.item .published,
-body.item .timestamp-link {
-  font-size: 12px;
-  color: var(--ink3);
   letter-spacing: .04em;
-  text-transform: uppercase;
 }
-body.item .post-header .author,
-body.item .post-header .reaction-buttons,
-body.item .post-header-line-1 { display: none !important; }
-
-/* SECAO POSTS RELACIONADOS */
-.related-band {
-  padding: 40px 0 8px;
-  border-top: 1px solid var(--border);
-  background: var(--box);
-}
-.related-band .sec-label { margin-bottom: 22px; }
-.related-band .widget h2,
-.related-band .widget h3,
-.related-band .widget .title,
-.related-band .widget .widget-title,
-#PopularPosts1 h2,
-#PopularPosts1 h3,
-#PopularPosts1 .title { display: none !important; }
-.popular-posts li:nth-child(n+7) { display: none; }
-.popular-posts ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-.popular-posts li {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 24px 26px !important;
-  transition: transform .15s, box-shadow .15s;
-}
-.popular-posts .item-content,
-.popular-posts .item-title {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-.popular-posts li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(0,0,0,.06);
-}
-.popular-posts li a {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  text-decoration: none;
-  line-height: 1.4;
-  display: block;
-}
-.popular-posts li::after {
-  content: 'Ler artigo \2192';
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-top: 16px;
-}
-.popular-posts .item-thumbnail,
-.popular-posts .item-snippet,
-.popular-posts .item-snippet-link { display: none; }
-.popular-posts .item-title { margin: 0; }
-@media (max-width: 760px) {
-  .popular-posts ul { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 480px) {
-  .popular-posts ul { grid-template-columns: 1fr; }
-}
+.page-band a:hover { color: #fff; }
 
 /* SECTION LABEL NUMERADO */
 .sec-label {
@@ -411,10 +298,7 @@ body.item .post-outer-container {
   body.index .blog-posts { grid-template-columns: 1fr; }
 }
 
-/* PAGINACAO (esconde nas paginas de post - Continue lendo cobre) */
-body.item .blog-pager,
-body.item #blog-pager { display: none !important; }
-
+/* PAGINACAO */
 .blog-pager, #blog-pager {
   display: flex;
   justify-content: center;
@@ -541,13 +425,7 @@ body.item #blog-pager { display: none !important; }
 <b:else/>
   <div class='page-band'>
     <div class='narrow'>
-      <nav class='breadcrumb'>
-        <a expr:href='data:blog.homepageUrl'>Inicio</a>
-        <span class='bc-sep'>&#9656;</span>
-        <a expr:href='data:blog.homepageUrl'>Blog</a>
-        <span class='bc-sep'>&#9656;</span>
-        <span class='bc-current'>Artigo</span>
-      </nav>
+      <a expr:href='data:blog.homepageUrl'>&#8592; Voltar para o blog</a>
     </div>
   </div>
 </b:if>
@@ -569,17 +447,6 @@ body.item #blog-pager { display: none !important; }
 
   </div>
 </div>
-
-<b:if cond='data:blog.pageType == &quot;item&quot;'>
-  <div class='related-band'>
-    <div class='container'>
-      <div class='sec-label'><span class='sec-num'>+</span> Continue lendo</div>
-      <b:section id='related' showaddelement='no'>
-        <b:widget id='PopularPosts1' locked='false' title='' type='PopularPosts' version='2'/>
-      </b:section>
-    </div>
-  </div>
-</b:if>
 
 <div class='cta-band'>
   <div class='narrow'>

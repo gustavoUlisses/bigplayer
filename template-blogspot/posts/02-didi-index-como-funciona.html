@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Didi Index: Como Funciona o Indicador (Tutorial Definitivo 2026)</title>
+<meta name="description" content="Tutorial completo do Didi Index: a matematica por tras das tres medias moveis, por que 3, 8 e 20, como ler o painel e quando o indicador falha.">
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 720px; margin: 40px auto; padding: 0 28px; line-height: 1.75; color: #1a1917; background: #fff; }
+  h1 { font-size: 34px; line-height: 1.2; margin: 0 0 18px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  h2 { font-size: 25px; margin: 44px 0 14px; font-family: 'Helvetica Neue', Arial, sans-serif; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  h3 { font-size: 19px; margin: 30px 0 10px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  p { margin: 0 0 16px; font-size: 17px; }
+  ul, ol { margin: 0 0 16px 28px; }
+  li { margin-bottom: 6px; font-size: 17px; }
+  strong { color: #000; }
+  table { border-collapse: collapse; width: 100%; margin: 22px 0; font-size: 15px; }
+  th, td { padding: 11px 14px; border: 1px solid #ddd; text-align: left; }
+  th { background: #f7f6f3; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; }
+  .lead { font-size: 19px; color: #555; border-left: 3px solid #F5E642; padding: 0 0 0 18px; margin: 22px 0 30px; font-style: italic; }
+  .faq h3 { margin-top: 22px; font-size: 17px; }
+  .faq p { margin-bottom: 18px; }
+  code { background: #f4f3ef; padding: 2px 6px; border-radius: 3px; font-size: 15px; }
+  .copy-instr { background: #FFF9E1; border: 1px solid #F5E642; padding: 14px 18px; border-radius: 4px; font-size: 13px; color: #6B6860; margin-bottom: 30px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+</style>
+</head>
+<body>
+
+<div class="copy-instr">
+  <strong>Como usar:</strong> copia daqui (do H1 ate o final do ultimo CTA) e cola no editor do Blogger em modo HTML. Onde estiver [editar] troca pelo seu dado real.
+</div>
+
+<h1>Didi Index: Como Funciona o Indicador (Tutorial Definitivo)</h1>
+
+<p class="lead">O Didi Index nao e magico. E uma matematica simples de tres medias moveis que, quando bem entendida, vira uma ferramenta brutal pra antecipar movimentos. Vou desmontar o indicador peca por peca pra voce ver exatamente o que cada linha esta dizendo, por que esses periodos especificos foram escolhidos, e quando o indicador vai te enganar.</p>
+
+<h2>O Que o Didi Index Calcula</h2>
+
+<p>O Didi Index plota tres medias moveis simples (MMS) de periodos 3, 8 e 20, mas com uma jogada importante: ele <strong>normaliza</strong> as outras duas medias em relacao a MM8.</p>
+
+<p>O que isso significa na pratica:</p>
+
+<ul>
+  <li>A MM8 vira a "linha do zero" do painel</li>
+  <li>A MM3 e plotada como a diferenca entre ela e a MM8 (em percentual)</li>
+  <li>A MM20 e plotada como a diferenca entre ela e a MM8 (em percentual)</li>
+</ul>
+
+<p>Resultado: voce ve tres linhas oscilando em torno do zero. Quando todas estao no zero ao mesmo tempo, e a agulhada.</p>
+
+<p>Sem essa normalizacao, voce so veria tres linhas serpenteando pelo grafico de preco, muito proximas umas das outras. Dificil de ler. A normalizacao em torno da MM8 transforma o sinal num grafico oscilatorio limpo, parecido com um RSI mas com tres linhas.</p>
+
+<h2>A Matematica Por Tras (sem Complicar)</h2>
+
+<p>A formula de uma media movel simples de N periodos no candle atual e:</p>
+
+<p style="background:#f4f3ef;padding:14px;border-radius:4px;font-family:monospace;font-size:15px;text-align:center;">MMS(N) = (P1 + P2 + ... + PN) / N</p>
+
+<p>Onde P1 ate PN sao os precos de fechamento dos ultimos N candles.</p>
+
+<p>Pro Didi Index:</p>
+
+<ul>
+  <li>MMS(3) = soma dos ultimos 3 fechamentos dividida por 3</li>
+  <li>MMS(8) = soma dos ultimos 8 fechamentos dividida por 8</li>
+  <li>MMS(20) = soma dos ultimos 20 fechamentos dividida por 20</li>
+</ul>
+
+<p>A normalizacao e:</p>
+
+<p style="background:#f4f3ef;padding:14px;border-radius:4px;font-family:monospace;font-size:14px;text-align:center;">Didi(MM3) = (MMS3 / MMS8) * 100 - 100<br>Didi(MM20) = (MMS20 / MMS8) * 100 - 100<br>Didi(MM8) = 0 (sempre)</p>
+
+<p>Voce nao precisa decorar isso. So entende a logica: o Didi Index mostra <strong>o quanto a MM3 e a MM20 estao distantes da MM8, em percentual</strong>. Quando ambas estao em zero, e porque as tres se encontraram.</p>
+
+<h2>Por Que 3, 8 e 20</h2>
+
+<p>Esses periodos nao foram escolhidos por acaso. Sao aproximacoes da sequencia de Fibonacci (3, 5, 8, 13, 21) e tambem dividem bem o pregao brasileiro.</p>
+
+<table>
+  <tr><th>Periodo</th><th>No grafico de 5 min</th><th>O que representa</th></tr>
+  <tr><td>3</td><td>15 minutos</td><td>Reacao imediata do mercado</td></tr>
+  <tr><td>8</td><td>40 minutos</td><td>Movimento de curto prazo</td></tr>
+  <tr><td>20</td><td>1h40</td><td>Tendencia da sessao</td></tr>
+</table>
+
+<p>O 3 capta o impulso. O 8 mostra se o impulso esta virando movimento. O 20 confirma se virou tendencia. Quando os tres se alinham, e porque o mercado decidiu pra qual lado vai.</p>
+
+<p>Ja vi gente tentar otimizar esses parametros: usa 5, 10, 25 ou outras combinacoes. Funciona menos. Os numeros 3, 8 e 20 viraram referencia porque sao usados por milhares de traders desde os anos 90. Quando muita gente olha pra mesma coisa, o sinal vira profecia auto-realizavel: o preco responde a esses niveis porque todo mundo esta operando neles.</p>
+
+<h2>Como Ler o Painel do Didi Index</h2>
+
+<p>Olhando o painel do indicador (geralmente plotado abaixo do grafico de precos):</p>
+
+<h3>Linha do zero (MM8)</h3>
+<p>Linha horizontal de referencia. Tudo se mede em relacao a ela.</p>
+
+<h3>Linha rapida (MM3, normalizada)</h3>
+<p>A que mais oscila. Sobe e desce com forca. Quando esta muito acima do zero, o preco esta acima da media. Quando esta muito abaixo, o preco esta abaixo.</p>
+
+<h3>Linha lenta (MM20, normalizada)</h3>
+<p>A que se move devagar. Quando ela cruza o zero, e mudanca de tendencia de fundo. Esse cruzamento e raro mas importante.</p>
+
+<h2>Os Tipos de Cruzamento (Sinais)</h2>
+
+<h3>1. Agulhada perfeita</h3>
+<p>As tres linhas (MM3, linha zero, MM20) se encontram no mesmo candle. Esse e o sinal classico. Quando acontece em mercado em tendencia (ADX acima de 25), e quase sempre o inicio de um movimento direcional forte.</p>
+
+<h3>2. Quase-agulhada</h3>
+<p>As linhas chegam muito proximas mas nao se tocam exatamente. Vale como sinal de antecipacao mas precisa de confirmacao extra. Eu so opero quase-agulhada se o ADX estiver subindo forte.</p>
+
+<h3>3. Cruzamento simples da MM3</h3>
+<p>So a MM3 cruza o zero. Sinal de curto prazo, vale pra scalp. Nao e agulhada, mas e gatilho menor pra quem opera muito rapido.</p>
+
+<h3>4. Cruzamento da MM20 com o zero</h3>
+<p>Acontece poucas vezes ao dia, as vezes so 1 ou 2 vezes na semana no diario. Mas quando vem, indica mudanca de tendencia de fundo. Vale prestar muita atencao nesse sinal.</p>
+
+<div style="background:#1A1917;color:#F5F3EE;padding:32px 28px;border-radius:4px;text-align:center;margin:36px 0;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <p style="margin:0 0 10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#A8A59E;">Setup pronto</p>
+  <h3 style="margin:0 0 8px;color:#fff;font-size:21px;font-family:inherit;border:none;padding:0;">Didi Index ja configurado pra sua plataforma</h3>
+  <p style="margin:0 0 8px;color:#C8C4BB;font-size:14px;">Em vez de configurar do zero, baixa o setup pronto com Didi, ADX, Bollinger, Estocastico e TRIX nos parametros que funcionam juntos.</p>
+  <div style="font-size:32px;font-weight:700;margin:14px 0 18px;color:#fff;">R$ 29,90</div>
+  <a href="https://bigplayer.vercel.app/" style="display:inline-block;background:#F5E642;color:#1A1917;padding:14px 28px;font-weight:700;text-decoration:none;border-radius:4px;font-size:14px;">Ver o Setup</a>
+</div>
+
+<h2>Quando o Indicador Falha</h2>
+
+<p>O Didi Index nao funciona em qualquer cenario. Conhecer onde ele falha e mais importante do que conhecer onde ele acerta.</p>
+
+<h3>Mercado lateral</h3>
+<p>Quando o preco esta de lado, as tres medias ficam constantemente proximas. Voce ve agulhada apos agulhada, todas falsas. O preco bate de uma ponta a outra do range e nada se concretiza. Por isso o filtro do ADX existe: ADX abaixo de 20 e sinal de mercado lateral, ignora as agulhadas.</p>
+
+<h3>Abertura do pregao</h3>
+<p>Nos primeiros 30 minutos do pregao brasileiro (9h00 as 9h30), o volume e baixo, os algoritmos estao se ajustando, e o indicador pode mostrar agulhadas que sao puro ruido. So opero a partir das 10h.</p>
+
+<h3>Noticias e divulgacoes</h3>
+<p>Antes de divulgacao de PIB, juros, payroll dos EUA, qualquer coisa que mexa forte, o mercado fica preso esperando. As medias ficam coladas. Quando sai a noticia, o preco da um pulo, mas isso nao e sinal do Didi Index, e a noticia. Eu nao opero 15 minutos antes nem 15 minutos depois de noticia importante.</p>
+
+<h3>Ativos sem volume</h3>
+<p>Em acoes pouco liquidas ou em cripto secundaria, o preco anda em saltos. Cada candle e uma loteria. As medias nao se formam direito. Nao funciona.</p>
+
+<h2>Comparacao com Outros Indicadores Similares</h2>
+
+<table>
+  <tr><th>Indicador</th><th>Tipo</th><th>Funciona melhor em</th></tr>
+  <tr><td>Didi Index</td><td>Cruzamento de medias normalizadas</td><td>Tendencias com pullback</td></tr>
+  <tr><td>Medias Moveis simples</td><td>Cruzamento direto</td><td>Tendencias longas</td></tr>
+  <tr><td>MACD</td><td>Diferenca de EMAs</td><td>Movimentos amplos</td></tr>
+  <tr><td>RSI</td><td>Oscilador de momentum</td><td>Reversoes</td></tr>
+  <tr><td>Estocastico</td><td>Oscilador de range</td><td>Mercados sem tendencia</td></tr>
+</table>
+
+<p>O grande diferencial do Didi e a normalizacao em torno da MM8. Outros sistemas de medias mostram cruzamentos no proprio grafico de preco, onde fica visualmente confuso. O Didi separa num painel proprio, com escala de percentual. Voce ve com clareza a relacao entre as medias mesmo quando o preco esta com volatilidade alta.</p>
+
+<h2>Como Eu Uso na Pratica</h2>
+
+<p>Minha rotina diaria com o Didi Index:</p>
+
+<ol>
+  <li>Abro o WIN no Profit Chart umas 9h40, ainda nao opero, so observo</li>
+  <li>As 10h, configuro o grafico em 5 min e olho o Didi Index</li>
+  <li>Verifico o ADX (que fica em painel separado abaixo)</li>
+  <li>Se ADX esta acima de 20 e tem agulhada se formando, fico de prontidao</li>
+  <li>Espero a agulhada acontecer e a confirmacao no candle seguinte</li>
+  <li>Entro com stop de [editar: 80 pontos] e alvo trailing</li>
+</ol>
+
+<p>Esse ritual diario me poupa muita decisao impulsiva. Sem o roteiro, voce acaba operando em qualquer agulhada que aparece. Com roteiro, voce so opera as boas.</p>
+
+<h2>Perguntas Frequentes</h2>
+
+<div class="faq">
+
+<h3>Posso usar so o Didi Index sem outros indicadores?</h3>
+<p>Da pra usar, mas vai dar muito sinal falso. Voce vai operar 10 agulhadas pra acertar 3. Com o setup completo (Didi + ADX + Bollinger + Estocastico + TRIX), a taxa de acerto sobe pra perto de 60 ou 70%.</p>
+
+<h3>Qual a diferenca entre Didi Index e medias moveis comuns?</h3>
+<p>Medias moveis comuns sao plotadas no proprio grafico de preco. O Didi Index pega tres medias e plota num painel separado, com a MM8 servindo como linha zero e as outras como percentual em relacao a ela. Visualmente fica muito mais claro identificar o cruzamento triplo (a agulhada).</p>
+
+<h3>Posso mudar os periodos 3, 8 e 20?</h3>
+<p>Tecnicamente sim. Na pratica nao recomendo. Esses periodos viraram padrao no mercado brasileiro porque funcionam e porque muita gente olha pra eles. Mudar e perder essa vantagem da profecia auto-realizavel.</p>
+
+<h3>Qual timeframe e melhor pro Didi Index?</h3>
+<p>Pra day trade brasileiro: 5 ou 15 minutos. Pra swing: 60 minutos ou diario. Pra scalp em mini indice: 1 ou 2 minutos. Cada timeframe tem suas particularidades, mas o indicador funciona em todos.</p>
+
+<h3>Onde encontro o indicador na minha plataforma?</h3>
+<p>No MetaTrader 5, voce baixa o arquivo .ex5 e cola na pasta de indicadores. No Profit Chart, esta nativo no menu de indicadores. No Tryd, idem. No TradingView, basta buscar "Didi Index" na biblioteca publica.</p>
+
+</div>
+
+<h2>Leituras Recomendadas</h2>
+
+<ul>
+  <li><a href="/p/agulhada-do-didi-guia-completo.html">Agulhada do Didi: Guia Completo 2026</a>, pra ver como o cruzamento se transforma em sinal de entrada na pratica</li>
+  <li><a href="/p/quem-e-odir-aguiar-historia-didi-index.html">Quem e Odir Aguiar: A Historia do Didi Index</a>, sobre o criador do metodo</li>
+  <li><a href="/p/setup-didi-index-configuracao-passo-a-passo.html">Setup Didi Index Profissional: Configuracao Passo a Passo</a>, pra montar tudo na sua plataforma</li>
+</ul>
+
+<div style="background:#1A1917;color:#F5F3EE;padding:36px 28px;border-radius:4px;text-align:center;margin:40px 0 20px;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <p style="margin:0 0 10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#A8A59E;">Atalho</p>
+  <h3 style="margin:0 0 8px;color:#fff;font-size:22px;font-family:inherit;border:none;padding:0;">Em vez de configurar do zero, pega o setup pronto</h3>
+  <p style="margin:0 0 8px;color:#C8C4BB;font-size:14px;">Didi Index, ADX Wilder, Bollinger, Estocastico e TRIX configurados nos parametros que funcionam juntos. Pronto pra MetaTrader 4 e 5, Profit Chart e Tryd.</p>
+  <div style="font-size:36px;font-weight:700;margin:16px 0 20px;color:#fff;">R$ 29,90</div>
+  <a href="https://bigplayer.vercel.app/" style="display:inline-block;background:#F5E642;color:#1A1917;padding:16px 32px;font-weight:700;text-decoration:none;border-radius:4px;font-size:15px;">Quero o Setup completo</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#A8A59E;">Entrega imediata por e-mail</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Setup Didi Index Profissional: Configuracao Passo a Passo [2026]</title>
+<meta name="description" content="Configuracao completa do Setup Didi Index para MetaTrader 5, Profit Chart e Tryd. Parametros de cada indicador, ordem de instalacao e como salvar template.">
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 720px; margin: 40px auto; padding: 0 28px; line-height: 1.75; color: #1a1917; background: #fff; }
+  h1 { font-size: 34px; line-height: 1.2; margin: 0 0 18px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  h2 { font-size: 25px; margin: 44px 0 14px; font-family: 'Helvetica Neue', Arial, sans-serif; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  h3 { font-size: 19px; margin: 30px 0 10px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  p { margin: 0 0 16px; font-size: 17px; }
+  ul, ol { margin: 0 0 16px 28px; }
+  li { margin-bottom: 6px; font-size: 17px; }
+  strong { color: #000; }
+  table { border-collapse: collapse; width: 100%; margin: 22px 0; font-size: 15px; }
+  th, td { padding: 11px 14px; border: 1px solid #ddd; text-align: left; }
+  th { background: #f7f6f3; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; }
+  .lead { font-size: 19px; color: #555; border-left: 3px solid #F5E642; padding: 0 0 0 18px; margin: 22px 0 30px; font-style: italic; }
+  .faq h3 { margin-top: 22px; font-size: 17px; }
+  .faq p { margin-bottom: 18px; }
+  .copy-instr { background: #FFF9E1; border: 1px solid #F5E642; padding: 14px 18px; border-radius: 4px; font-size: 13px; color: #6B6860; margin-bottom: 30px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  .config { background: #f4f3ef; padding: 14px 18px; border-radius: 4px; margin: 14px 0; font-family: 'Courier New', monospace; font-size: 14px; }
+  .warn { background: #fff4ed; border-left: 4px solid #d97706; padding: 14px 18px; border-radius: 4px; margin: 18px 0; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="copy-instr">
+  <strong>Como usar:</strong> copia daqui (do H1 ate o final do ultimo CTA) e cola no editor do Blogger em modo HTML. Onde estiver [editar] troca pelo seu dado real.
+</div>
+
+<h1>Setup Didi Index Profissional: Configuracao Passo a Passo</h1>
+
+<p class="lead">Configurar o Setup Didi Index do zero leva entre 2 e 4 horas, dependendo da sua plataforma. Cinco indicadores, cada um com seus parametros, todos precisam estar afinados entre si. Vou te mostrar exatamente como configuro o setup no MetaTrader 5, no Profit Chart e no Tryd, com os parametros que uso ha [editar: X] anos. No final tem o atalho pra quem nao quer fazer tudo manualmente.</p>
+
+<h2>Por Que Ter um Setup Pre-Configurado</h2>
+
+<p>Voce pode operar so com o Didi Index puro, mas vai dar muito sinal falso. O setup completo serve pra filtrar:</p>
+
+<ul>
+  <li>Agulhadas em mercado lateral (o ADX resolve)</li>
+  <li>Movimentos sem combustivel (Bollinger mostra)</li>
+  <li>Entradas em sobrecompra ou sobrevenda (Estocastico avisa)</li>
+  <li>Sinais contra o momentum maior (TRIX confirma)</li>
+</ul>
+
+<p>Sem essas pecas, voce vai operar cego. Com elas todas afinadas, voce so entra quando tudo conversa. Esse e o pulo do gato.</p>
+
+<h2>Os 5 Indicadores do Setup</h2>
+
+<table>
+  <tr><th>Indicador</th><th>Funcao</th><th>Painel</th></tr>
+  <tr><td>Didi Index</td><td>Gera o sinal de agulhada</td><td>Inferior</td></tr>
+  <tr><td>Bandas de Bollinger</td><td>Contexto e volatilidade</td><td>No grafico de preco</td></tr>
+  <tr><td>ADX Wilder</td><td>Forca da tendencia</td><td>Inferior</td></tr>
+  <tr><td>Estocastico</td><td>Sobrecompra e sobrevenda</td><td>Inferior</td></tr>
+  <tr><td>TRIX</td><td>Momentum direcional</td><td>Inferior</td></tr>
+</table>
+
+<p>Resultado visual: voce vai ter o grafico de precos no topo (com as Bandas de Bollinger sobrepostas) e quatro paineis empilhados embaixo (Didi Index, ADX, Estocastico, TRIX). Parece muita coisa, mas depois de uma semana operando voce le tudo em 3 segundos.</p>
+
+<h2>Parametros de Cada Indicador</h2>
+
+<h3>Didi Index</h3>
+<div class="config">
+Periodo curto: 3<br>
+Periodo medio: 8<br>
+Periodo longo: 20<br>
+Tipo de media: Simples (SMA)<br>
+Aplicado em: Fechamento (close)
+</div>
+
+<p>Esses parametros sao os originais do metodo. Nao mude.</p>
+
+<h3>Bandas de Bollinger</h3>
+<div class="config">
+Periodo: 20<br>
+Desvios padrao: 2<br>
+Tipo de media: Simples (SMA)<br>
+Aplicado em: Fechamento
+</div>
+
+<p>Tambem padrao. As bandas expandindo confirmam que tem movimento direcional, contraindo indicam consolidacao.</p>
+
+<h3>ADX Wilder</h3>
+<div class="config">
+Periodo: 14<br>
+Threshold de tendencia: 20<br>
+Threshold de tendencia forte: 25<br>
+Plotar +DI e -DI: Sim
+</div>
+
+<p>O ADX e o filtro mais importante. Abaixo de 20 ignoro qualquer agulhada. Acima de 25, agulhada vira sinal forte.</p>
+
+<h3>Estocastico</h3>
+<div class="config">
+%K: 9<br>
+%D: 3<br>
+Slow: 3<br>
+Overbought: 80<br>
+Oversold: 20
+</div>
+
+<p>O Didi originalmente usava parametros mais classicos do Estocastico (5, 3, 3 ou 14, 3, 3). Eu uso 9, 3, 3 porque achei que funciona melhor no day trade brasileiro atual.</p>
+
+<h3>TRIX</h3>
+<div class="config">
+Periodo: 9<br>
+Linha de sinal: 0 (zero line)<br>
+Aplicado em: Fechamento
+</div>
+
+<p>O TRIX mostra o momentum suavizado. Quando ele cruza o zero na mesma direcao da agulhada, sinal de confirmacao.</p>
+
+<h2>Como Instalar no MetaTrader 5</h2>
+
+<h3>Passo 1: Abrir a pasta de dados</h3>
+<p>No MT5, va em <strong>Arquivo > Abrir Pasta de Dados</strong>. Vai abrir o explorador no diretorio do MT5.</p>
+
+<h3>Passo 2: Localizar pasta de indicadores</h3>
+<p>Dentro da pasta de dados, navegue ate <strong>MQL5 > Indicators</strong>.</p>
+
+<h3>Passo 3: Adicionar o Didi Index</h3>
+<p>O MetaTrader 5 nao traz o Didi Index nativo. Voce precisa baixar o arquivo .ex5 (ja compilado) ou .mq5 (codigo fonte) de algum lugar confiavel e colar nessa pasta de indicators. Apos colar, abra o MT5 e ele vai aparecer no painel de indicadores.</p>
+
+<div class="warn">
+  <strong>Cuidado:</strong> evite baixar Didi Index de sites desconhecidos. Ja vi gente baixar codigo malicioso que roubava credenciais. Use fontes confiaveis ou compra um setup ja pronto e validado.
+</div>
+
+<h3>Passo 4: Adicionar os outros indicadores</h3>
+<p>Bollinger, ADX, Estocastico e TRIX ja vem nativos no MT5. Em <strong>Inserir > Indicadores</strong> voce encontra todos. Aplique no grafico um a um com os parametros que listei acima.</p>
+
+<h3>Passo 5: Salvar como template</h3>
+<p>Apos aplicar todos com os parametros certos, clique com botao direito no grafico, escolha <strong>Templates > Salvar Template</strong>, da o nome de <code>didi_setup.tpl</code>. Pronto, agora basta clicar com direito num grafico novo e carregar o template.</p>
+
+<div style="background:#1A1917;color:#F5F3EE;padding:32px 28px;border-radius:4px;text-align:center;margin:36px 0;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <p style="margin:0 0 10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#A8A59E;">Atalho</p>
+  <h3 style="margin:0 0 8px;color:#fff;font-size:21px;font-family:inherit;border:none;padding:0;">Em vez de 4 horas configurando, baixa o setup pronto</h3>
+  <p style="margin:0 0 8px;color:#C8C4BB;font-size:14px;">Setup completo ja configurado, com todos os parametros afinados. So copia o arquivo na pasta de indicadores.</p>
+  <div style="font-size:32px;font-weight:700;margin:14px 0 18px;color:#fff;">R$ 29,90</div>
+  <a href="https://bigplayer.vercel.app/" style="display:inline-block;background:#F5E642;color:#1A1917;padding:14px 28px;font-weight:700;text-decoration:none;border-radius:4px;font-size:14px;">Quero o Setup pronto</a>
+</div>
+
+<h2>Como Instalar no Profit Chart (Nelogica)</h2>
+
+<h3>Passo 1: Painel de indicadores</h3>
+<p>No Profit Chart, abra o grafico e use o atalho <strong>Ctrl + I</strong> pra abrir o painel de indicadores.</p>
+
+<h3>Passo 2: Didi Index</h3>
+<p>No Profit, o Didi Index ja esta nativo. Busque por <strong>"Didi Index"</strong> ou <strong>"Indice Didi"</strong> na lista. Aplique no grafico. Configure os periodos 3, 8 e 20.</p>
+
+<h3>Passo 3: Adicionar os outros</h3>
+<p>Bollinger, ADX, Estocastico e TRIX tambem sao nativos no Profit. Aplique cada um com os parametros listados.</p>
+
+<h3>Passo 4: Salvar layout</h3>
+<p>No Profit, em vez de salvar template do grafico, voce salva o <strong>layout completo</strong>. Va em <strong>Arquivo > Salvar Layout Como</strong> e da um nome. Da pra carregar esse layout em qualquer grafico novo.</p>
+
+<h3>Passo 5: Configurar cores</h3>
+<p>O Profit tem boas paletas. Eu uso:</p>
+<ul>
+  <li>MM3 do Didi: vermelho</li>
+  <li>MM8 do Didi: amarelo (linha zero)</li>
+  <li>MM20 do Didi: azul</li>
+  <li>+DI do ADX: verde</li>
+  <li>-DI do ADX: vermelho</li>
+  <li>ADX principal: amarelo</li>
+</ul>
+
+<p>Cores fortes e contrastantes ajudam a ler rapido. Em dias de mercado agitado, voce precisa identificar o sinal em meio segundo.</p>
+
+<h2>Como Instalar no Tryd Trader</h2>
+
+<h3>Passo 1: Adicionar indicadores ao grafico</h3>
+<p>No Tryd, clica com botao direito no grafico e escolhe <strong>Adicionar Indicador</strong>. Aparece a lista.</p>
+
+<h3>Passo 2: Sequencia de indicadores</h3>
+<p>O Tryd traz tudo nativo. Adicione na ordem:</p>
+<ol>
+  <li>Bollinger Bands (vai no grafico de preco)</li>
+  <li>Didi Index (vai em painel separado abaixo)</li>
+  <li>ADX (proximo painel)</li>
+  <li>Estocastico (proximo)</li>
+  <li>TRIX (ultimo)</li>
+</ol>
+
+<h3>Passo 3: Parametros</h3>
+<p>Para cada um, clica com direito no painel do indicador e em <strong>Propriedades</strong> ajusta os parametros conforme listei.</p>
+
+<h3>Passo 4: Salvar workspace</h3>
+<p>No Tryd, o conceito de salvar e o <strong>workspace</strong>. Em <strong>Arquivo > Salvar Workspace</strong> ele salva todos os graficos e indicadores. Cria um workspace especifico chamado "Didi Setup".</p>
+
+<h2>Erros Comuns na Configuracao</h2>
+
+<h3>1. Usar EMA em vez de SMA no Didi</h3>
+<p>O Didi Index usa medias <strong>simples</strong> (SMA). Tem gente que pega indicador errado e usa medias exponenciais (EMA). Os sinais ficam totalmente diferentes. Confira sempre.</p>
+
+<h3>2. Aplicar Bollinger no painel separado</h3>
+<p>As Bandas de Bollinger tem que estar sobrepostas no grafico de preco, nao em painel separado. Se voce ve as bandas num painel sozinho la embaixo, ta errado.</p>
+
+<h3>3. ADX sem +DI e -DI</h3>
+<p>Tem versao do ADX que so plota a linha principal, sem o +DI e -DI. Voce precisa das tres linhas pra ler direito. Confere as configuracoes.</p>
+
+<h3>4. Periodos diferentes do padrao</h3>
+<p>Alguns sites espalham configuracoes "otimizadas" do Didi com periodos 5, 13 e 34 ou outros. Esquece. O padrao 3, 8 e 20 e o que funciona porque e o que todo mundo opera. Forca da convencao.</p>
+
+<h3>5. Nao salvar template</h3>
+<p>Configurar isso tudo do zero toda vez que abre um grafico novo e suicidio. Salva o template logo na primeira configuracao certa.</p>
+
+<h2>Como Verificar Se Ficou Tudo Certo</h2>
+
+<p>Apos montar o setup, faz esse teste:</p>
+
+<ol>
+  <li>Abre grafico do WIN (mini indice) em 5 minutos</li>
+  <li>Vai pra uma data que voce sabe que houve forte movimento (ex: dia de Copom)</li>
+  <li>Procura visualmente uma agulhada (3 linhas do Didi se beijando)</li>
+  <li>Confere se o ADX naquele momento estava acima de 20</li>
+  <li>Confere se as Bandas de Bollinger estavam expandindo</li>
+  <li>Confere se o Estocastico nao estava no extremo (acima de 80 ou abaixo de 20)</li>
+  <li>Confere se o TRIX cruzou o zero proximo ao mesmo ponto</li>
+</ol>
+
+<p>Se tudo bateu, seu setup ta funcionando. Se algum indicador da numero estranho, revise a configuracao dele.</p>
+
+<h2>Manutencao do Setup</h2>
+
+<p>O setup nao precisa ser refeito toda hora. Mas vale revisar:</p>
+
+<ul>
+  <li><strong>A cada 6 meses</strong>, da uma olhada se algum parametro esta dando muito sinal falso e ajusta levemente</li>
+  <li><strong>Apos atualizar a plataforma</strong>, confere se os indicadores nao desapareceram ou mudaram de versao</li>
+  <li><strong>Quando muda de computador</strong>, exporta o template ou layout antes</li>
+</ul>
+
+<h2>Perguntas Frequentes</h2>
+
+<div class="faq">
+
+<h3>Posso comprar o setup ja pronto?</h3>
+<p>Pode. <a href="https://bigplayer.vercel.app/">No site bigplayer.vercel.app</a> voce baixa o setup completo, ja configurado, por R$ 29,90. Funciona pra MetaTrader 4 e 5, Profit Chart e Tryd. E o que recomendo pra quem nao quer perder 4 horas configurando do zero.</p>
+
+<h3>Os parametros podem ser diferentes em outros timeframes?</h3>
+<p>Em geral nao. Os mesmos parametros funcionam em 5 min, 15 min, 60 min e diario. Voce so muda o timeframe do grafico, os indicadores se adaptam automaticamente.</p>
+
+<h3>Da pra usar Didi Index no TradingView?</h3>
+<p>Da. No TradingView, busque "Didi Index" na biblioteca publica. Tem varias versoes disponiveis, algumas gratuitas. Os outros indicadores (Bollinger, ADX, Estocastico, TRIX) sao todos nativos.</p>
+
+<h3>Funciona no MetaTrader 4?</h3>
+<p>Funciona igualzinho. Os arquivos sao .ex4 e .mq4 em vez de .ex5 e .mq5. Mesma pasta de indicadores, mesma configuracao.</p>
+
+<h3>Preciso pagar pelos indicadores?</h3>
+<p>Os indicadores em si sao todos livres. Bollinger, ADX, Estocastico e TRIX vem nativos em todas as plataformas. O Didi Index voce baixa gratis em varios lugares. O que se paga e a configuracao pronta, validada, e a praticidade de nao precisar achar e instalar tudo um por um.</p>
+
+<h3>O setup funciona em forex?</h3>
+<p>Funciona. Use os mesmos parametros. Os pares mais liquidos (EUR/USD, GBP/USD, USD/JPY) respondem bem ao metodo.</p>
+
+<h3>Posso modificar os parametros se quiser?</h3>
+<p>Pode, mas saiba que voce esta saindo do padrao. Os parametros 3, 8, 20 (Didi), 20/2 (Bollinger), 14 (ADX), 9/3/3 (Estocastico), 9 (TRIX) sao os que a comunidade usa. Mudar e perder a vantagem do consenso.</p>
+
+</div>
+
+<h2>Leituras Recomendadas</h2>
+
+<ul>
+  <li><a href="/p/agulhada-do-didi-guia-completo.html">Agulhada do Didi: Guia Completo 2026</a>, pra usar o setup na pratica</li>
+  <li><a href="/p/didi-index-como-funciona-tutorial.html">Didi Index: Como Funciona o Indicador</a>, pra entender a matematica antes de configurar</li>
+  <li><a href="/p/quem-e-odir-aguiar-historia-didi-index.html">Quem e Odir Aguiar: A Historia do Didi Index</a>, pra saber de onde vem o metodo</li>
+</ul>
+
+<div style="background:#1A1917;color:#F5F3EE;padding:36px 28px;border-radius:4px;text-align:center;margin:40px 0 20px;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <p style="margin:0 0 10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#A8A59E;">Pula a configuracao</p>
+  <h3 style="margin:0 0 8px;color:#fff;font-size:22px;font-family:inherit;border:none;padding:0;">Setup Didi Index pronto pra rodar em 2 minutos</h3>
+  <p style="margin:0 0 8px;color:#C8C4BB;font-size:14px;">Bollinger, ADX, Didi Index, Estocastico e TRIX ja configurados nos parametros que funcionam juntos. Pra MetaTrader 4 e 5, Profit Chart e Tryd. Em vez de 4 horas configurando, voce baixa, cola e ja esta operando.</p>
+  <div style="font-size:36px;font-weight:700;margin:16px 0 20px;color:#fff;">R$ 29,90</div>
+  <a href="https://bigplayer.vercel.app/" style="display:inline-block;background:#F5E642;color:#1A1917;padding:16px 32px;font-weight:700;text-decoration:none;border-radius:4px;font-size:15px;">Quero o Setup pronto</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#A8A59E;">Entrega imediata por e-mail. Garantia de 7 dias.</p>
+</div>
+
+</body>
+</html>
